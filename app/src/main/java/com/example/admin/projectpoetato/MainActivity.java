@@ -50,34 +50,50 @@ public class MainActivity extends AppCompatActivity {
 
     public void ResponseListener(JSONArray response, int compact){
         try {
-            JSONObject jsonObject = response.getJSONObject(0);
-            String id = jsonObject.getString("id");
-            String url = jsonObject.getString("url");
-            String startAt = jsonObject.getString("startAt");
-            String endAt = jsonObject.getString("endAt");
+            for(int i = 0; i < response.length(); i++){
 
-            if(compact == 0){
-                String description = jsonObject.getString("description");
-                String registerAt = jsonObject.getString("registerAt");
-                String event = jsonObject.getString("event");
-                JSONArray rulesArray = jsonObject.getJSONArray("rules");
-                if(rulesArray.length() > 0){
-                    JSONObject rulesObject = rulesArray.getJSONObject(0);
-                    String idRules = rulesObject.getString("id");
-                    String nameRules = rulesObject.getString("name");
-                    String descriptionRules = rulesObject.getString("description");
-                    Log.d(TAG, "id = " + id + "\nurl = " + url + ", startAt = " + startAt + ", endAt = " + endAt + ", description = " + description +
-                            ", registerAt = " + registerAt + ", event = " + event +
-                            ", idrules = " + idRules + ", nameRules = " + nameRules + ", descriptionRules = " + descriptionRules);
-                } else {
-                    // TODO: Add Compact = 0 stuff here
-                    String rules = jsonObject.getString("rules");
-                    Log.d(TAG, "id = " + id + "\nurl = " + url + ", startAt = " + startAt + ", endAt = " + endAt + ", description = " + description +
-                            ", registerAt = " + registerAt + ", event = " + event + ", rules = " + rules);
+                String print = "";
+                String printRules = "";
+                JSONObject jsonObject = response.getJSONObject(i);
+                String id = jsonObject.getString("id");
+                String url = jsonObject.getString("url");
+                String startAt = jsonObject.getString("startAt");
+                String endAt = jsonObject.getString("endAt");
+
+                if(compact == 0){
+                    // TODO: If Compact = 0 stuff here
+                    String description = jsonObject.getString("description");
+                    String registerAt = jsonObject.getString("registerAt");
+                    String event = jsonObject.getString("event");
+                    JSONArray rulesArray = jsonObject.getJSONArray("rules");
+
+                    print += "id = " + id + "url = " + url + ", startAt = " + startAt + ", endAt = " + endAt + ", description = " + description +
+                            ", registerAt = " + registerAt + ", event = " + event;
+
+                    if(rulesArray.length() > 0){
+                        // TODO: If RulesArray has value & Compact = 0
+                        for(int i2 = 0; i2 < rulesArray.length(); i2++){
+                            JSONObject rulesObject = rulesArray.getJSONObject(i2);
+                            String idRules = rulesObject.getString("id");
+                            String nameRules = rulesObject.getString("name");
+                            String descriptionRules = rulesObject.getString("description");
+                            printRules += "******["+i2+"]idrules = " + idRules + ", nameRules = " + nameRules + ", descriptionRules = " + descriptionRules;
+                        }
+                        print += printRules;
+                    } else {
+                        // TODO: If RulesArray does not have value & Compact = 0
+                        String rules = jsonObject.getString("rules");
+                        printRules += rules;
+                        print += printRules;
+                    }
+                }else{
+                    // TODO: Add Compact = 1 stuff here
+                    print = "id = " + id + ", url = " + url + ", startAt = " + startAt + ", endAt = " + endAt;
                 }
-            }else{
-                // TODO: Add Compact = 1 stuff here
-                Log.d(TAG, "id = " + id + ", url = " + url + ", startAt = " + startAt + ", endAt = " + endAt);
+                Log.d(TAG, print);
+
+
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
