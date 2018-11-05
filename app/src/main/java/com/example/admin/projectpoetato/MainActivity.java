@@ -41,11 +41,16 @@ public class MainActivity extends AppCompatActivity {
             mQueue = Volley.newRequestQueue(getApplicationContext());
         }
         JsonArrayRequest mRequest = new JsonArrayRequest(Request.Method.GET, mLeagueUrl, null,
-                (JSONArray response) -> ResponseListener(response,mLeague.getCompact()),
+                (JSONArray response) -> ResponseListener2(response,mLeague.getCompact()),
                 this::ResponseErrorListener);
         mQueue.add(mRequest);
 
 
+    }
+
+    public void ResponseListener2(JSONArray response, int compact){
+        String str = response.toString();
+        Log.d(TAG, "Response str is \n" + str);
     }
 
     public void ResponseListener(JSONArray response, int compact){
