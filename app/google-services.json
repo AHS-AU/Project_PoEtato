@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "389218057500",
+    "firebase_url": "https://project-poetato.firebaseio.com",
+    "project_id": "project-poetato",
+    "storage_bucket": "project-poetato.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389218057500:android:efdefca3740f07ef",
+        "android_client_info": {
+          "package_name": "com.example.admin.projectpoetato"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389218057500-ikno9mkbhenhjkvgkig6ucab7fjtdr1j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.admin.projectpoetato",
+            "certificate_hash": "4e353d62486109f84303b15b9d16d495bc45970f"
+          }
+        },
+        {
+          "client_id": "389218057500-6bv4hg5hnvg61l05e4iodhlu4igrupbp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBjRQncuZsHgx6rno-YonvJiAG0GhYGak"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389218057500-6bv4hg5hnvg61l05e4iodhlu4igrupbp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
