@@ -1,0 +1,47 @@
+*** Project PoEtato synopsis notes ***
+
+- Minimum API Level 21
+
+- Internet Communication, Firebase (google play service!), LiveData, ViewModel
+
+- Locked Portrait Orientation only (because I hate rotation in apps)
+
+- Swipe to return to previous Activity or click on the Menu Navigation
+
+- League/Trade API will use notification to remind or track changes to the User.
+
+- Trade API is the last priority, Ladder/League should be enough to fill all criterias,
+	but Trade API will be worked upon if the others are at a satisified point.
+	
+- Service is used to update Ladder info every 10 min,
+	and for Trade API it will check every 1 min if user is tracking an item.
+	
+- Color Scheme must be something dark that won't annoy the user. (or perhaps two different color schemes).
+
+- Help can be found from:
+	^ pathofexile.com/developer/docs/api
+	^ pathofexile.gamepedia.com
+	^ reddit.com/r/pathofexiledev
+
+- poe.ninja also offers API regarding pricing of items which can be used for a "Stash Tab API".
+
+
+
+
+* Future Work
+	- Ingame Whisper Notification (huge work, requires PC programming)
+	
+
+	
+	
+* Requirements to Synopsis
+	- Front page (project/app title, names of participants with study numbers and study direction (e.g. "IKT")
+    - Table of contents with page numbers. All pages of the document must be numbered.
+    - App vision: What does you app do - which problem does it solve and for who, and where?
+    - Personal vision: What do you want to achieve while build it? (What you hope to get out of working on this task?)
+    - Context: A rich picture is a great way to illustrate the intended features of your app.
+    - Define the requirements for you app through Use Cases / Cases / User Stories. 
+    - Early design overview:
+			^ Make a diagram of what major components your app will have and how they should communicate
+			^ What will be the main risks in your proposed app and design
+			^ Other considerations that can help you, like simple time schedule
