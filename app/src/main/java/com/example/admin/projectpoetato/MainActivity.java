@@ -1,20 +1,13 @@
 package com.example.admin.projectpoetato;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
 import com.example.admin.projectpoetato.API.Resources.League.LeagueApi;
 import com.example.admin.projectpoetato.Models.League;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -29,16 +22,19 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
 
     // UI Variables
+    Button mBtnLeague;
 
     // Variables
-    private RequestQueue mQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // UI Find View
+        mBtnLeague = findViewById(R.id.btnMainLeague);
 
+        mBtnLeague.setOnClickListener(v -> StartLeagueActivity());
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://api.pathofexile.com")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -61,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void StartLeagueActivity(){
+        Intent intent = new Intent(this, LeagueActivity.class);
+        startActivity(intent);
     }
 
     /**

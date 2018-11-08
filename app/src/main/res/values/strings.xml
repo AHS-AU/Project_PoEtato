@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Project PoEtato</string>
+    <string name="league">League</string>
+    <string name="leagueTitle">League and Event Tracker</string>
 </resources>
