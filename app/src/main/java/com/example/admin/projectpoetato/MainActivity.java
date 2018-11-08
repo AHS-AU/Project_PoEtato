@@ -1,23 +1,28 @@
 package com.example.admin.projectpoetato;
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.admin.projectpoetato.API.Resources.League.APILeague;
+import com.example.admin.projectpoetato.API.Resources.League.LeagueApi;
+import com.example.admin.projectpoetato.Models.League;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     // Class Variables
@@ -33,17 +38,65 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        APILeague mLeague = new APILeague("main", null,false,0,0);
-        String mLeagueUrl = mLeague.getRequestUrl();
-        Log.d(TAG, "league request url = " + mLeagueUrl);
-        if(mQueue == null){
-            Log.d(TAG, "mQueue is null, requesting new");
-            mQueue = Volley.newRequestQueue(getApplicationContext());
-        }
-        JsonArrayRequest mRequest = new JsonArrayRequest(Request.Method.GET, mLeagueUrl, null,
-                (JSONArray response) -> ResponseListener2(response,mLeague.getCompact()),
-                this::ResponseErrorListener);
-        mQueue.add(mRequest);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://api.pathofexile.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        LeagueApi mLeague = retrofit.create(LeagueApi.class);
+
+        Call<List<League>> call = mLeague.getLeagues("main",null,0,0,0);
+
+        // retrofit enqueue creates the background handling!! no need for async tasks :)
+        call.enqueue(new Callback<List<League>>() {
+            @Override
+            public void onResponse(Call<List<League>> call, Response<List<League>> response) {
+                if(!response.isSuccessful()){
+                    Log.d(TAG, "onResponse Code: " + response.code());
+                    return;
+                }
+
+                List<League> leagues = response.body();
+
+                for(League league : leagues){
+                    String content = "";
+                    content += "ID: " + league.getId() + "\t";
+                    content += "Desc: " + league.getDescription() + "\t";
+                    content += "regAt: " + league.getRegisterAt() + "\t";
+                    content += "URL: " + league.getUrl() + "\t";
+                    content += "startAt: " + league.getStartAt() + "\t";
+                    content += "endAt: " + league.getEndAt() + "\t";
+                    content += "leagueEvent: " + league.getLeagueEvent() + "\t";
+
+                    // This takes 5 ms extra... consider if it's worth it.
+//                    for(int i = 0; i < league.getRules().size(); i++){
+//                        content += "rule #" + (i+1) + " Id: " + league.getRules().get(i).getAsJsonObject().get("name") + "\t";
+//                        content += "rule #" + (i+1) + " Desc: " + league.getRules().get(i).getAsJsonObject().get("description") + "\t";
+//                    }
+                    content += "\n";
+
+                    Log.d(TAG, "Content = " + content);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<League>> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t.getMessage());
+            }
+        });
+
+//        LeagueUrl mLeague = new LeagueUrl("main", null,false,0,0);
+//        String mLeagueUrl = mLeague.getRequestUrl();
+//        Log.d(TAG, "league request url = " + mLeagueUrl);
+//        if(mQueue == null){
+//            Log.d(TAG, "mQueue is null, requesting new");
+//            mQueue = Volley.newRequestQueue(getApplicationContext());
+//        }
+//        JsonArrayRequest mRequest = new JsonArrayRequest(Request.Method.GET, mLeagueUrl, null,
+//                (JSONArray response) -> ResponseListener2(response,mLeague.getCompact()),
+//                this::ResponseErrorListener);
+//        mQueue.add(mRequest);
 
 
     }

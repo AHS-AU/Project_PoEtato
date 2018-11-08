@@ -1,5 +1,9 @@
 package com.example.admin.projectpoetato.Models;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,12 +15,11 @@ public class League implements Serializable {
     private String url;
     private String startAt;
     private String endAt;
-    private String delveEvent;  // TODO IMPLEMENT!!!!!
-    private List<String> rulesId;
-    private List<String> rulesName;
-    private List<String> rulesDescription;
+    @SerializedName("delveEvent")
+    private String leagueEvent;  // TODO IMPLEMENT!!!!!
+    private JsonArray rules;
 
-    public League(String id, String description, String registerAt, String event, String url, String startAt, String endAt, String delveEvent, List<String> rulesId, List<String> rulesName, List<String> rulesDescription) {
+    public League(String id, String description, String registerAt, String event, String url, String startAt, String endAt, String leagueEvent, JsonArray rules) {
         this.id = id;
         this.description = description;
         this.registerAt = registerAt;
@@ -24,10 +27,8 @@ public class League implements Serializable {
         this.url = url;
         this.startAt = startAt;
         this.endAt = endAt;
-        this.delveEvent = delveEvent;
-        this.rulesId = rulesId;
-        this.rulesName = rulesName;
-        this.rulesDescription = rulesDescription;
+        this.leagueEvent = leagueEvent;
+        this.rules = rules;
     }
 
     public String getId() {
@@ -86,35 +87,15 @@ public class League implements Serializable {
         this.endAt = endAt;
     }
 
-    public String getDelveEvent() {
-        return delveEvent;
+    public String getLeagueEvent() {
+        return leagueEvent;
     }
 
-    public void setDelveEvent(String delveEvent) {
-        this.delveEvent = delveEvent;
+    public void setLeagueEvent(String leagueEvent) {
+        this.leagueEvent = leagueEvent;
     }
 
-    public List<String> getRulesId() {
-        return rulesId;
-    }
-
-    public void setRulesId(List<String> rulesId) {
-        this.rulesId = rulesId;
-    }
-
-    public List<String> getRulesName() {
-        return rulesName;
-    }
-
-    public void setRulesName(List<String> rulesName) {
-        this.rulesName = rulesName;
-    }
-
-    public List<String> getRulesDescription() {
-        return rulesDescription;
-    }
-
-    public void setRulesDescription(List<String> rulesDescription) {
-        this.rulesDescription = rulesDescription;
+    public JsonArray getRules() {
+        return rules;
     }
 }
