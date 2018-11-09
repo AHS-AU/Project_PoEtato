@@ -9,13 +9,18 @@
     </style>
 
     <!-- Slidr Theme -->
-    <style name="AppTheme.SlidrActivityTheme" parent="AppTheme.DarkBlue">
+    <style name="AppTheme.SlidrActivityTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
-    <!-- Material Design Dark Blue Theme (DEFAULT) -->
-    <style name="AppTheme.DarkBlue" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!-- Toolbar Text Appearance -->
+    <style name="AppTheme.ToolbarSize" parent="AppTheme.DarkBlue">
+        <item name="android:textSize">@dimen/toolbarNormalSize</item>
+    </style>
+
+    <!-- DARK BLUE Theme (DEFAULT) -->
+    <style name="AppTheme.DarkBlue" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/primaryColorDarkBlue</item>
         <item name="colorPrimaryDark">@color/primaryDarkColorDarkBlue</item>
         <item name="colorAccent">@color/secondaryColorDarkBlue</item>
@@ -23,5 +28,6 @@
         <item name="android:textColor">@color/primaryTextColorDarkBlue</item>
     </style>
 
+    <!-- LIGHT Theme (SECONDARY) -->
 
 </resources>

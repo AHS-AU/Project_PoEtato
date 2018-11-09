@@ -6,7 +6,7 @@
 
     <!-- Tool used to Generate MDC is ( https://material.io/tools/color/ ) -->
 
-    <!-- Material Design Dark Blue -->
+    <!-- Material Design DARK BLUE -->
     <color name="primaryColorDarkBlue">#212121</color>
     <color name="primaryLightColorDarkBlue">#484848</color>
     <color name="primaryDarkColorDarkBlue">#000000</color>
