@@ -3,4 +3,18 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <!-- Tool used to Generate MDC is ( https://material.io/tools/color/ ) -->
+
+    <!-- Material Design Dark Blue -->
+    <color name="primaryColorDarkBlue">#212121</color>
+    <color name="primaryLightColorDarkBlue">#484848</color>
+    <color name="primaryDarkColorDarkBlue">#000000</color>
+    <color name="secondaryColorDarkBlue">#2962ff</color>
+    <color name="secondaryLightColorDarkBlue">#768fff</color>
+    <color name="secondaryDarkColorDarkBlue">#0039cb</color>
+    <color name="primaryTextColorDarkBlue">#ffffff</color>
+    <color name="secondaryTextColorDarkBlue">#000000</color>
+    <color name="primaryBackgroundDarkBlue">#23272a</color>
+
 </resources>

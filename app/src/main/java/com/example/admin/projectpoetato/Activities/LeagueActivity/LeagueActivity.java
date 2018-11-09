@@ -1,7 +1,9 @@
 package com.example.admin.projectpoetato.Activities.LeagueActivity;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -81,7 +83,6 @@ public class LeagueActivity extends AppCompatActivity {
         mLeagueAdapter = new LeagueAdapter(leagues);
         mRvLeagues.setAdapter(mLeagueAdapter);
 
-
         for(League league : leagues){
             String content = "";
             content += "ID: " + league.getId() + "\t";
@@ -125,6 +126,7 @@ public class LeagueActivity extends AppCompatActivity {
 
         // Send Request
         SendLeagueRequest();
+
     }
 
     @Override

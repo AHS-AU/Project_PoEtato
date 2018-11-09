@@ -1,6 +1,7 @@
 package com.example.admin.projectpoetato.Activities.MainActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,17 @@ public class MainActivity extends AppCompatActivity {
 
     // Variables
 
+    /**********************************************************************************************
+     *                                    Class Functions                                         *
+     *********************************************************************************************/
+    public void StartLeagueActivity(){
+        Intent intent = new Intent(this, LeagueActivity.class);
+        startActivity(intent);
+    }
+
+    /**********************************************************************************************
+     *                                   Override Functions                                       *
+     *********************************************************************************************/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,11 +42,13 @@ public class MainActivity extends AppCompatActivity {
         // Button Start League Activity
         mBtnLeague.setOnClickListener(v -> StartLeagueActivity());
 
-    }
+        // Action Bar
+//        if (getSupportActionBar() != null){
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.primaryLightColor)));
+//        }
 
-    public void StartLeagueActivity(){
-        Intent intent = new Intent(this, LeagueActivity.class);
-        startActivity(intent);
+
     }
 
 

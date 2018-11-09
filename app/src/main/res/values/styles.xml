@@ -8,9 +8,20 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.SlidrActivityTheme">
+    <!-- Slidr Theme -->
+    <style name="AppTheme.SlidrActivityTheme" parent="AppTheme.DarkBlue">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+
+    <!-- Material Design Dark Blue Theme (DEFAULT) -->
+    <style name="AppTheme.DarkBlue" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/primaryColorDarkBlue</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColorDarkBlue</item>
+        <item name="colorAccent">@color/secondaryColorDarkBlue</item>
+        <item name="android:windowBackground">@color/primaryBackgroundDarkBlue</item>
+        <item name="android:textColor">@color/primaryTextColorDarkBlue</item>
+    </style>
+
 
 </resources>
