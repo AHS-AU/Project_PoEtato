@@ -2,13 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
+
     <item
         android:id="@+id/navi_settings"
         android:icon="@drawable/ic_settings"
-        android:title="@string/naviSettings" />
+        android:title="@string/settings" />
     <item
         android:id="@+id/navi_theme"
         android:icon="@drawable/ic_theme"
-        android:title="@string/naviTheme"/>
+        android:title="@string/theme"/>
 
 </menu>

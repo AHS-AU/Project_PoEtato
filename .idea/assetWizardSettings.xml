@@ -29,8 +29,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_theme" />
-                            <entry key="sourceFile" value="E:\Program Files (x86)\Material Design\Icons\baseline-brightness_6-24px.svg" />
+                            <entry key="outputName" value="ic_close_white" />
+                            <entry key="sourceFile" value="E:\Program Files (x86)\Material Design\Icons\baseline-close-24px.svg" />
                           </map>
                         </option>
                       </PersistentState>

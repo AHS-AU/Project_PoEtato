@@ -26,6 +26,8 @@
         <item name="colorAccent">@color/secondaryColorDarkBlue</item>
         <item name="android:windowBackground">@color/primaryBackgroundDarkBlue</item>
         <item name="android:textColor">@color/primaryTextColorDarkBlue</item>
+
+        <item name="android:fillColor">@color/primaryTextColorDarkBlue</item>
     </style>
 
     <!-- LIGHT Theme (SECONDARY) -->

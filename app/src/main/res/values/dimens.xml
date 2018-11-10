@@ -11,7 +11,7 @@
     <dimen name="txtMediumHeight">50dp</dimen>
 
     <!-- Toolbar Size -->
-    <dimen name="toolbarNormalSize">20sp</dimen>
+    <dimen name="toolbarNormalSize">18sp</dimen>
 
     <!-- Listview Size -->
     <dimen name="lvNormalSize">16sp</dimen>

@@ -2,8 +2,9 @@
     <string name="app_name">Project PoEtato</string>
     <string name="league">League</string>
     <string name="leagueTitle">League and Event Tracker</string>
-    <string name="naviSettings">Settings</string>
-    <string name="naviTheme">Theme</string>
+    <string name="theme">Theme</string>
     <string name="navi_drawer_open">Open Navigation Drawer</string>
     <string name="navi_drawer_close">Close Navigation Drawer</string>
+    <string name="close">Close</string>
+    <string name="settings">Settings</string>
 </resources>
