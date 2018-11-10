@@ -14,17 +14,35 @@ import java.util.List;
 
 public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.LeagueAdapterViewHolder> {
     private List<League> mLeagueList;
+    private OnItemClickListener mItemListener;
 
-    /**
-     * ViewHolder to LeagueAdapter
-     */
+
+
+    // When item gets clicked
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    // Set the ItemListener
+    public void setOnItemClickListener(OnItemClickListener itemListener){
+        this.mItemListener = itemListener;
+    }
+
+    // When an item gets clicked
+    private static void ItemClicked(View itemView, OnItemClickListener itemListener, int position){
+        if(itemListener != null && position != RecyclerView.NO_POSITION){
+            itemListener.onItemClick(position);
+        }
+    }
+
+    // ViewHolder to LeagueAdapter
     public static class LeagueAdapterViewHolder extends RecyclerView.ViewHolder{
         public TextView mTextId;
         public TextView mTextStart;
         public TextView mTextEnd;
         public TextView mTextTrack;
 
-        public LeagueAdapterViewHolder(@NonNull View itemView) {
+        public LeagueAdapterViewHolder(@NonNull View itemView,  OnItemClickListener itemListener) {
             super(itemView);
 
             // UI Find Views
@@ -32,6 +50,18 @@ public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.LeagueAdap
             mTextStart = itemView.findViewById(R.id.textLeagueStart);
             mTextEnd = itemView.findViewById(R.id.textLeagueEnd);
             mTextTrack = itemView.findViewById(R.id.textLeagueTrack);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(itemListener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            itemListener.onItemClick(position);
+                        }
+                    }
+                }
+            });
 
         }
     }
@@ -51,7 +81,7 @@ public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.LeagueAdap
     @Override
     public LeagueAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View mView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_leagues, viewGroup, false);
-        return new LeagueAdapterViewHolder(mView);
+        return new LeagueAdapterViewHolder(mView, mItemListener);
     }
 
     @Override

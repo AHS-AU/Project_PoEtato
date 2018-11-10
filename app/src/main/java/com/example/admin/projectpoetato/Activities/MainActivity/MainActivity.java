@@ -31,16 +31,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /**********************************************************************************************
      *                                    Class Functions                                         *
      *********************************************************************************************/
-    /**
-     * Function to Start League Activity
-     */
     public void StartLeagueActivity(){
         Intent intent = new Intent(this, LeagueActivity.class);
         startActivity(intent);
-    }
-
-    public void FragButton(){
-        onBackPressed();
     }
 
     /**********************************************************************************************
@@ -55,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mBtnLeague = findViewById(R.id.btnMainLeague);
         mDrawer = findViewById(R.id.drawer_main);
         NavigationView mNaviView = findViewById(R.id.navi_view);
-
 
 
         // Button Start League Activity

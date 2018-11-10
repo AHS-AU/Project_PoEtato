@@ -29,7 +29,6 @@ public class SettingsFragment extends Fragment {
     /**********************************************************************************************
      *                                    Class Functions                                         *
      *********************************************************************************************/
-    // Close Fragment Window
     private void CloseFragment(){
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
@@ -43,8 +42,10 @@ public class SettingsFragment extends Fragment {
         // Find View from Inflater
         mView = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        // Set up the Toolbar for Fragment
+        // UI Find View
         Toolbar mToolbar = mView.findViewById(R.id.toolbar_fragment_settings);
+
+        // Set up the Toolbar for the Fragment
         mToolbar.setNavigationOnClickListener(v -> CloseFragment());
 
         return mView;

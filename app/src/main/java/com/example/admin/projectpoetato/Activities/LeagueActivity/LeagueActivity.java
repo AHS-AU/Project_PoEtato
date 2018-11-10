@@ -31,11 +31,12 @@ public class LeagueActivity extends AppCompatActivity {
 
     // UI Variables
     private RecyclerView mRvLeagues;
-    private RecyclerView.Adapter mLeagueAdapter;
+    private LeagueAdapter mLeagueAdapter;
     private RecyclerView.LayoutManager mLeagueLayoutManager;
 
 
     // Variables
+    List<League> mLeagueList = new ArrayList<>();
 
 
     /**********************************************************************************************
@@ -80,8 +81,8 @@ public class LeagueActivity extends AppCompatActivity {
 
 
         // Add the Retrieved List of Leagues to the Adapter & Set the Adapter
-        mLeagueAdapter = new LeagueAdapter(leagues);
-        mRvLeagues.setAdapter(mLeagueAdapter);
+        mLeagueList = leagues;
+        UpdateLeagueList(leagues);
 
         for(League league : leagues){
             String content = "";
@@ -104,6 +105,37 @@ public class LeagueActivity extends AppCompatActivity {
         }
     }
 
+    public void OnAdapterItemClick(int position){
+        Log.d(TAG, "position = " + position);
+    }
+
+    public void CreateRecyclerView(){
+        mRvLeagues = findViewById(R.id.listLeagueLeague);
+        mRvLeagues.setHasFixedSize(true);
+        mLeagueLayoutManager = new LinearLayoutManager(this);
+        mLeagueAdapter = new LeagueAdapter(mLeagueList);
+
+        mRvLeagues.setLayoutManager(mLeagueLayoutManager);
+        mRvLeagues.setAdapter(mLeagueAdapter);
+
+
+
+//        mLeagueAdapter.setOnItemClickListener(new LeagueAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(int position) {
+//                Log.d(TAG, "position = " + position);
+//            }
+//        });
+    }
+
+    public void UpdateLeagueList(List<League> leagues){
+        mLeagueAdapter = new LeagueAdapter(leagues);
+        mRvLeagues.setAdapter(mLeagueAdapter);
+        mLeagueAdapter.setOnItemClickListener(this::OnAdapterItemClick);
+    }
+
+
+
     /**********************************************************************************************
      *                                   Override Functions                                       *
      *********************************************************************************************/
@@ -117,12 +149,12 @@ public class LeagueActivity extends AppCompatActivity {
         // TODO: Global Lock/Unlock Slidr from Menu Navigation
 
         // UI Find View
-        mRvLeagues = findViewById(R.id.listLeagueLeague);
 
         // Init Recyclerview
-        mRvLeagues.setHasFixedSize(true);
-        mLeagueLayoutManager = new LinearLayoutManager(this);
-        mRvLeagues.setLayoutManager(mLeagueLayoutManager);
+        CreateRecyclerView();
+
+        // Action Bar
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         // Send Request
         SendLeagueRequest();
