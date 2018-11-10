@@ -8,6 +8,13 @@
     <string name="close">Close</string>
     <string name="settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Strings used for LeagueInfoFragment -->
+    <string name="li_league_name">League Name:</string>
+    <string name="li_description">Description:</string>
+    <string name="li_register_at">Register At:</string>
+    <string name="li_event">Event:</string>
+    <string name="li_league_url">Forum Post:</string>
+    <string name="li_starts">Starts:</string>
+    <string name="li_ends">Ends:</string>
+    <string name="li_league_event">League Event:</string>
 </resources>

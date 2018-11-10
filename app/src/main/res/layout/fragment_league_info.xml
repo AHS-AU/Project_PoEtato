@@ -6,17 +6,194 @@
     android:layout_height="match_parent"
     android:background="@color/primaryBackgroundDarkBlue"
     android:clickable="true"
+    android:focusable="true"
+    android:theme="@style/AppTheme.DarkBlue"
     tools:context=".Fragments.LeagueInfoFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="@string/hello_blank_fragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/labelLeagueInfoName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/li_league_name"
+        android:textSize="@dimen/txtSmallSize"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/textLeagueInfoName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="tmp_leaguename"
+        android:textSize="@dimen/txtSmallSize"
+        app:layout_constraintStart_toEndOf="@+id/labelLeagueInfoName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/labelLeagueInfoDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/li_description"
+        android:textSize="@dimen/txtSmallSize"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelLeagueInfoName" />
+
+    <TextView
+        android:id="@+id/textLeagueInfoDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="tmp_description"
+        android:textSize="@dimen/txtSmallSize"
+        app:layout_constraintStart_toEndOf="@+id/labelLeagueInfoDescription"
+        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoName" />
+
+    <TextView
+        android:id="@+id/labelLeagueInfoRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/li_register_at"
+        android:textSize="@dimen/txtSmallSize"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelLeagueInfoDescription" />
+
+    <TextView
+        android:id="@+id/textLeagueInfoRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="tmp_register"
+        android:textSize="@dimen/txtSmallSize"
+        app:layout_constraintStart_toEndOf="@+id/labelLeagueInfoRegister"
+        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoDescription" />
+
+    <TextView
+        android:id="@+id/labelLeagueInfoEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/li_event"
+        android:textSize="@dimen/txtSmallSize"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelLeagueInfoRegister" />
+
+    <TextView
+        android:id="@+id/textLeagueInfoEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="tmp_event"
+        android:textSize="@dimen/txtSmallSize"
+        app:layout_constraintStart_toEndOf="@+id/labelLeagueInfoEvent"
+        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoRegister" />
+
+    <TextView
+        android:id="@+id/labelLeagueInfoUrl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/li_league_url"
+        android:textSize="@dimen/txtSmallSize"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelLeagueInfoEvent" />
+
+    <TextView
+        android:id="@+id/textLeagueInfoUrl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="tmp_forum_post"
+        android:textSize="@dimen/txtSmallSize"
+        app:layout_constraintStart_toEndOf="@+id/labelLeagueInfoUrl"
+        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoEvent" />
+
+    <TextView
+        android:id="@+id/labelLeagueInfoStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/li_starts"
+        android:textSize="@dimen/txtSmallSize"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelLeagueInfoUrl" />
+
+    <TextView
+        android:id="@+id/textLeagueInfoStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="tmp_starts"
+        android:textSize="@dimen/txtSmallSize"
+        app:layout_constraintStart_toEndOf="@+id/labelLeagueInfoStart"
+        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoUrl" />
+
+    <TextView
+        android:id="@+id/labelLeagueInfoEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/li_ends"
+        android:textSize="@dimen/txtSmallSize"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelLeagueInfoStart" />
+
+    <TextView
+        android:id="@+id/textLeagueInfoEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="tmp_ends"
+        android:textSize="@dimen/txtSmallSize"
+        app:layout_constraintStart_toEndOf="@+id/labelLeagueInfoEnd"
+        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoStart" />
+
+    <TextView
+        android:id="@+id/labelLeagueInfoLeagueEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/li_league_event"
+        android:textSize="@dimen/txtSmallSize"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelLeagueInfoEnd" />
+
+    <TextView
+        android:id="@+id/textLeagueInfoLeagueEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="tmp_leagueevent"
+        android:textSize="@dimen/txtSmallSize"
+        app:layout_constraintStart_toEndOf="@+id/labelLeagueInfoLeagueEvent"
+        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoEnd" />
 </android.support.constraint.ConstraintLayout>

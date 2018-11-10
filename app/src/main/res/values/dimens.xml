@@ -6,6 +6,7 @@
     <!-- TextView -->
     <dimen name="txtHeaderSize">32sp</dimen>
     <dimen name="txtNormalSize">24sp</dimen>
+    <dimen name="txtSmallSize">18sp</dimen>
 
     <dimen name="txtMediumWidth">150dp</dimen>
     <dimen name="txtMediumHeight">50dp</dimen>

@@ -8,9 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.admin.projectpoetato.Models.League;
 import com.example.admin.projectpoetato.R;
+
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,10 +27,20 @@ public class LeagueInfoFragment extends Fragment {
     public static final String TAG = LeagueInfoFragment.class.getSimpleName();
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_LEAGUE = "league";;
+    private static final String ARG_LEAGUE = "league";
 
     // TODO: Rename and change types of parameters
     private League mLeague;
+
+    // UI Variables
+    private TextView mTextLeagueName;
+    private TextView mTextDescription;
+    private TextView mTextRegister;
+    private TextView mTextEvent;
+    private TextView mTextUrl;
+    private TextView mTextStart;
+    private TextView mTextEnd;
+    private TextView mTextLeagueEvent;
 
     private OnFragmentInteractionListener mListener;
 
@@ -65,6 +78,27 @@ public class LeagueInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View mView = inflater.inflate(R.layout.fragment_league_info, container, false);
+
+        // UI Find Views
+        mTextLeagueName = mView.findViewById(R.id.textLeagueInfoName);
+        mTextDescription = mView.findViewById(R.id.textLeagueInfoDescription);
+        mTextRegister = mView.findViewById(R.id.textLeagueInfoRegister);
+        mTextEvent = mView.findViewById(R.id.textLeagueInfoEvent);
+        mTextUrl = mView.findViewById(R.id.textLeagueInfoUrl);
+        mTextStart = mView.findViewById(R.id.textLeagueInfoStart);
+        mTextEnd = mView.findViewById(R.id.textLeagueInfoEnd);
+        mTextLeagueEvent = mView.findViewById(R.id.textLeagueInfoLeagueEvent);
+
+        // Assign Values to the UI
+        mTextLeagueName.setText(mLeague.getId());
+        mTextDescription.setText(mLeague.getDescription());
+        mTextRegister.setText(mLeague.getRegisterAt());
+        mTextEvent.setText(mLeague.getEvent());
+        mTextUrl.setText(mLeague.getUrl() + "woadkawodawkodawjiodawjiodjioajdawoidjaiojdawiodwaji");
+        mTextStart.setText(mLeague.getStartAt());
+        mTextEnd.setText(mLeague.getEndAt());
+        mTextLeagueEvent.setText(mLeague.getLeagueEvent());
+
         return mView;
     }
 
