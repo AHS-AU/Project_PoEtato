@@ -1,15 +1,20 @@
 package com.example.admin.projectpoetato.Activities.LeagueActivity;
 
 import android.graphics.Color;
+import android.net.Uri;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.FrameLayout;
 
 import com.example.admin.projectpoetato.API.Resources.League.LeagueApi;
 import com.example.admin.projectpoetato.Activities.MainActivity.MainActivity;
+import com.example.admin.projectpoetato.Fragments.LeagueInfoFragment;
 import com.example.admin.projectpoetato.Models.League;
 import com.example.admin.projectpoetato.R;
 import com.r0adkll.slidr.Slidr;
@@ -25,7 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.admin.projectpoetato.Utilities.GlobalVariables.URL_API_PATHOFEXILE;
 
-public class LeagueActivity extends AppCompatActivity {
+public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragment.OnFragmentInteractionListener{
     // Class Variables
     public static final String TAG = LeagueActivity.class.getSimpleName();
 
@@ -33,6 +38,7 @@ public class LeagueActivity extends AppCompatActivity {
     private RecyclerView mRvLeagues;
     private LeagueAdapter mLeagueAdapter;
     private RecyclerView.LayoutManager mLeagueLayoutManager;
+    private FrameLayout mFragmentContainer;
 
 
     // Variables
@@ -82,7 +88,7 @@ public class LeagueActivity extends AppCompatActivity {
 
         // Add the Retrieved List of Leagues to the Adapter & Set the Adapter
         mLeagueList = leagues;
-        UpdateLeagueList(leagues);
+        UpdateLeagueList(mLeagueList);
 
         for(League league : leagues){
             String content = "";
@@ -106,7 +112,9 @@ public class LeagueActivity extends AppCompatActivity {
     }
 
     public void OnAdapterItemClick(int position){
+        // TODO: Create Fragment with item information
         Log.d(TAG, "position = " + position);
+        OpenLeagueInfoFragment(mLeagueList.get(position));
     }
 
     public void CreateRecyclerView(){
@@ -114,24 +122,26 @@ public class LeagueActivity extends AppCompatActivity {
         mRvLeagues.setHasFixedSize(true);
         mLeagueLayoutManager = new LinearLayoutManager(this);
         mLeagueAdapter = new LeagueAdapter(mLeagueList);
-
         mRvLeagues.setLayoutManager(mLeagueLayoutManager);
         mRvLeagues.setAdapter(mLeagueAdapter);
-
-
-
-//        mLeagueAdapter.setOnItemClickListener(new LeagueAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(int position) {
-//                Log.d(TAG, "position = " + position);
-//            }
-//        });
     }
 
     public void UpdateLeagueList(List<League> leagues){
         mLeagueAdapter = new LeagueAdapter(leagues);
         mRvLeagues.setAdapter(mLeagueAdapter);
         mLeagueAdapter.setOnItemClickListener(this::OnAdapterItemClick);
+    }
+
+    // Source: codinginflow.com
+    public void OpenLeagueInfoFragment(League league){
+        LeagueInfoFragment mLeagueInfoFragment = LeagueInfoFragment.newInstance(league);
+        FragmentManager mFragmentManager = getSupportFragmentManager();
+        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        // 4 Arguments, because we need for the back button as well!
+        mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right,
+                R.anim.enter_from_right, R.anim.exit_to_right);
+        mFragmentTransaction.addToBackStack(null);
+        mFragmentTransaction.add(R.id.league_frame, mLeagueInfoFragment, LeagueInfoFragment.TAG).commit();
     }
 
 
@@ -149,6 +159,7 @@ public class LeagueActivity extends AppCompatActivity {
         // TODO: Global Lock/Unlock Slidr from Menu Navigation
 
         // UI Find View
+        mFragmentContainer = findViewById(R.id.league_frame);
 
         // Init Recyclerview
         CreateRecyclerView();
@@ -165,5 +176,10 @@ public class LeagueActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "Destroyed");
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        Log.d(TAG, "onFragmentInteraction");
     }
 }
