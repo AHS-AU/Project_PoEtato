@@ -18,6 +18,9 @@ import com.example.admin.projectpoetato.Fragments.LeagueInfoFragment;
 import com.example.admin.projectpoetato.Models.League;
 import com.example.admin.projectpoetato.R;
 import com.r0adkll.slidr.Slidr;
+import com.r0adkll.slidr.model.SlidrConfig;
+import com.r0adkll.slidr.model.SlidrInterface;
+import com.r0adkll.slidr.model.SlidrPosition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,10 +42,11 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
     private LeagueAdapter mLeagueAdapter;
     private RecyclerView.LayoutManager mLeagueLayoutManager;
     private FrameLayout mFragmentContainer;
-
+    private SlidrInterface mSlidr;
 
     // Variables
     List<League> mLeagueList = new ArrayList<>();
+
 
 
     /**********************************************************************************************
@@ -144,6 +148,12 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
         mFragmentTransaction.add(R.id.league_frame, mLeagueInfoFragment, LeagueInfoFragment.TAG).commit();
     }
 
+    public void LockSlidr(){
+        mSlidr.lock();
+    }
+    public void UnlockSlidr(){
+        mSlidr.unlock();
+    }
 
 
     /**********************************************************************************************
@@ -154,9 +164,8 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_league);
 
-        // Slidr Configuration: https://github.com/r0adkll/Slidr
-        Slidr.attach(this);
-        // TODO: Global Lock/Unlock Slidr from Menu Navigation
+        // Slidr: https://github.com/r0adkll/Slidr
+        mSlidr = Slidr.attach(this);
 
         // UI Find View
         mFragmentContainer = findViewById(R.id.league_frame);

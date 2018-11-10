@@ -13,6 +13,10 @@ import android.widget.TextView;
 import com.example.admin.projectpoetato.Models.League;
 import com.example.admin.projectpoetato.R;
 import com.google.gson.JsonArray;
+import com.r0adkll.slidr.Slidr;
+import com.r0adkll.slidr.model.SlidrConfig;
+import com.r0adkll.slidr.model.SlidrInterface;
+import com.r0adkll.slidr.model.SlidrPosition;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +43,7 @@ public class LeagueInfoFragment extends Fragment {
     private TextView mTextStart;
     private TextView mTextEnd;
     private TextView mTextLeagueEvent;
+    private SlidrInterface mSlidr;
 
     private OnFragmentInteractionListener mListener;
 
@@ -116,6 +121,15 @@ public class LeagueInfoFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        if(mSlidr == null){
+//            mSlidr = Slidr.replace(getView().findViewById(R.id.league_frame), new SlidrConfig.Builder().position(SlidrPosition.LEFT).build());
+//        }
+
     }
 
     @Override
