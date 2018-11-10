@@ -41,12 +41,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/li_description"
         android:textSize="@dimen/txtSmallSize"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelLeagueInfoName" />
+        app:layout_constraintTop_toTopOf="@+id/textLeagueInfoDescription" />
 
     <TextView
         android:id="@+id/textLeagueInfoDescription"
@@ -64,12 +63,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/li_register_at"
         android:textSize="@dimen/txtSmallSize"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelLeagueInfoDescription" />
+        app:layout_constraintTop_toTopOf="@+id/textLeagueInfoRegister" />
 
     <TextView
         android:id="@+id/textLeagueInfoRegister"
@@ -87,12 +85,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/li_event"
         android:textSize="@dimen/txtSmallSize"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelLeagueInfoRegister" />
+        app:layout_constraintTop_toTopOf="@+id/textLeagueInfoEvent" />
 
     <TextView
         android:id="@+id/textLeagueInfoEvent"
@@ -110,12 +107,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/li_league_url"
         android:textSize="@dimen/txtSmallSize"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelLeagueInfoEvent" />
+        app:layout_constraintTop_toTopOf="@+id/textLeagueInfoUrl" />
 
     <TextView
         android:id="@+id/textLeagueInfoUrl"
@@ -125,6 +121,7 @@
         android:layout_marginTop="16dp"
         android:text="tmp_forum_post"
         android:textSize="@dimen/txtSmallSize"
+        android:autoLink="web"
         app:layout_constraintStart_toEndOf="@+id/labelLeagueInfoUrl"
         app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoEvent" />
 
@@ -133,12 +130,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/li_starts"
         android:textSize="@dimen/txtSmallSize"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelLeagueInfoUrl" />
+        app:layout_constraintTop_toTopOf="@+id/textLeagueInfoStart" />
 
     <TextView
         android:id="@+id/textLeagueInfoStart"
@@ -156,12 +152,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/li_ends"
         android:textSize="@dimen/txtSmallSize"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelLeagueInfoStart" />
+        app:layout_constraintTop_toTopOf="@+id/textLeagueInfoEnd" />
 
     <TextView
         android:id="@+id/textLeagueInfoEnd"
@@ -179,12 +174,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/li_league_event"
         android:textSize="@dimen/txtSmallSize"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelLeagueInfoEnd" />
+        app:layout_constraintTop_toTopOf="@+id/textLeagueInfoLeagueEvent" />
 
     <TextView
         android:id="@+id/textLeagueInfoLeagueEvent"

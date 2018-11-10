@@ -101,10 +101,9 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
             content += "leagueEvent: " + league.getLeagueEvent() + "\t";
 
             // This takes 5 ms extra... consider if it's worth it.
-//                    for(int i = 0; i < league.getRules().size(); i++){
-//                        content += "rule #" + (i+1) + " Id: " + league.getRules().get(i).getAsJsonObject().get("name") + "\t";
-//                        content += "rule #" + (i+1) + " Desc: " + league.getRules().get(i).getAsJsonObject().get("description") + "\t";
-//                    }
+            for(int i = 0; i < league.getRules().size(); i++){
+                content += "rule #" + (i+1) + " " + league.getRules().get(i) + "\t";
+            }
             content += "\n";
 
             Log.d(TAG, "Content = " + content);
@@ -138,8 +137,9 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
         FragmentManager mFragmentManager = getSupportFragmentManager();
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
         // 4 Arguments, because we need for the back button as well!
-        mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right,
-                R.anim.enter_from_right, R.anim.exit_to_right);
+//        mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right,
+//                R.anim.enter_from_right, R.anim.exit_to_right);
+        mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right);
         mFragmentTransaction.addToBackStack(null);
         mFragmentTransaction.add(R.id.league_frame, mLeagueInfoFragment, LeagueInfoFragment.TAG).commit();
     }

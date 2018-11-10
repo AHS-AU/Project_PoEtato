@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class League implements Serializable {
@@ -17,9 +18,9 @@ public class League implements Serializable {
     private String endAt;
     @SerializedName("delveEvent")
     private String leagueEvent;  // TODO IMPLEMENT!!!!!
-    private JsonArray rules;
+    private ArrayList rules;
 
-    public League(String id, String description, String registerAt, String event, String url, String startAt, String endAt, String leagueEvent, JsonArray rules) {
+    public League(String id, String description, String registerAt, String event, String url, String startAt, String endAt, String leagueEvent, ArrayList rules) {
         this.id = id;
         this.description = description;
         this.registerAt = registerAt;
@@ -95,7 +96,10 @@ public class League implements Serializable {
         this.leagueEvent = leagueEvent;
     }
 
-    public JsonArray getRules() {
+
+    public ArrayList getRules() {
         return rules;
     }
+
+
 }
