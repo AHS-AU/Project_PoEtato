@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch(menuItem.getItemId()){
             case R.id.navi_settings:
                 getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right)
                         .replace(R.id.main_frame, new SettingsFragment())
                         .commit();
                 break;

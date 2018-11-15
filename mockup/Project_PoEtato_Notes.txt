@@ -21,8 +21,8 @@
 - Help can be found from:
 	^ pathofexile.com/developer/docs/api
 	^ pathofexile.gamepedia.com
-	^ reddit.com/r/pathofexiledev
 
+	^ reddit.com/r/pathofexiledev
 - poe.ninja also offers API regarding pricing of items which can be used for a "Stash Tab API".
 
 
@@ -45,3 +45,8 @@
 			^ Make a diagram of what major components your app will have and how they should communicate
 			^ What will be the main risks in your proposed app and design
 			^ Other considerations that can help you, like simple time schedule
+
+Use:
+	- Reloadble List
+	- Viewpager
+	- SwipeRefreshLayout
