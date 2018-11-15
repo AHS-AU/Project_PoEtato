@@ -1,6 +1,9 @@
 package com.example.admin.projectpoetato.Activities.MainActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -27,6 +30,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout mDrawer;
 
     // Variables
+    ConnectivityManager mConnMan;
+    NetworkInfo mActiveNetworkInfo;
+    private boolean isConnected;
 
     /**********************************************************************************************
      *                                    Class Functions                                         *
@@ -69,6 +75,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mToggle.syncState();
 
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Set up the ConnectivityManager to ensure Connection to the Internet.
+        mConnMan = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (mConnMan != null){
+            mActiveNetworkInfo = mConnMan.getActiveNetworkInfo();
+        }
+        isConnected = mActiveNetworkInfo != null && mActiveNetworkInfo.isConnectedOrConnecting();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume() isConnected to Internet? " + isConnected);
     }
 
     @Override
