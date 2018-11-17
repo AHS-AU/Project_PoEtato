@@ -10,20 +10,40 @@
     android:theme="@style/AppTheme.DarkBlue"
     tools:context=".Fragments.LeagueInfoFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_fragment_leagueinfo"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primaryColorDarkBlue"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize"
+        app:navigationIcon="@drawable/ic_close_white"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:titleTextAppearance="@style/AppTheme.ToolbarSize">
+
+        <TextView
+            android:id="@+id/toolbar_fragment_title_leagueinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/li_title"
+            android:textSize="@dimen/toolbarNormalSize" />
+    </android.support.v7.widget.Toolbar>
 
     <TextView
         android:id="@+id/labelLeagueInfoName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/li_league_name"
         android:textSize="@dimen/txtSmallSize"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_fragment_leagueinfo" />
 
     <TextView
         android:id="@+id/textLeagueInfoName"
@@ -34,7 +54,7 @@
         android:text="tmp_leaguename"
         android:textSize="@dimen/txtSmallSize"
         app:layout_constraintStart_toEndOf="@+id/labelLeagueInfoName"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_fragment_leagueinfo" />
 
     <TextView
         android:id="@+id/labelLeagueInfoDescription"

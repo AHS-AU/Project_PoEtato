@@ -18,8 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.LeagueActivity.LeagueActivity"
-            android:theme="@style/AppTheme.SlidrActivityTheme"></activity>
+        <activity android:name=".Activities.LeagueActivity.LeagueActivity"/>
     </application>
 
 </manifest>

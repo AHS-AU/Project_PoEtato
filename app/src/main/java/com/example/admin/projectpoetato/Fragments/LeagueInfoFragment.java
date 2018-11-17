@@ -3,7 +3,10 @@ package com.example.admin.projectpoetato.Fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,6 +105,10 @@ public class LeagueInfoFragment extends Fragment {
         mTextLeagueEvent.setText(mLeague.getLeagueEvent());
         Log.d(TAG, "Rules = " + mLeague.getRules());
 
+
+//        Toolbar mToolbar = mView.findViewById(R.id.toolbar_fragment_leagueinfo);
+//        ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         return mView;
     }
 
@@ -121,6 +128,7 @@ public class LeagueInfoFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+
     }
 
     @Override

@@ -9,6 +9,7 @@
     <string name="settings">Settings</string>
 
     <!-- Strings used for LeagueInfoFragment -->
+    <string name="li_title">League Information</string>
     <string name="li_league_name">League Name:</string>
     <string name="li_description">Description:</string>
     <string name="li_register_at">Register At:</string>
