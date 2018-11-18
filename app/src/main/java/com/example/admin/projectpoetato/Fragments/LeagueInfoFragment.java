@@ -21,6 +21,10 @@ import com.r0adkll.slidr.model.SlidrConfig;
 import com.r0adkll.slidr.model.SlidrInterface;
 import com.r0adkll.slidr.model.SlidrPosition;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -34,9 +38,6 @@ public class LeagueInfoFragment extends Fragment {
     public static final String TAG = LeagueInfoFragment.class.getSimpleName();
     private static final String ARG_LEAGUE = "league";
 
-    // Variables
-    private League mLeague;
-
     // UI Variables
     private TextView mTextLeagueName;
     private TextView mTextDescription;
@@ -47,6 +48,9 @@ public class LeagueInfoFragment extends Fragment {
     private TextView mTextEnd;
     private TextView mTextLeagueEvent;
     private OnFragmentInteractionListener mListener;
+
+    // Variables
+    private League mLeague;
 
     /**********************************************************************************************
      *                                    Class Functions                                         *
@@ -115,7 +119,17 @@ public class LeagueInfoFragment extends Fragment {
         mTextStart.setText(mLeague.getStartAt());
         mTextEnd.setText(mLeague.getEndAt());
         mTextLeagueEvent.setText(mLeague.getLeagueEvent());
-        Log.d(TAG, "Rules = " + mLeague.getRules());
+
+        JSONArray jsonArray = new JSONArray(mLeague.getRules());
+        for (int i = 0; i < jsonArray.length(); i++){
+            try {
+                JSONObject jsonObj = jsonArray.getJSONObject(i);
+                Log.d(TAG, "Rule #" + i + ": id = " + jsonObj.get("id")  + " name = " + jsonObj.get("name") + " desc = " + jsonObj.get("description"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
 
         // Toolbar fuck this shit, for some fucking reason Toolbar from Activity follows into this retarded fragment
 //        Toolbar mToolbar = mView.findViewById(R.id.toolbar_fragment_leagueinfo);
@@ -124,6 +138,7 @@ public class LeagueInfoFragment extends Fragment {
 //        mToolbar.setNavigationOnClickListener(v -> CloseFragment());
 //        mToolbar.bringToFront();
 
+        // Return View
         return mView;
     }
 
