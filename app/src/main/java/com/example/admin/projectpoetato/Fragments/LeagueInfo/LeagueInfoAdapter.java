@@ -44,18 +44,18 @@ public class LeagueInfoAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        if (mRulesList != null && mRulesList.size() > position){
-            return mRulesList.get(position);
-        }
+//        if (mRulesList != null && mRulesList.size() > position){
+//            return mRulesList.get(position);
+//        }
         return null;
     }
 
     @Override
     public long getItemId(int position) {
-        if(mRulesList != null){
-            int id = Integer.parseInt(mRulesList.get(position).getId());
-            return (id);
-        }
+//        if(mRulesList != null){
+//            int id = Integer.parseInt(mRulesList.get(position).getId());
+//            return (id);
+//        }
         return 0;
     }
 
@@ -74,7 +74,7 @@ public class LeagueInfoAdapter extends BaseAdapter {
 
             // Number
             TextView textRuleNum = convertView.findViewById(R.id.textRuleNum);
-            textRuleNum.setText(position);
+            textRuleNum.setText(String.valueOf(position+1));
 
             // Name
             TextView textRuleName = convertView.findViewById(R.id.textRuleName);

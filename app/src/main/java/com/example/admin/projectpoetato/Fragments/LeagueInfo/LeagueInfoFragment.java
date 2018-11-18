@@ -8,14 +8,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.admin.projectpoetato.Models.League;
+import com.example.admin.projectpoetato.Models.LeagueRules;
 import com.example.admin.projectpoetato.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,9 +45,12 @@ public class LeagueInfoFragment extends Fragment {
     private TextView mTextEnd;
     private TextView mTextLeagueEvent;
     private OnFragmentInteractionListener mListener;
+    private ListView lvRules;
 
     // Variables
     private League mLeague;
+    private LeagueInfoAdapter mLeagueInfoAdapter;
+    private List<LeagueRules> mLeagueRules = new ArrayList<>();
 
     /**********************************************************************************************
      *                                    Class Functions                                         *
@@ -101,6 +109,7 @@ public class LeagueInfoFragment extends Fragment {
         mTextStart = mView.findViewById(R.id.textLeagueInfoStart);
         mTextEnd = mView.findViewById(R.id.textLeagueInfoEnd);
         mTextLeagueEvent = mView.findViewById(R.id.textLeagueInfoLeagueEvent);
+        lvRules = mView.findViewById(R.id.listLeagueRules);
 
         // Assign Values to the UI
         mTextLeagueName.setText(mLeague.getId());
@@ -112,15 +121,22 @@ public class LeagueInfoFragment extends Fragment {
         mTextEnd.setText(mLeague.getEndAt());
         mTextLeagueEvent.setText(mLeague.getLeagueEvent());
 
+        // Handle the List of League Rules
         JSONArray jsonArray = new JSONArray(mLeague.getRules());
         for (int i = 0; i < jsonArray.length(); i++){
             try {
                 JSONObject jsonObj = jsonArray.getJSONObject(i);
-                Log.d(TAG, "Rule #" + i + ": id = " + jsonObj.get("id")  + " name = " + jsonObj.get("name") + " desc = " + jsonObj.get("description"));
+                LeagueRules rule = new LeagueRules(jsonObj.get("id").toString(), jsonObj.get("name").toString(), jsonObj.get("description").toString());
+                mLeagueRules.add(rule);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+
+        // Set up Rules in Listview with help of LeagueInfoAdapter
+        mLeagueInfoAdapter = new LeagueInfoAdapter(getContext(), mLeagueRules);
+        lvRules.setAdapter(mLeagueInfoAdapter);
 
 
         // Toolbar fuck this shit, for some fucking reason Toolbar from Activity follows into this retarded fragment

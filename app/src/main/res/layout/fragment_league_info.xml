@@ -214,8 +214,8 @@
 
     <ListView
         android:id="@+id/listLeagueRules"
-        android:layout_width="584dp"
-        android:layout_height="482dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
