@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.navi_settings:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.main_frame, new SettingsFragment())
+                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right)
                         .commit();
                 break;
             case R.id.navi_theme:

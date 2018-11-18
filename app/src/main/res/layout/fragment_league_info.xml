@@ -11,6 +11,7 @@
     tools:context=".Fragments.LeagueInfoFragment">
 
 
+    <!-- Literally useless Toolbar -->
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_fragment_leagueinfo"
         android:layout_width="match_parent"
@@ -28,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/li_title"
+            android:text="whatever fuck this"
             android:textSize="@dimen/toolbarNormalSize" />
     </android.support.v7.widget.Toolbar>
 

@@ -46,10 +46,11 @@ public class LeagueInfoFragment extends Fragment {
     private TextView mTextStart;
     private TextView mTextEnd;
     private TextView mTextLeagueEvent;
-    private SlidrInterface mSlidr;
-
     private OnFragmentInteractionListener mListener;
 
+    /**********************************************************************************************
+     *                                    Class Functions                                         *
+     *********************************************************************************************/
     public LeagueInfoFragment() {
         // Required empty public constructor
     }
@@ -70,6 +71,16 @@ public class LeagueInfoFragment extends Fragment {
         return fragment;
     }
 
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    /**********************************************************************************************
+     *                                   Override Functions                                       *
+     *********************************************************************************************/
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +88,7 @@ public class LeagueInfoFragment extends Fragment {
             mLeague = (League)getArguments().getSerializable(ARG_LEAGUE);
         }
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -105,18 +117,14 @@ public class LeagueInfoFragment extends Fragment {
         mTextLeagueEvent.setText(mLeague.getLeagueEvent());
         Log.d(TAG, "Rules = " + mLeague.getRules());
 
-
+        // Toolbar fuck this shit, for some fucking reason Toolbar from Activity follows into this retarded fragment
 //        Toolbar mToolbar = mView.findViewById(R.id.toolbar_fragment_leagueinfo);
 //        ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
-        return mView;
-    }
+//        mToolbar.setNavigationOnClickListener(v -> CloseFragment());
+//        mToolbar.bringToFront();
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        return mView;
     }
 
     @Override
@@ -131,14 +139,6 @@ public class LeagueInfoFragment extends Fragment {
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-//        if(mSlidr == null){
-//            mSlidr = Slidr.replace(getView().findViewById(R.id.league_frame), new SlidrConfig.Builder().position(SlidrPosition.LEFT).build());
-//        }
-
-    }
 
     @Override
     public void onDetach() {

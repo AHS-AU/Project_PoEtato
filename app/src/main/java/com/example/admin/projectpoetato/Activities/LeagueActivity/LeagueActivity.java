@@ -1,7 +1,11 @@
 package com.example.admin.projectpoetato.Activities.LeagueActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -157,20 +161,13 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
         FragmentManager mFragmentManager = getSupportFragmentManager();
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
         // 4 Arguments, because we need for the back button as well!
-//        mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right,
-//                R.anim.enter_from_right, R.anim.exit_to_right);
-        mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right);
+        mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right,
+                R.anim.enter_from_right, R.anim.exit_to_right);
         mFragmentTransaction.addToBackStack(null);
         mFragmentTransaction.add(R.id.league_frame, mLeagueInfoFragment, LeagueInfoFragment.TAG).commit();
 
     }
 
-    public void LockSlidr(){
-        mSlidr.lock();
-    }
-    public void UnlockSlidr(){
-        mSlidr.unlock();
-    }
 
 
     /**********************************************************************************************
@@ -191,20 +188,28 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
         CreateRecyclerView();
 
         // Action Bar
-        //mToolbar = findViewById(R.id.toolbar_activity_league);
-        //setSupportActionBar(mToolbar);
-        //getSupportActionBar().setDisplayShowTitleEnabled(false);
+        mToolbar = findViewById(R.id.toolbar_activity_league);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        mToolbar.setNavigationOnClickListener(v -> onBackPressed());
+
 
         // Send Request
         SendLeagueRequest();
-
     }
 
+    /**
+     * Modified to work with Opened Fragments
+     */
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "Destroyed");
+    public void onBackPressed() {
+        if(getSupportFragmentManager().getBackStackEntryCount() > 0){
+            getSupportFragmentManager().popBackStack();
+        }else{
+            super.onBackPressed();
+        }
     }
+
 
     @Override
     public void onFragmentInteraction(Uri uri) {
