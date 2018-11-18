@@ -1,12 +1,9 @@
-package com.example.admin.projectpoetato.Fragments;
+package com.example.admin.projectpoetato.Fragments.LeagueInfo;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +12,6 @@ import android.widget.TextView;
 
 import com.example.admin.projectpoetato.Models.League;
 import com.example.admin.projectpoetato.R;
-import com.google.gson.JsonArray;
-import com.r0adkll.slidr.Slidr;
-import com.r0adkll.slidr.model.SlidrConfig;
-import com.r0adkll.slidr.model.SlidrInterface;
-import com.r0adkll.slidr.model.SlidrPosition;
 
 import org.json.JSONArray;
 import org.json.JSONException;

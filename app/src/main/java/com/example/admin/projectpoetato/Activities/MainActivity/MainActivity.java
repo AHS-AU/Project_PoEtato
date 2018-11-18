@@ -17,7 +17,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 import com.example.admin.projectpoetato.Activities.LeagueActivity.LeagueActivity;
-import com.example.admin.projectpoetato.Fragments.SettingsFragment;
+import com.example.admin.projectpoetato.Fragments.Settings.SettingsFragment;
 import com.example.admin.projectpoetato.R;
 
 

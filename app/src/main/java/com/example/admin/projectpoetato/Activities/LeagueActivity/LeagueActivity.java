@@ -1,16 +1,10 @@
 package com.example.admin.projectpoetato.Activities.LeagueActivity;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,14 +12,10 @@ import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.example.admin.projectpoetato.API.Resources.League.LeagueApi;
-import com.example.admin.projectpoetato.Activities.MainActivity.MainActivity;
-import com.example.admin.projectpoetato.Fragments.LeagueInfoFragment;
+import com.example.admin.projectpoetato.Fragments.LeagueInfo.LeagueInfoFragment;
 import com.example.admin.projectpoetato.Models.League;
 import com.example.admin.projectpoetato.R;
-import com.r0adkll.slidr.Slidr;
-import com.r0adkll.slidr.model.SlidrConfig;
 import com.r0adkll.slidr.model.SlidrInterface;
-import com.r0adkll.slidr.model.SlidrPosition;
 
 import java.util.ArrayList;
 import java.util.List;

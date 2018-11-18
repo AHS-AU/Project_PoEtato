@@ -8,7 +8,7 @@
     android:clickable="true"
     android:focusable="true"
     android:theme="@style/AppTheme.DarkBlue"
-    tools:context=".Fragments.LeagueInfoFragment">
+    tools:context=".Fragments.LeagueInfo.LeagueInfoFragment">
 
 
     <!-- Literally useless Toolbar -->
@@ -211,4 +211,20 @@
         android:textSize="@dimen/txtSmallSize"
         app:layout_constraintStart_toEndOf="@+id/labelLeagueInfoLeagueEvent"
         app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoEnd" />
+
+    <ListView
+        android:id="@+id/listLeagueRules"
+        android:layout_width="584dp"
+        android:layout_height="482dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoLeagueEvent" />
+
 </android.support.constraint.ConstraintLayout>
