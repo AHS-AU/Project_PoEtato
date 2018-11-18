@@ -78,6 +78,7 @@ public class LeagueInfoAdapter extends BaseAdapter {
 
             // Name
             TextView textRuleName = convertView.findViewById(R.id.textRuleName);
+            //textRuleName.setText("Death penalty awarded to slayer");  // Just to test the looks
             textRuleName.setText(mRule.getName());
 
             // Description

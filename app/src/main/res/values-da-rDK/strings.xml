@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Project PoEtato</string>
+    <string name="leagueTitle">League og Event Sporer</string>
+    <string name="theme">Tema</string>
+    <string name="navi_drawer_open">Åbn Navigation Menu</string>
+    <string name="navi_drawer_close">Luk Navigation Menu</string>
+    <string name="close">Luk</string>
+    <string name="settings">Indstillinger</string>
+    <string name="li_title">League Information</string>
+    <string name="li_league_name">League Navn:</string>
+    <string name="li_description">Beskrivelse:</string>
+    <string name="li_register_at">Tilmeld Ved:</string>
+    <string name="li_event">Event:</string>
+    <string name="li_league_url">Forum Indlæg:</string>
+    <string name="li_starts">Starter:</string>
+    <string name="li_ends">Slutter:</string>
+    <string name="li_rule_nr">Regel#</string>
+    <string name="li_rule_name">Navn</string>
+    <string name="li_rule_description">Beskrivelse</string>
+</resources>

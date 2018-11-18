@@ -12,6 +12,20 @@
 
 
     <!-- Literally useless Toolbar -->
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_splitrule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_splitrule2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50" />
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_fragment_leagueinfo"
         android:layout_width="match_parent"
@@ -140,9 +154,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:autoLink="web"
         android:text="tmp_forum_post"
         android:textSize="@dimen/txtSmallSize"
-        android:autoLink="web"
         app:layout_constraintStart_toEndOf="@+id/labelLeagueInfoUrl"
         app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoEvent" />
 
@@ -218,13 +232,58 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoLeagueEvent" />
+        app:layout_constraintTop_toBottomOf="@+id/textRuleNrCol" />
+
+    <TextView
+        android:id="@+id/textRuleNrCol"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/li_rule_nr"
+        android:textSize="@dimen/txtSmallSize"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_splitrule"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelLeagueInfoLeagueEvent" />
+
+    <TextView
+        android:id="@+id/textRuleNameCol"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/li_rule_name"
+        android:textSize="@dimen/txtSmallSize"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_splitrule2"
+        app:layout_constraintStart_toStartOf="@+id/guideline_splitrule"
+        app:layout_constraintTop_toTopOf="@+id/textRuleNrCol" />
+
+    <TextView
+        android:id="@+id/textRuleDescriptionCol"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/li_rule_description"
+        android:textSize="@dimen/txtSmallSize"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline_splitrule2"
+        app:layout_constraintTop_toTopOf="@+id/textRuleNameCol" />
 
 </android.support.constraint.ConstraintLayout>
