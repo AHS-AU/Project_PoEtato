@@ -14,13 +14,19 @@ import android.widget.TextView;
 import com.example.admin.projectpoetato.Models.League;
 import com.example.admin.projectpoetato.Models.LeagueRules;
 import com.example.admin.projectpoetato.R;
+import com.example.admin.projectpoetato.Utilities.GlobalFunctions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,6 +57,7 @@ public class LeagueInfoFragment extends Fragment {
     private League mLeague;
     private LeagueInfoAdapter mLeagueInfoAdapter;
     private List<LeagueRules> mLeagueRules = new ArrayList<>();
+    private GlobalFunctions mGlobalFunctions = new GlobalFunctions();
 
     /**********************************************************************************************
      *                                    Class Functions                                         *
@@ -114,11 +121,11 @@ public class LeagueInfoFragment extends Fragment {
         // Assign Values to the UI
         mTextLeagueName.setText(mLeague.getId());
         mTextDescription.setText(mLeague.getDescription());
-        mTextRegister.setText(mLeague.getRegisterAt());
+        mTextRegister.setText(mGlobalFunctions.ConvertUtcToLocal(mLeague.getRegisterAt()));
         mTextEvent.setText(mLeague.getEvent());
         mTextUrl.setText(mLeague.getUrl());
-        mTextStart.setText(mLeague.getStartAt());
-        mTextEnd.setText(mLeague.getEndAt());
+        mTextStart.setText(mGlobalFunctions.ConvertUtcToLocal(mLeague.getStartAt()));
+        mTextEnd.setText(mGlobalFunctions.ConvertUtcToLocal(mLeague.getEndAt()));
         mTextLeagueEvent.setText(mLeague.getLeagueEvent());
 
         // Handle the List of League Rules

@@ -20,6 +20,12 @@ import com.example.admin.projectpoetato.Activities.LeagueActivity.LeagueActivity
 import com.example.admin.projectpoetato.Fragments.Settings.SettingsFragment;
 import com.example.admin.projectpoetato.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     // Class Variables
@@ -73,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 R.string.navi_drawer_open,R.string.navi_drawer_close);
         mDrawer.addDrawerListener(mToggle);
         mToggle.syncState();
-
 
     }
 

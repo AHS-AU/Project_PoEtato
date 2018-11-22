@@ -2,6 +2,7 @@ package com.example.admin.projectpoetato.Activities.LeagueActivity;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,14 @@ import android.widget.TextView;
 
 import com.example.admin.projectpoetato.Models.League;
 import com.example.admin.projectpoetato.R;
+import com.example.admin.projectpoetato.Utilities.GlobalFunctions;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.LeagueAdapterViewHolder> {
     private List<League> mLeagueList;
@@ -88,14 +95,17 @@ public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.LeagueAdap
     public void onBindViewHolder(@NonNull LeagueAdapterViewHolder leagueAdapterViewHolder, int position) {
         League mLeague = mLeagueList.get(position);
 
+        // Create GlobalFunctions object for Time Formatting
+        GlobalFunctions mGlobalFunctions = new GlobalFunctions();
+
         // League Id
         leagueAdapterViewHolder.mTextId.setText(mLeague.getId());
 
         // League Start
-        leagueAdapterViewHolder.mTextStart.setText(mLeague.getStartAt());
+        leagueAdapterViewHolder.mTextStart.setText(mGlobalFunctions.ConvertUtcToLocal(mLeague.getStartAt()));
 
         // League End
-        leagueAdapterViewHolder.mTextEnd.setText(mLeague.getEndAt());
+        leagueAdapterViewHolder.mTextEnd.setText(mGlobalFunctions.ConvertUtcToLocal(mLeague.getEndAt()));
 
         // League Track
         leagueAdapterViewHolder.mTextTrack.setText("TMP");
