@@ -57,11 +57,7 @@ public class LadderAdapter extends RecyclerView.Adapter<LadderAdapter.LadderAdap
             // Imageview Status
             mTextRank = itemView.findViewById(R.id.textLadderRank);
             mTextCharacter = itemView.findViewById(R.id.textLadderCharacter);
-            mTextAccount = itemView.findViewById(R.id.textLadderAccount);
             mTextLevel = itemView.findViewById(R.id.textLadderLevel);
-            mTextClass = itemView.findViewById(R.id.textLadderClass);
-            mTextRawExp = itemView.findViewById(R.id.textLadderRawExp);
-            // ProgressBar ProgressExp
 
             itemView.setOnClickListener(v -> LadderOnItemClick(itemListener));
         }
@@ -99,19 +95,9 @@ public class LadderAdapter extends RecyclerView.Adapter<LadderAdapter.LadderAdap
         // Ladder Character
         ladderAdapterViewHolder.mTextCharacter.setText(mLadder.getCharacterName());
 
-        // Ladder Account
-        ladderAdapterViewHolder.mTextAccount.setText(mLadder.getAccountName());
-
         // Ladder Level
         ladderAdapterViewHolder.mTextLevel.setText(mLadder.getLevel());
 
-        // Ladder Class
-        ladderAdapterViewHolder.mTextClass.setText(mLadder.getClassId());
-
-        // Ladder Raw Exp
-        ladderAdapterViewHolder.mTextRawExp.setText(mLadder.getExperience());
-
-        // Ladder Progress Exp
     }
 
     @Override

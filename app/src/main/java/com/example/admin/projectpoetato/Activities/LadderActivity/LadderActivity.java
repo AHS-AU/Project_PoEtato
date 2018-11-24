@@ -216,17 +216,29 @@ public class LadderActivity extends AppCompatActivity {
         private RecyclerView.LayoutManager mLadderLayoutManager;
         private LadderAdapter mLadderAdapter;
 
+        // Functions
+        public void OnAdapterItemClick(int position){
+            OpenLeagueCharacterInfo(mLadderList.get(position));
+        }
+
+        private void OpenLeagueCharacterInfo(Ladder ladder){
+            Log.d(TAG, "Ladder Name = " + ladder.getCharacterName());
+        }
+
         // CreateRecyclerView
         public void CreateRecyclerView(RecyclerView recyclerView){
             recyclerView.setHasFixedSize(true);
             Ladder mLadder = new Ladder("status", "rank", "characterName","accountName","level", "classId", "experience");
             Ladder mLadder2 = new Ladder("D", "1000", "SteelMage","SteelMageAccount","100", "Marauder", "4.109.239.952");
+            Ladder mLadder3 = new Ladder("D", "15000", "LONGESTCHARACTERNAMEPOS","SteelMageAccount","100", "Marauder", "4.109.239.952");
             mLadderList.add(mLadder);
             mLadderList.add(mLadder2);
+            mLadderList.add(mLadder3);
             mLadderLayoutManager = new LinearLayoutManager(getContext());
             mLadderAdapter = new LadderAdapter(mLadderList);
             recyclerView.setLayoutManager(mLadderLayoutManager);
             recyclerView.setAdapter(mLadderAdapter);
+            // TODO: mLadderAdapter.setOnItemClickListener(this::OnAdapterItemClick);
         }
 
 
