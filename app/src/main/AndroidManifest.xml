@@ -18,7 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.LeagueActivity.LeagueActivity"/>
+        <activity android:name=".Activities.LeagueActivity.LeagueActivity" />
+        <activity
+            android:name=".Activities.LadderActivity.LadderActivity"
+            android:label="@string/title_activity_ladder"
+            android:theme="@style/AppTheme.DarkBlue"></activity>
     </application>
 
 </manifest>

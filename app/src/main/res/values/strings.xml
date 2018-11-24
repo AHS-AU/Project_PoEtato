@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Project PoEtato</string>
     <string name="league" translatable="false">League</string>
+    <string name="ladder" translatable="false">Ladder</string>
     <string name="leagueTitle">League and Event Tracker</string>
     <string name="theme">Theme</string>
     <string name="navi_drawer_open">Open Navigation Drawer</string>
@@ -21,4 +22,8 @@
     <string name="li_rule_nr">Rule#</string>
     <string name="li_rule_name">Name</string>
     <string name="li_rule_description">Description</string>
+
+    <!-- Strings used for Ladder Activity/Fragments -->
+    <string name="title_activity_ladder">Ladder Tracker</string>
+    <string name="section_format" translatable="false">Hello World from section: %1$d</string>
 </resources>

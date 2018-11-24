@@ -3,6 +3,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="materialUnclickableObject">#FF757575</color>
 
     <!-- Tool used to Generate MDC is ( https://material.io/tools/color/ ) -->
 
@@ -16,5 +17,6 @@
     <color name="primaryTextColorDarkBlue">#ffffff</color>
     <color name="secondaryTextColorDarkBlue">#000000</color>
     <color name="primaryBackgroundDarkBlue">#23272a</color>
+
 
 </resources>

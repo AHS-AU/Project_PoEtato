@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.example.admin.projectpoetato.Activities.LadderActivity.LadderActivity;
 import com.example.admin.projectpoetato.Activities.LeagueActivity.LeagueActivity;
 import com.example.admin.projectpoetato.Fragments.Settings.SettingsFragment;
 import com.example.admin.projectpoetato.R;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // UI Variables
     private Button mBtnLeague;
+    private Button mBtnLadder;
     private DrawerLayout mDrawer;
 
     // Variables
@@ -48,6 +50,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
+    public void StartLadderActivity(){
+        Intent intent = new Intent(this, LadderActivity.class);
+        startActivity(intent);
+    }
+
     /**********************************************************************************************
      *                                   Override Functions                                       *
      *********************************************************************************************/
@@ -58,12 +65,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // UI Find View
         mBtnLeague = findViewById(R.id.btnMainLeague);
+        mBtnLadder = findViewById(R.id.btnMainLadder);
         mDrawer = findViewById(R.id.drawer_main);
         NavigationView mNaviView = findViewById(R.id.navi_view);
 
 
         // Button Start League Activity
         mBtnLeague.setOnClickListener(v -> StartLeagueActivity());
+        mBtnLadder.setOnClickListener(v -> StartLadderActivity());
 
         // Navigation View
         mNaviView.setNavigationItemSelectedListener(this);

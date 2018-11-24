@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Project PoEtato</string>
-    <string name="leagueTitle">League og Event Sporer</string>
+    <string name="leagueTitle">League og Event Overvåger</string>
     <string name="theme">Tema</string>
     <string name="navi_drawer_open">Åbn Navigation Menu</string>
     <string name="navi_drawer_close">Luk Navigation Menu</string>
@@ -18,4 +18,5 @@
     <string name="li_rule_nr">Regel#</string>
     <string name="li_rule_name">Navn</string>
     <string name="li_rule_description">Beskrivelse</string>
+    <string name="title_activity_ladder" translatable="false">Ladder Overvåger</string>
 </resources>
