@@ -3,8 +3,14 @@ package com.example.admin.projectpoetato.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
+
 public class Ladder implements Parcelable {
     // Variables
+    @SerializedName("entries")
+    private ArrayList entries;
     private String dead;
     private String online;
     private String rank;
@@ -30,6 +36,14 @@ public class Ladder implements Parcelable {
     }
 
     // Getters & Setters
+    public ArrayList getEntries() {
+        return entries;
+    }
+
+    public void setEntries(ArrayList entries) {
+        this.entries = entries;
+    }
+
     public String getDead() {
         return dead;
     }

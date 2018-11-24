@@ -1,8 +1,5 @@
 package com.example.admin.projectpoetato.Activities.LadderActivity;
 
-import android.graphics.Color;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,10 +21,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.admin.projectpoetato.API.Resources.League.LadderApi;
 import com.example.admin.projectpoetato.API.Resources.League.LeagueApi;
-import com.example.admin.projectpoetato.Activities.LeagueActivity.LeagueAdapter;
 import com.example.admin.projectpoetato.Models.Ladder;
 import com.example.admin.projectpoetato.Models.League;
 import com.example.admin.projectpoetato.R;
@@ -109,9 +105,31 @@ public class LadderActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<League>> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.getMessage());
+                Log.d(TAG, "SendLeagueRequest() onFailure: " + t.getMessage());
             }
         });
+    }
+
+    public void SendLadderRequest(String leagueId){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URL_API_PATHOFEXILE)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        LadderApi mLadder = retrofit.create(LadderApi.class);
+
+        Call<Ladder> mCallLadder = mLadder.getLadders(leagueId,"5","0","league","false","","","");
+        mCallLadder.enqueue(new Callback<Ladder>() {
+            @Override
+            public void onResponse(Call<Ladder> call, Response<Ladder> response) {
+                Log.d(TAG, "OnResponse" + response.body().getEntries().toString());
+            }
+
+            @Override
+            public void onFailure(Call<Ladder> call, Throwable t) {
+
+            }
+        });
+
     }
 
     /**
@@ -121,7 +139,7 @@ public class LadderActivity extends AppCompatActivity {
      */
     public void LeagueOnResponse(Call<List<League>> call, Response<List<League>> response){
         if(!response.isSuccessful()){
-            Log.d(TAG, "onResponse Code: " + response.code());
+            Log.d(TAG, "LeagueOnResponse() onResponse Code: " + response.code());
             return;
         }
         List<League> leagues = response.body();
@@ -136,12 +154,16 @@ public class LadderActivity extends AppCompatActivity {
         mSpinnerLeagues.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String mSelectedLeagueText = (String) parent.getItemAtPosition(position);
+                String mSelectedLeague = (String) parent.getItemAtPosition(position);
                 // First item is disabled and used for hints
                 // When the user changes the default hint, the spinner picks the League to retrieve.
                 if(position > 0){
-                    // TODO: Loading "Selected : *LEAGUE*" + mSelectedLeagueText'
-                    Log.d(TAG, "League Selected: " + mSelectedLeagueText);
+                    // Create the adapter that will return a fragment for each League
+                    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+                    // Set up the ViewPager with the sections adapter.
+                    mViewPager.setAdapter(mSectionsPagerAdapter);
+                    SendLadderRequest(mSelectedLeague);
+                    Log.d(TAG, "League Selected: " + mSelectedLeague);
                 }
             }
             @Override
@@ -149,6 +171,13 @@ public class LadderActivity extends AppCompatActivity {
                 // ignore this
             }
         });
+    }
+
+    public void LadderOnResponse(Call<Ladder> call, Response<Ladder> response){
+        if(!response.isSuccessful()){
+            Log.d(TAG, "LadderOnResponse() onResponse Code: " + response.code());
+            return;
+        }
 
     }
 
@@ -172,12 +201,6 @@ public class LadderActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // Create the adapter that will return a fragment for each League
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager.setAdapter(mSectionsPagerAdapter);
 
         // Send League Request & set up the Spinner League
         SendLeagueRequest();
@@ -228,6 +251,7 @@ public class LadderActivity extends AppCompatActivity {
         // CreateRecyclerView
         public void CreateRecyclerView(RecyclerView recyclerView){
             recyclerView.setHasFixedSize(true);
+            mLadderList.clear();
             Ladder mLadder = new Ladder("true","false", "rank", "characterName","accountName","level", "classId", "experience");
             Ladder mLadder2 = new Ladder("false","true", "1000", "SteelMage","SteelMageAccount","100", "Marauder", "4.109.239.952");
             Ladder mLadder3 = new Ladder("false","false", "15000", "LONGESTCHARACTERNAMEPOS","SteelMageAccount","100", "Marauder", "4.109.239.952");

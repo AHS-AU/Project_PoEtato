@@ -68,7 +68,7 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
 
             @Override
             public void onFailure(Call<List<League>> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.getMessage());
+                Log.d(TAG, "SendLeagueRequest() onFailure: " + t.getMessage());
             }
         });
     }
