@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -25,6 +27,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.admin.projectpoetato.API.Resources.League.LeagueApi;
+import com.example.admin.projectpoetato.Activities.LeagueActivity.LeagueAdapter;
+import com.example.admin.projectpoetato.Models.Ladder;
 import com.example.admin.projectpoetato.Models.League;
 import com.example.admin.projectpoetato.R;
 
@@ -49,7 +53,7 @@ public class LadderActivity extends AppCompatActivity {
     // UI Variables
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-    private Spinner mSpinnerLeagues;
+    public Spinner mSpinnerLeagues;
 
     // Variables
     private int LADDER_PAGE_COUNT = 50; // TODO: Replace with real number
@@ -167,6 +171,7 @@ public class LadderActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Create the adapter that will return a fragment for each League
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -206,19 +211,32 @@ public class LadderActivity extends AppCompatActivity {
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
+        // Variables for Fragment
+        private List<Ladder> mLadderList = new ArrayList<>();
+        private RecyclerView.LayoutManager mLadderLayoutManager;
+        private LadderAdapter mLadderAdapter;
 
+        // CreateRecyclerView
+        public void CreateRecyclerView(RecyclerView recyclerView){
+            recyclerView.setHasFixedSize(true);
+            Ladder mLadder = new Ladder("status", "rank", "characterName","accountName","level", "classId", "experience");
+            Ladder mLadder2 = new Ladder("D", "1000", "SteelMage","SteelMageAccount","100", "Marauder", "4.109.239.952");
+            mLadderList.add(mLadder);
+            mLadderList.add(mLadder2);
+            mLadderLayoutManager = new LinearLayoutManager(getContext());
+            mLadderAdapter = new LadderAdapter(mLadderList);
+            recyclerView.setLayoutManager(mLadderLayoutManager);
+            recyclerView.setAdapter(mLadderAdapter);
+        }
+
+
+        // The fragment argument representing the section number for this fragment
+        private static final String ARG_SECTION_NUMBER = "section_number";
         public PlaceholderFragment() {
         }
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
+
+        // Returns a new instance of this fragment for the given section number.
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
@@ -231,9 +249,11 @@ public class LadderActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_ladder, container, false);
-            TextView textView = rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            
+            RecyclerView mRvLadder = rootView.findViewById(R.id.listLadder);
+            CreateRecyclerView(mRvLadder);
+//            TextView textView = rootView.findViewById(R.id.section_label);
+//            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+
             return rootView;
         }
     }
@@ -257,6 +277,7 @@ public class LadderActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
+            LADDER_PAGE_COUNT = 5;
             return LADDER_PAGE_COUNT;
         }
     }

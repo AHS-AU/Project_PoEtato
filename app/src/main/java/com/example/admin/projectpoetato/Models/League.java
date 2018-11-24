@@ -17,7 +17,7 @@ public class League implements Serializable {
     private String startAt;
     private String endAt;
     @SerializedName("delveEvent")
-    private String leagueEvent;  // TODO IMPLEMENT!!!!!
+    private String leagueEvent;
     private ArrayList rules;
 
     public League(String id, String description, String registerAt, String event, String url, String startAt, String endAt, String leagueEvent, ArrayList rules) {
