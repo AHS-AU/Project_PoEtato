@@ -27,6 +27,11 @@ import com.example.admin.projectpoetato.API.Resources.League.LeagueApi;
 import com.example.admin.projectpoetato.Models.Ladder;
 import com.example.admin.projectpoetato.Models.League;
 import com.example.admin.projectpoetato.R;
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,7 +126,7 @@ public class LadderActivity extends AppCompatActivity {
         mCallLadder.enqueue(new Callback<Ladder>() {
             @Override
             public void onResponse(Call<Ladder> call, Response<Ladder> response) {
-                Log.d(TAG, "OnResponse" + response.body().getEntries().toString());
+                LadderOnResponse(call, response);
             }
 
             @Override
@@ -177,7 +182,24 @@ public class LadderActivity extends AppCompatActivity {
         if(!response.isSuccessful()){
             Log.d(TAG, "LadderOnResponse() onResponse Code: " + response.code());
             return;
+        }else{
+            Log.d(TAG, "LadderOnResponse() isSuccessful ResponseCode = " + response.code());
         }
+
+        JSONArray mLadderEntries = new JSONArray(response.body().getEntries());
+        for(int i = 0; i < mLadderEntries.length(); i++){
+            try {
+                JSONObject mCharacterEntry = mLadderEntries.getJSONObject(i);
+                String mRank = mCharacterEntry.getString("character");
+                Log.d(TAG, "mRank = " + mRank);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
+        //Log.d(TAG, "Test = " + response.body().getEntries().get(2));
 
     }
 
