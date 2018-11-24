@@ -28,8 +28,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_keyboard_arrow_left_black" />
-                            <entry key="sourceFile" value="C:\Users\Admin" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_dead_skull" />
+                            <entry key="sourceFile" value="C:\Users\Admin\.AndroidStudio3.2\skull.svg" />
                           </map>
                         </option>
                       </PersistentState>

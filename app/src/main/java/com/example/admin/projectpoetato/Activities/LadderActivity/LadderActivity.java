@@ -228,9 +228,9 @@ public class LadderActivity extends AppCompatActivity {
         // CreateRecyclerView
         public void CreateRecyclerView(RecyclerView recyclerView){
             recyclerView.setHasFixedSize(true);
-            Ladder mLadder = new Ladder("status", "rank", "characterName","accountName","level", "classId", "experience");
-            Ladder mLadder2 = new Ladder("D", "1000", "SteelMage","SteelMageAccount","100", "Marauder", "4.109.239.952");
-            Ladder mLadder3 = new Ladder("D", "15000", "LONGESTCHARACTERNAMEPOS","SteelMageAccount","100", "Marauder", "4.109.239.952");
+            Ladder mLadder = new Ladder("true","false", "rank", "characterName","accountName","level", "classId", "experience");
+            Ladder mLadder2 = new Ladder("false","true", "1000", "SteelMage","SteelMageAccount","100", "Marauder", "4.109.239.952");
+            Ladder mLadder3 = new Ladder("false","false", "15000", "LONGESTCHARACTERNAMEPOS","SteelMageAccount","100", "Marauder", "4.109.239.952");
             mLadderList.add(mLadder);
             mLadderList.add(mLadder2);
             mLadderList.add(mLadder3);

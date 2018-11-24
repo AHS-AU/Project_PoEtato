@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.admin.projectpoetato.Models.Ladder;
@@ -41,7 +42,7 @@ public class LadderAdapter extends RecyclerView.Adapter<LadderAdapter.LadderAdap
 
     // ViewHolder to LadderAdapter
     public static class LadderAdapterViewHolder extends RecyclerView.ViewHolder{
-        //private TextView mTextStatus;
+        private ImageView mImgStatus;
         private TextView mTextRank;
         private TextView mTextCharacter;
         private TextView mTextAccount;
@@ -54,7 +55,7 @@ public class LadderAdapter extends RecyclerView.Adapter<LadderAdapter.LadderAdap
             super(itemView);
 
             // UI Find views
-            // Imageview Status
+            mImgStatus = itemView.findViewById(R.id.imgLadderStatus);
             mTextRank = itemView.findViewById(R.id.textLadderRank);
             mTextCharacter = itemView.findViewById(R.id.textLadderCharacter);
             mTextLevel = itemView.findViewById(R.id.textLadderLevel);
@@ -88,6 +89,17 @@ public class LadderAdapter extends RecyclerView.Adapter<LadderAdapter.LadderAdap
         Ladder mLadder = mLadderList.get(position);
 
         // Ladder Status
+        if(mLadder.getDead().equals("false")){
+            if(mLadder.getOnline().equals("false")){
+                ladderAdapterViewHolder.mImgStatus.setImageResource(R.drawable.ic_offline);
+            }else{
+                ladderAdapterViewHolder.mImgStatus.setImageResource(R.drawable.ic_online);
+            }
+        }else{
+            ladderAdapterViewHolder.mImgStatus.setImageResource(R.drawable.ic_dead_skull);
+        }
+
+
 
         // Ladder Rank
         ladderAdapterViewHolder.mTextRank.setText(mLadder.getRank());

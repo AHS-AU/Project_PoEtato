@@ -5,7 +5,8 @@ import android.os.Parcelable;
 
 public class Ladder implements Parcelable {
     // Variables
-    private String status;
+    private String dead;
+    private String online;
     private String rank;
     private String characterName;
     private String accountName;
@@ -17,8 +18,9 @@ public class Ladder implements Parcelable {
     private static final int numberOfArgs = 7;
 
     // Constructor
-    public Ladder(String status, String rank, String characterName, String accountName, String level, String classId, String experience) {
-        this.status = status;
+    public Ladder(String dead,String online, String rank, String characterName, String accountName, String level, String classId, String experience) {
+        this.dead = dead;
+        this.online = online;
         this.rank = rank;
         this.characterName = characterName;
         this.accountName = accountName;
@@ -28,12 +30,20 @@ public class Ladder implements Parcelable {
     }
 
     // Getters & Setters
-    public String getStatus() {
-        return status;
+    public String getDead() {
+        return dead;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDead(String dead) {
+        this.dead = dead;
+    }
+
+    public String getOnline() {
+        return online;
+    }
+
+    public void setOnline(String online) {
+        this.online = online;
     }
 
     public String getRank() {
@@ -92,7 +102,7 @@ public class Ladder implements Parcelable {
         String[] data = new String[numberOfArgs];
         parcel.readStringArray(data);
         // Remember the data order must correspond to writeToParcel!
-        this.status = data[0];
+        this.online = data[0];
         this.rank = data[1];
         this.characterName = data[2];
         this.accountName = data[3];
@@ -109,7 +119,7 @@ public class Ladder implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeStringArray(new String[]{
-                this.status,
+                this.online,
                 this.rank,
                 this.characterName,
                 this.accountName,
