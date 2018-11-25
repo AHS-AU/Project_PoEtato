@@ -92,7 +92,10 @@ public class LadderAdapter extends RecyclerView.Adapter<LadderAdapter.LadderAdap
 
         // Ladder Status
         if(!mLadder.isDead()){
-            if(!mLadder.isOnline()){
+            if(mLadder.isRetired()){
+                ladderAdapterViewHolder.mImgStatus.setImageResource(R.drawable.ic_retired);
+            }
+            else if(!mLadder.isOnline()){
                 ladderAdapterViewHolder.mImgStatus.setImageResource(R.drawable.ic_offline);
             }else{
                 ladderAdapterViewHolder.mImgStatus.setImageResource(R.drawable.ic_online);
