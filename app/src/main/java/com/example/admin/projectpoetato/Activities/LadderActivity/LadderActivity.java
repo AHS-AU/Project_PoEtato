@@ -122,7 +122,7 @@ public class LadderActivity extends AppCompatActivity {
                 .build();
         LadderApi mLadder = retrofit.create(LadderApi.class);
 
-        Call<Ladder> mCallLadder = mLadder.getLadders(leagueId,"5","0","league","false","","","");
+        Call<Ladder> mCallLadder = mLadder.getLadders(leagueId,"10","0","league","false","","","");
         mCallLadder.enqueue(new Callback<Ladder>() {
             @Override
             public void onResponse(Call<Ladder> call, Response<Ladder> response) {
@@ -190,19 +190,39 @@ public class LadderActivity extends AppCompatActivity {
         for(int i = 0; i < mLadderEntries.length(); i++){
             try {
                 JSONObject mCharacterEntry = mLadderEntries.getJSONObject(i);
-                String mRank = mCharacterEntry.getString("character");
-                Log.d(TAG, "mRank = " + mRank);
+                Ladder mLadder = new Ladder(
+                        mCharacterEntry.getString("rank"),
+                        mCharacterEntry.getString("dead"),
+                        null,
+                        mCharacterEntry.getString("online"),
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null );
+                // Error Handling for Retired in case non-existent
+                if(mCharacterEntry.has("retired")){
+                    mLadder.setRetired(mCharacterEntry.getString("retired"));
+                }
+                Log.d(TAG, "Rank = " + mLadder.getRank() + "\tDead = " + mLadder.getDead() + "\tRetired = " + mLadder.getRetired() + "\tOnline = " + mLadder.getOnline() + "\n");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
 
-
-        //Log.d(TAG, "Test = " + response.body().getEntries().get(2));
-
     }
 
+
+//    public Ladder(String rank, String dead, String retired, String online,
+//                  String characterName, String level, String classId, String characterId,
+//                  String experience, String delveParty, String delveSolo,
+//                  String accountName, String challenges, String twitch)
 
 
     /**********************************************************************************************
@@ -273,13 +293,13 @@ public class LadderActivity extends AppCompatActivity {
         // CreateRecyclerView
         public void CreateRecyclerView(RecyclerView recyclerView){
             recyclerView.setHasFixedSize(true);
-            mLadderList.clear();
-            Ladder mLadder = new Ladder("true","false", "rank", "characterName","accountName","level", "classId", "experience");
-            Ladder mLadder2 = new Ladder("false","true", "1000", "SteelMage","SteelMageAccount","100", "Marauder", "4.109.239.952");
-            Ladder mLadder3 = new Ladder("false","false", "15000", "LONGESTCHARACTERNAMEPOS","SteelMageAccount","100", "Marauder", "4.109.239.952");
-            mLadderList.add(mLadder);
-            mLadderList.add(mLadder2);
-            mLadderList.add(mLadder3);
+//            mLadderList.clear();
+//            Ladder mLadder = new Ladder("true","false", "rank", "characterName","accountName","level", "classId", "experience");
+//            Ladder mLadder2 = new Ladder("false","true", "1000", "SteelMage","SteelMageAccount","100", "Marauder", "4.109.239.952");
+//            Ladder mLadder3 = new Ladder("false","false", "15000", "LONGESTCHARACTERNAMEPOS","SteelMageAccount","100", "Marauder", "4.109.239.952");
+//            mLadderList.add(mLadder);
+//            mLadderList.add(mLadder2);
+//            mLadderList.add(mLadder3);
             mLadderLayoutManager = new LinearLayoutManager(getContext());
             mLadderAdapter = new LadderAdapter(mLadderList);
             recyclerView.setLayoutManager(mLadderLayoutManager);
