@@ -17,21 +17,21 @@ public class Ladder implements Parcelable {
     @SerializedName("entries")
     private ArrayList entries;
 
-    private String rank;
-    private String dead;
-    private String retired;
-    private String online;
+    private int rank;
+    private boolean dead;
+    private boolean retired;
+    private boolean online;
     // Sub-Object: Character
     private String characterName;
-    private String level;
+    private int level;
     private String classId;
     private String characterId;
-    private String experience;
-    private String delveParty;
-    private String delveSolo;
+    private long experience;
+    private int delveParty;
+    private int delveSolo;
     // Sub-Object: Account
     private String accountName;
-    private String challenges;
+    private int challenges;
     private String twitch;
 
     // Number of Variables used in the Model
@@ -44,10 +44,10 @@ public class Ladder implements Parcelable {
 
     }
 
-    public Ladder(String rank, String dead, String retired, String online,
-                  String characterName, String level, String classId, String characterId,
-                  String experience, String delveParty, String delveSolo,
-                  String accountName, String challenges, String twitch) {
+    public Ladder(int rank, boolean dead, boolean retired, boolean online,
+                  String characterName, int level, String classId, String characterId,
+                  long experience, int delveParty, int delveSolo,
+                  String accountName, int challenges, String twitch) {
         this.rank = rank;
         this.dead = dead;
         this.retired = retired;
@@ -68,9 +68,9 @@ public class Ladder implements Parcelable {
         String LadderInfo = "";
 
         LadderInfo += "\tRank = " + getRank();
-        LadderInfo += "\tDead = " + getDead();
-        LadderInfo += "\tRetired = " + getRetired();
-        LadderInfo += "\tOnline = " + getOnline();
+        LadderInfo += "\tDead = " + isDead();
+        LadderInfo += "\tRetired = " + isRetired();
+        LadderInfo += "\tOnline = " + isOnline();
 
         LadderInfo += "\nCharacterName = " + getCharacterName();
         LadderInfo += "\tLevel = " + getLevel();
@@ -100,35 +100,35 @@ public class Ladder implements Parcelable {
         this.entries = entries;
     }
 
-    public String getRank() {
+    public int getRank() {
         return rank;
     }
 
-    public void setRank(String rank) {
+    public void setRank(int rank) {
         this.rank = rank;
     }
 
-    public String getDead() {
+    public boolean isDead() {
         return dead;
     }
 
-    public void setDead(String dead) {
+    public void setDead(boolean dead) {
         this.dead = dead;
     }
 
-    public String getRetired() {
+    public boolean isRetired() {
         return retired;
     }
 
-    public void setRetired(String retired) {
+    public void setRetired(boolean retired) {
         this.retired = retired;
     }
 
-    public String getOnline() {
+    public boolean isOnline() {
         return online;
     }
 
-    public void setOnline(String online) {
+    public void setOnline(boolean online) {
         this.online = online;
     }
 
@@ -140,11 +140,11 @@ public class Ladder implements Parcelable {
         this.characterName = characterName;
     }
 
-    public String getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 
@@ -164,27 +164,27 @@ public class Ladder implements Parcelable {
         this.characterId = characterId;
     }
 
-    public String getExperience() {
+    public long getExperience() {
         return experience;
     }
 
-    public void setExperience(String experience) {
+    public void setExperience(long experience) {
         this.experience = experience;
     }
 
-    public String getDelveParty() {
+    public int getDelveParty() {
         return delveParty;
     }
 
-    public void setDelveParty(String delveParty) {
+    public void setDelveParty(int delveParty) {
         this.delveParty = delveParty;
     }
 
-    public String getDelveSolo() {
+    public int getDelveSolo() {
         return delveSolo;
     }
 
-    public void setDelveSolo(String delveSolo) {
+    public void setDelveSolo(int delveSolo) {
         this.delveSolo = delveSolo;
     }
 
@@ -196,11 +196,11 @@ public class Ladder implements Parcelable {
         this.accountName = accountName;
     }
 
-    public String getChallenges() {
+    public int getChallenges() {
         return challenges;
     }
 
-    public void setChallenges(String challenges) {
+    public void setChallenges(int challenges) {
         this.challenges = challenges;
     }
 
@@ -219,21 +219,21 @@ public class Ladder implements Parcelable {
         String[] data = new String[numberOfArgs];
         parcel.readStringArray(data);
         // Remember the data order must correspond to writeToParcel!
-        this.rank = data[0];
-        this.dead = data[1];
-        this.retired = data[2];
-        this.online = data[3];
+        this.rank = Integer.parseInt(data[0]);
+        this.dead = Boolean.parseBoolean(data[1]);
+        this.retired = Boolean.parseBoolean(data[2]);
+        this.online = Boolean.parseBoolean(data[3]);
 
         this.characterName = data[4];
-        this.level = data[5];
+        this.level = Integer.parseInt(data[5]);
         this.classId = data[6];
         this.characterId = data[7];
-        this.experience = data[8];
-        this.delveParty = data[9];
-        this.delveSolo = data[10];
+        this.experience = Long.parseLong(data[8]);
+        this.delveParty = Integer.parseInt(data[9]);
+        this.delveSolo = Integer.parseInt(data[10]);
 
         this.accountName = data[11];
-        this.challenges = data[12];
+        this.challenges = Integer.parseInt(data[12]);
         this.twitch = data[13];
     }
 
@@ -245,21 +245,21 @@ public class Ladder implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeStringArray(new String[]{
-                this.rank,
-                this.dead,
-                this.retired,
-                this.online,
+                String.valueOf(this.rank),
+                String.valueOf(this.dead),
+                String.valueOf(this.retired),
+                String.valueOf(this.online),
 
                 this.characterName,
-                this.level,
+                String.valueOf(this.level),
                 this.classId,
                 this.characterId,
-                this.experience,
-                this.delveParty,
-                this.delveSolo,
+                String.valueOf(this.experience),
+                String.valueOf(this.delveParty),
+                String.valueOf(this.delveSolo),
 
                 this.accountName,
-                this.challenges,
+                String.valueOf(this.challenges),
                 this.twitch
         });
     }

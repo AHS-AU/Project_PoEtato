@@ -163,10 +163,10 @@ public class LadderActivity extends AppCompatActivity {
                 // First item is disabled and used for hints
                 // When the user changes the default hint, the spinner picks the League to retrieve.
                 if(position > 0){
-                    // Create the adapter that will return a fragment for each League
-                    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-                    // Set up the ViewPager with the sections adapter.
-                    mViewPager.setAdapter(mSectionsPagerAdapter);
+//                    // Create the adapter that will return a fragment for each League
+//                    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+//                    // Set up the ViewPager with the sections adapter.
+//                    mViewPager.setAdapter(mSectionsPagerAdapter);
                     SendLadderRequest(mSelectedLeague);
                     Log.d(TAG, "League Selected: " + mSelectedLeague);
                 }
@@ -182,9 +182,8 @@ public class LadderActivity extends AppCompatActivity {
         if(!response.isSuccessful()){
             Log.d(TAG, "LadderOnResponse() onResponse Code: " + response.code());
             return;
-        }else{
-            Log.d(TAG, "LadderOnResponse() isSuccessful ResponseCode = " + response.code());
         }
+        List<Ladder> mLadderList = new ArrayList<>();
 
         JSONArray mLadderEntries = new JSONArray(response.body().getEntries());
         for(int i = 0; i < mLadderEntries.length(); i++){
@@ -194,35 +193,41 @@ public class LadderActivity extends AppCompatActivity {
                 JSONObject mAccountObject = mCharacterEntry.getJSONObject("account");
                 JSONObject mChallengesObject = mAccountObject.getJSONObject("challenges");
                 Ladder mLadder = new Ladder(
-                        mCharacterEntry.getString("rank"),
-                        mCharacterEntry.getString("dead"),
-                        null,
-                        mCharacterEntry.getString("online"),
+                        mCharacterEntry.getInt("rank"),
+                        mCharacterEntry.getBoolean("dead"),
+                        false,
+                        mCharacterEntry.getBoolean("online"),
                         mCharacterObject.getString("name"),
-                        mCharacterObject.getString("level"),
+                        mCharacterObject.getInt("level"),
                         mCharacterObject.getString("class"),
                         mCharacterObject.getString("id"),
-                        mCharacterObject.getString("experience"),
-                        null,
-                        null,
+                        mCharacterObject.getLong("experience"),
+                        0,
+                        0,
                         mAccountObject.getString("name"),
-                        mChallengesObject.getString("total"),
+                        mChallengesObject.getInt("total"),
                         null );
                 // Error Handling for Retired in case non-existent
                 if(mCharacterEntry.has("retired")){
-                    mLadder.setRetired(mCharacterEntry.getString("retired"));
+                    mLadder.setRetired(mCharacterEntry.getBoolean("retired"));
                 }
                 // Error Handling for Delve in case non-existent
                 if(mCharacterObject.has("depth")){
                     JSONObject mDelveObject = mCharacterObject.getJSONObject("depth");
-                    mLadder.setDelveParty(mDelveObject.getString("default"));
-                    mLadder.setDelveSolo(mDelveObject.getString("solo"));
+                    mLadder.setDelveParty(mDelveObject.getInt("default"));
+                    mLadder.setDelveSolo(mDelveObject.getInt("solo"));
                 }
                 // Error Handling for Twitch in case non-existent
                 if(mAccountObject.has("twitch")){
                     JSONObject mTwitchObject = mAccountObject.getJSONObject("twitch");
                     mLadder.setTwitch(mTwitchObject.getString("name"));
                 }
+                // Start fragment
+                mLadderList.add(mLadder);
+                // Create the adapter that will return a fragment for each League
+                mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), mLadderList);
+                // Set up the ViewPager with the sections adapter.
+                mViewPager.setAdapter(mSectionsPagerAdapter);
 
                 //Log.d(TAG, "CharEntry[" + i + "]: " + mLadder.PrintLadderInfo());
             } catch (JSONException e) {
@@ -232,11 +237,6 @@ public class LadderActivity extends AppCompatActivity {
 
     }
 
-
-//    public Ladder(String rank, String dead, String retired, String online,
-//                  String characterName, String level, String classId, String characterId,
-//                  String experience, String delveParty, String delveSolo,
-//                  String accountName, String challenges, String twitch)
 
 
     /**********************************************************************************************
@@ -305,15 +305,9 @@ public class LadderActivity extends AppCompatActivity {
         }
 
         // CreateRecyclerView
-        public void CreateRecyclerView(RecyclerView recyclerView){
+        public void CreateRecyclerView(RecyclerView recyclerView, List<Ladder> ladderList){
             recyclerView.setHasFixedSize(true);
-//            mLadderList.clear();
-//            Ladder mLadder = new Ladder("true","false", "rank", "characterName","accountName","level", "classId", "experience");
-//            Ladder mLadder2 = new Ladder("false","true", "1000", "SteelMage","SteelMageAccount","100", "Marauder", "4.109.239.952");
-//            Ladder mLadder3 = new Ladder("false","false", "15000", "LONGESTCHARACTERNAMEPOS","SteelMageAccount","100", "Marauder", "4.109.239.952");
-//            mLadderList.add(mLadder);
-//            mLadderList.add(mLadder2);
-//            mLadderList.add(mLadder3);
+            this.mLadderList = ladderList;
             mLadderLayoutManager = new LinearLayoutManager(getContext());
             mLadderAdapter = new LadderAdapter(mLadderList);
             recyclerView.setLayoutManager(mLadderLayoutManager);
@@ -324,15 +318,18 @@ public class LadderActivity extends AppCompatActivity {
 
         // The fragment argument representing the section number for this fragment
         private static final String ARG_SECTION_NUMBER = "section_number";
+        public static final String ARG_LADDER_LIST = "ARG_LADDER_LIST";
         public PlaceholderFragment() {
         }
 
 
         // Returns a new instance of this fragment for the given section number.
-        public static PlaceholderFragment newInstance(int sectionNumber) {
+        public static PlaceholderFragment newInstance(int sectionNumber, List<Ladder> ladderList) {
+            ArrayList<Ladder> mParcelLadderList = (ArrayList)ladderList;
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            args.putParcelableArrayList(ARG_LADDER_LIST,mParcelLadderList);
             fragment.setArguments(args);
             return fragment;
         }
@@ -342,7 +339,7 @@ public class LadderActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_ladder, container, false);
             RecyclerView mRvLadder = rootView.findViewById(R.id.listLadder);
-            CreateRecyclerView(mRvLadder);
+            CreateRecyclerView(mRvLadder, getArguments().getParcelableArrayList(ARG_LADDER_LIST));
 //            TextView textView = rootView.findViewById(R.id.section_label);
 //            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
@@ -355,21 +352,23 @@ public class LadderActivity extends AppCompatActivity {
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
+        private List<Ladder> mLadderList = new ArrayList<>();
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        public SectionsPagerAdapter(FragmentManager fm, List<Ladder> ladderList) {
             super(fm);
+            this.mLadderList = ladderList;
         }
 
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            return PlaceholderFragment.newInstance(position + 1, mLadderList);
         }
 
         @Override
         public int getCount() {
-            LADDER_PAGE_COUNT = 5;
+            LADDER_PAGE_COUNT = 50;
             return LADDER_PAGE_COUNT;
         }
     }

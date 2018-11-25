@@ -2,6 +2,8 @@ package com.example.admin.projectpoetato.Activities.LadderActivity;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,8 +91,8 @@ public class LadderAdapter extends RecyclerView.Adapter<LadderAdapter.LadderAdap
         Ladder mLadder = mLadderList.get(position);
 
         // Ladder Status
-        if(mLadder.getDead().equals("false")){
-            if(mLadder.getOnline().equals("false")){
+        if(!mLadder.isDead()){
+            if(!mLadder.isOnline()){
                 ladderAdapterViewHolder.mImgStatus.setImageResource(R.drawable.ic_offline);
             }else{
                 ladderAdapterViewHolder.mImgStatus.setImageResource(R.drawable.ic_online);
@@ -102,13 +104,14 @@ public class LadderAdapter extends RecyclerView.Adapter<LadderAdapter.LadderAdap
 
 
         // Ladder Rank
-        ladderAdapterViewHolder.mTextRank.setText(mLadder.getRank());
+        ladderAdapterViewHolder.mTextRank.setText(String.valueOf(mLadder.getRank()));
+
 
         // Ladder Character
         ladderAdapterViewHolder.mTextCharacter.setText(mLadder.getCharacterName());
 
         // Ladder Level
-        ladderAdapterViewHolder.mTextLevel.setText(mLadder.getLevel());
+        ladderAdapterViewHolder.mTextLevel.setText(String.valueOf(mLadder.getLevel()));
 
     }
 
