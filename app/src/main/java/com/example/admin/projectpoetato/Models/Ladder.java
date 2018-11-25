@@ -73,6 +73,18 @@ public class Ladder implements Parcelable {
         LadderInfo += "\tOnline = " + getOnline();
 
         LadderInfo += "\nCharacterName = " + getCharacterName();
+        LadderInfo += "\tLevel = " + getLevel();
+        LadderInfo += "\tClass = " + getClassId();
+        //LadderInfo += "\tCharId = " + getCharacterId();
+        LadderInfo += "\tExp = " + getExperience();
+        LadderInfo += "\tDelveParty = " + getDelveParty();
+        LadderInfo += "\tDelveSolo = " + getDelveSolo();
+
+        LadderInfo += "\nAccountName = " + getAccountName();
+        LadderInfo += "\tChallenges = " + getChallenges();
+        LadderInfo += "\tTwitch = " + getTwitch();
+
+        LadderInfo += "\n";
 
         return LadderInfo;
     }

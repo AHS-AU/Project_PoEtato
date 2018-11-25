@@ -122,7 +122,7 @@ public class LadderActivity extends AppCompatActivity {
                 .build();
         LadderApi mLadder = retrofit.create(LadderApi.class);
 
-        Call<Ladder> mCallLadder = mLadder.getLadders(leagueId,"10","0","league","false","","","");
+        Call<Ladder> mCallLadder = mLadder.getLadders(leagueId,"200","0","league","false","","","");
         mCallLadder.enqueue(new Callback<Ladder>() {
             @Override
             public void onResponse(Call<Ladder> call, Response<Ladder> response) {
@@ -190,31 +190,45 @@ public class LadderActivity extends AppCompatActivity {
         for(int i = 0; i < mLadderEntries.length(); i++){
             try {
                 JSONObject mCharacterEntry = mLadderEntries.getJSONObject(i);
+                JSONObject mCharacterObject = mCharacterEntry.getJSONObject("character");
+                JSONObject mAccountObject = mCharacterEntry.getJSONObject("account");
+                JSONObject mChallengesObject = mAccountObject.getJSONObject("challenges");
                 Ladder mLadder = new Ladder(
                         mCharacterEntry.getString("rank"),
                         mCharacterEntry.getString("dead"),
                         null,
                         mCharacterEntry.getString("online"),
+                        mCharacterObject.getString("name"),
+                        mCharacterObject.getString("level"),
+                        mCharacterObject.getString("class"),
+                        mCharacterObject.getString("id"),
+                        mCharacterObject.getString("experience"),
                         null,
                         null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
+                        mAccountObject.getString("name"),
+                        mChallengesObject.getString("total"),
                         null );
                 // Error Handling for Retired in case non-existent
                 if(mCharacterEntry.has("retired")){
                     mLadder.setRetired(mCharacterEntry.getString("retired"));
                 }
-                Log.d(TAG, "Rank = " + mLadder.getRank() + "\tDead = " + mLadder.getDead() + "\tRetired = " + mLadder.getRetired() + "\tOnline = " + mLadder.getOnline() + "\n");
+                // Error Handling for Delve in case non-existent
+                if(mCharacterObject.has("depth")){
+                    JSONObject mDelveObject = mCharacterObject.getJSONObject("depth");
+                    mLadder.setDelveParty(mDelveObject.getString("default"));
+                    mLadder.setDelveSolo(mDelveObject.getString("solo"));
+                }
+                // Error Handling for Twitch in case non-existent
+                if(mAccountObject.has("twitch")){
+                    JSONObject mTwitchObject = mAccountObject.getJSONObject("twitch");
+                    mLadder.setTwitch(mTwitchObject.getString("name"));
+                }
+
+                //Log.d(TAG, "CharEntry[" + i + "]: " + mLadder.PrintLadderInfo());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-
 
     }
 
