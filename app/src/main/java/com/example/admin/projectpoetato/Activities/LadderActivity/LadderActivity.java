@@ -1,5 +1,6 @@
 package com.example.admin.projectpoetato.Activities.LadderActivity;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -122,9 +123,6 @@ public class LadderActivity extends AppCompatActivity {
     public void LeagueOnResponse(Call<List<League>> call, Response<List<League>> response){
         if(!response.isSuccessful()){
             Log.d(TAG, "LeagueOnResponse() onResponse Code: " + response.code());
-            if(response.code() == 429){
-                call.clone();
-            }
             return;
         }
         List<League> leagues = response.body();
@@ -306,12 +304,10 @@ public class LadderActivity extends AppCompatActivity {
 
         // Functions
         public void OnAdapterItemClick(int position){
-            OpenLeagueCharacterInfo(mLadderList.get(position));
+            // TODO: OpenLeagueCharacter Info with mLadderList.get(position)
+            Log.d(TAG, "You Clicked on Character = " + mLadderList.get(position).getCharacterName());
         }
 
-        private void OpenLeagueCharacterInfo(Ladder ladder){
-            Log.d(TAG, "Ladder Name = " + ladder.getCharacterName());
-        }
 
         // CreateRecyclerView
         public void CreateRecyclerView(RecyclerView recyclerView, List<Ladder> ladderList){
@@ -321,13 +317,12 @@ public class LadderActivity extends AppCompatActivity {
             mLadderAdapter = new LadderAdapter(mLadderList);
             recyclerView.setLayoutManager(mLadderLayoutManager);
             recyclerView.setAdapter(mLadderAdapter);
-            // TODO: mLadderAdapter.setOnItemClickListener(this::OnAdapterItemClick);
+            mLadderAdapter.setOnItemClickListener(this::OnAdapterItemClick);
         }
 
 
         // The fragment argument representing the section number for this fragment
         private static final String ARG_SECTION_NUMBER = "section_number";
-        public static final String ARG_LADDER_LIST = "ARG_LADDER_LIST";
         public static final String ARG_LADDER_ID = "ARG_LADDER_ID";
         public PlaceholderFragment() {
         }
@@ -350,7 +345,6 @@ public class LadderActivity extends AppCompatActivity {
             SendLadderRequest(getArguments().getString(ARG_LADDER_ID),50,getArguments().getInt(ARG_SECTION_NUMBER)*50,"league","false","","","");
             mRvLadder = rootView.findViewById(R.id.listLadder);
 //            CreateRecyclerView(mRvLadder, getArguments().getParcelableArrayList(ARG_LADDER_LIST));
-            Log.d(TAG, "onCreateView");
 //            TextView textView = rootView.findViewById(R.id.section_label);
 //            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
@@ -377,11 +371,12 @@ public class LadderActivity extends AppCompatActivity {
             // Return a PlaceholderFragment (defined as a static inner class below).
             Log.d(TAG, "SectionPage " + position);
             return PlaceholderFragment.newInstance(position, mLeagueId);
+
+
         }
 
         @Override
         public int getCount() {
-            LADDER_PAGE_COUNT = 50;
             return LADDER_PAGE_COUNT;
         }
     }
