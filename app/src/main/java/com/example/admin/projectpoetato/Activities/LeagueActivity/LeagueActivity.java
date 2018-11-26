@@ -11,7 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.FrameLayout;
 
-import com.example.admin.projectpoetato.API.Resources.League.LeagueApi;
+import com.example.admin.projectpoetato.API.Resources.LeagueApi;
 import com.example.admin.projectpoetato.Fragments.LeagueInfo.LeagueInfoFragment;
 import com.example.admin.projectpoetato.Models.League;
 import com.example.admin.projectpoetato.R;

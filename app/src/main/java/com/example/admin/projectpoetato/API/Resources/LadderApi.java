@@ -1,4 +1,4 @@
-package com.example.admin.projectpoetato.API.Resources.League;
+package com.example.admin.projectpoetato.API.Resources;
 
 import com.example.admin.projectpoetato.Models.Ladder;
 

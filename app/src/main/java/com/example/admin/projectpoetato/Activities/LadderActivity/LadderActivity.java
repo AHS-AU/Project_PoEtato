@@ -22,12 +22,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.admin.projectpoetato.API.Resources.League.LadderApi;
-import com.example.admin.projectpoetato.API.Resources.League.LeagueApi;
+import com.example.admin.projectpoetato.API.Resources.LadderApi;
+import com.example.admin.projectpoetato.API.Resources.LeagueApi;
 import com.example.admin.projectpoetato.Models.Ladder;
 import com.example.admin.projectpoetato.Models.League;
 import com.example.admin.projectpoetato.R;
-import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -115,28 +114,6 @@ public class LadderActivity extends AppCompatActivity {
         });
     }
 
-    public void SendLadderRequest(String leagueId){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URL_API_PATHOFEXILE)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        LadderApi mLadder = retrofit.create(LadderApi.class);
-
-        Call<Ladder> mCallLadder = mLadder.getLadders(leagueId,"200","0","league","false","","","");
-        mCallLadder.enqueue(new Callback<Ladder>() {
-            @Override
-            public void onResponse(Call<Ladder> call, Response<Ladder> response) {
-                LadderOnResponse(call, response);
-            }
-
-            @Override
-            public void onFailure(Call<Ladder> call, Throwable t) {
-
-            }
-        });
-
-    }
-
     /**
      * Method that get called when there is response for League Call
      * @param call : call
@@ -145,6 +122,9 @@ public class LadderActivity extends AppCompatActivity {
     public void LeagueOnResponse(Call<List<League>> call, Response<List<League>> response){
         if(!response.isSuccessful()){
             Log.d(TAG, "LeagueOnResponse() onResponse Code: " + response.code());
+            if(response.code() == 429){
+                call.clone();
+            }
             return;
         }
         List<League> leagues = response.body();
@@ -163,11 +143,11 @@ public class LadderActivity extends AppCompatActivity {
                 // First item is disabled and used for hints
                 // When the user changes the default hint, the spinner picks the League to retrieve.
                 if(position > 0){
-//                    // Create the adapter that will return a fragment for each League
-//                    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-//                    // Set up the ViewPager with the sections adapter.
-//                    mViewPager.setAdapter(mSectionsPagerAdapter);
-                    SendLadderRequest(mSelectedLeague);
+                    // Create the adapter that will return a fragment for each League
+                    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),mSelectedLeague);
+                    // Set up the ViewPager with the sections adapter.
+                    mViewPager.setAdapter(mSectionsPagerAdapter);
+                    //SendLadderRequest(mSelectedLeague);
                     Log.d(TAG, "League Selected: " + mSelectedLeague);
                 }
             }
@@ -177,66 +157,6 @@ public class LadderActivity extends AppCompatActivity {
             }
         });
     }
-
-    public void LadderOnResponse(Call<Ladder> call, Response<Ladder> response){
-        if(!response.isSuccessful()){
-            Log.d(TAG, "LadderOnResponse() onResponse Code: " + response.code());
-            return;
-        }
-        List<Ladder> mLadderList = new ArrayList<>();
-
-        JSONArray mLadderEntries = new JSONArray(response.body().getEntries());
-        for(int i = 0; i < mLadderEntries.length(); i++){
-            try {
-                JSONObject mCharacterEntry = mLadderEntries.getJSONObject(i);
-                JSONObject mCharacterObject = mCharacterEntry.getJSONObject("character");
-                JSONObject mAccountObject = mCharacterEntry.getJSONObject("account");
-                JSONObject mChallengesObject = mAccountObject.getJSONObject("challenges");
-                Ladder mLadder = new Ladder(
-                        mCharacterEntry.getInt("rank"),
-                        mCharacterEntry.getBoolean("dead"),
-                        false,
-                        mCharacterEntry.getBoolean("online"),
-                        mCharacterObject.getString("name"),
-                        mCharacterObject.getInt("level"),
-                        mCharacterObject.getString("class"),
-                        mCharacterObject.getString("id"),
-                        mCharacterObject.getLong("experience"),
-                        0,
-                        0,
-                        mAccountObject.getString("name"),
-                        mChallengesObject.getInt("total"),
-                        null );
-                // Error Handling for Retired in case non-existent
-                if(mCharacterEntry.has("retired")){
-                    mLadder.setRetired(mCharacterEntry.getBoolean("retired"));
-                }
-                // Error Handling for Delve in case non-existent
-                if(mCharacterObject.has("depth")){
-                    JSONObject mDelveObject = mCharacterObject.getJSONObject("depth");
-                    mLadder.setDelveParty(mDelveObject.getInt("default"));
-                    mLadder.setDelveSolo(mDelveObject.getInt("solo"));
-                }
-                // Error Handling for Twitch in case non-existent
-                if(mAccountObject.has("twitch")){
-                    JSONObject mTwitchObject = mAccountObject.getJSONObject("twitch");
-                    mLadder.setTwitch(mTwitchObject.getString("name"));
-                }
-                // Start fragment
-                mLadderList.add(mLadder);
-                // Create the adapter that will return a fragment for each League
-                mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), mLadderList);
-                // Set up the ViewPager with the sections adapter.
-                mViewPager.setAdapter(mSectionsPagerAdapter);
-
-                //Log.d(TAG, "CharEntry[" + i + "]: " + mLadder.PrintLadderInfo());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
 
 
     /**********************************************************************************************
@@ -294,6 +214,95 @@ public class LadderActivity extends AppCompatActivity {
         private List<Ladder> mLadderList = new ArrayList<>();
         private RecyclerView.LayoutManager mLadderLayoutManager;
         private LadderAdapter mLadderAdapter;
+        private RecyclerView mRvLadder;
+
+
+
+        public void SendLadderRequest(String leagueId, int limit, int offset, String type,
+                                      String track, String accountName, String difficulty, String start){
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(URL_API_PATHOFEXILE)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            LadderApi mLadder = retrofit.create(LadderApi.class);
+
+            Call<Ladder> mCallLadder = mLadder.getLadders(leagueId,String.valueOf(limit),String.valueOf(offset),"league","false","","","");
+            mCallLadder.enqueue(new Callback<Ladder>() {
+                @Override
+                public void onResponse(Call<Ladder> call, Response<Ladder> response) {
+                    LadderOnResponse(call, response);
+                }
+
+                @Override
+                public void onFailure(Call<Ladder> call, Throwable t) {
+
+                }
+            });
+
+        }
+
+        public void LadderOnResponse(Call<Ladder> call, Response<Ladder> response){
+            if(!response.isSuccessful()){
+                Log.d(TAG, "LadderOnResponse() onResponse Code: " + response.code());
+                if(response.code() == 429){
+                    call.clone();
+                }
+                return;
+            }
+            List<Ladder> mLadderList = new ArrayList<>();
+
+            JSONArray mLadderEntries = new JSONArray(response.body().getEntries());
+            for(int i = 0; i < mLadderEntries.length(); i++){
+                try {
+                    JSONObject mCharacterEntry = mLadderEntries.getJSONObject(i);
+                    JSONObject mCharacterObject = mCharacterEntry.getJSONObject("character");
+                    JSONObject mAccountObject = mCharacterEntry.getJSONObject("account");
+                    JSONObject mChallengesObject = mAccountObject.getJSONObject("challenges");
+                    Ladder mLadder = new Ladder(
+                            mCharacterEntry.getInt("rank"),
+                            mCharacterEntry.getBoolean("dead"),
+                            false,
+                            mCharacterEntry.getBoolean("online"),
+                            mCharacterObject.getString("name"),
+                            mCharacterObject.getInt("level"),
+                            mCharacterObject.getString("class"),
+                            mCharacterObject.getString("id"),
+                            mCharacterObject.getLong("experience"),
+                            0,
+                            0,
+                            mAccountObject.getString("name"),
+                            mChallengesObject.getInt("total"),
+                            null );
+                    // Error Handling for Retired in case non-existent
+                    if(mCharacterEntry.has("retired")){
+                        mLadder.setRetired(mCharacterEntry.getBoolean("retired"));
+                    }
+                    // Error Handling for Delve in case non-existent
+                    if(mCharacterObject.has("depth")){
+                        JSONObject mDelveObject = mCharacterObject.getJSONObject("depth");
+                        mLadder.setDelveParty(mDelveObject.getInt("default"));
+                        mLadder.setDelveSolo(mDelveObject.getInt("solo"));
+                    }
+                    // Error Handling for Twitch in case non-existent
+                    if(mAccountObject.has("twitch")){
+                        JSONObject mTwitchObject = mAccountObject.getJSONObject("twitch");
+                        mLadder.setTwitch(mTwitchObject.getString("name"));
+                    }
+                    // Start fragment
+                    mLadderList.add(mLadder);
+                    //Log.d(TAG, "CharEntry[" + i + "]: " + mLadder.PrintLadderInfo());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            CreateRecyclerView(mRvLadder, mLadderList);
+            Log.d(TAG, "LadderOnResponse Done");
+
+        }
+
+
+
+
 
         // Functions
         public void OnAdapterItemClick(int position){
@@ -319,17 +328,17 @@ public class LadderActivity extends AppCompatActivity {
         // The fragment argument representing the section number for this fragment
         private static final String ARG_SECTION_NUMBER = "section_number";
         public static final String ARG_LADDER_LIST = "ARG_LADDER_LIST";
+        public static final String ARG_LADDER_ID = "ARG_LADDER_ID";
         public PlaceholderFragment() {
         }
 
 
         // Returns a new instance of this fragment for the given section number.
-        public static PlaceholderFragment newInstance(int sectionNumber, List<Ladder> ladderList) {
-            ArrayList<Ladder> mParcelLadderList = (ArrayList)ladderList;
+        public static PlaceholderFragment newInstance(int sectionNumber, String leagueId) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            args.putParcelableArrayList(ARG_LADDER_LIST,mParcelLadderList);
+            args.putString(ARG_LADDER_ID,leagueId);
             fragment.setArguments(args);
             return fragment;
         }
@@ -338,8 +347,10 @@ public class LadderActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_ladder, container, false);
-            RecyclerView mRvLadder = rootView.findViewById(R.id.listLadder);
-            CreateRecyclerView(mRvLadder, getArguments().getParcelableArrayList(ARG_LADDER_LIST));
+            SendLadderRequest(getArguments().getString(ARG_LADDER_ID),50,getArguments().getInt(ARG_SECTION_NUMBER)*50,"league","false","","","");
+            mRvLadder = rootView.findViewById(R.id.listLadder);
+//            CreateRecyclerView(mRvLadder, getArguments().getParcelableArrayList(ARG_LADDER_LIST));
+            Log.d(TAG, "onCreateView");
 //            TextView textView = rootView.findViewById(R.id.section_label);
 //            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
@@ -353,17 +364,19 @@ public class LadderActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
         private List<Ladder> mLadderList = new ArrayList<>();
+        private String mLeagueId;
 
-        public SectionsPagerAdapter(FragmentManager fm, List<Ladder> ladderList) {
+        public SectionsPagerAdapter(FragmentManager fm, String leagueId) {
             super(fm);
-            this.mLadderList = ladderList;
+            this.mLeagueId = leagueId;
         }
 
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1, mLadderList);
+            Log.d(TAG, "SectionPage " + position);
+            return PlaceholderFragment.newInstance(position, mLeagueId);
         }
 
         @Override
