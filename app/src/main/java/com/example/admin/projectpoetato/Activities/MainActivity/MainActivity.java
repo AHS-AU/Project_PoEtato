@@ -18,6 +18,7 @@ import android.widget.Button;
 
 import com.example.admin.projectpoetato.Activities.LadderActivity.LadderActivity;
 import com.example.admin.projectpoetato.Activities.LeagueActivity.LeagueActivity;
+import com.example.admin.projectpoetato.Dialogs.LadderInfoDialog;
 import com.example.admin.projectpoetato.Fragments.Settings.SettingsFragment;
 import com.example.admin.projectpoetato.R;
 
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Button Start League Activity
         mBtnLeague.setOnClickListener(v -> StartLeagueActivity());
+        //mBtnLadder.setOnClickListener(v -> StartLadderActivity());
         mBtnLadder.setOnClickListener(v -> StartLadderActivity());
 
         // Navigation View

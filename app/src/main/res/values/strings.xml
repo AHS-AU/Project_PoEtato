@@ -38,4 +38,5 @@
     <string name="cid_experience" translatable="false">Experience:</string>
     <string name="cid_challenges" translatable="false">Challenges:</string>
     <string name="cid_twitch" translatable="false">Twitch:</string>
+    <string name="cid_title">Character Info</string>
 </resources>

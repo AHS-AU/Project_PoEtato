@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.example.admin.projectpoetato.API.Resources.LadderApi;
 import com.example.admin.projectpoetato.API.Resources.LeagueApi;
+import com.example.admin.projectpoetato.Dialogs.LadderInfoDialog;
 import com.example.admin.projectpoetato.Models.Ladder;
 import com.example.admin.projectpoetato.Models.League;
 import com.example.admin.projectpoetato.R;
@@ -42,6 +43,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.example.admin.projectpoetato.Utilities.GlobalVariables.ARG_CHARACTER_INFO;
 import static com.example.admin.projectpoetato.Utilities.GlobalVariables.URL_API_PATHOFEXILE;
 
 /**
@@ -175,6 +177,7 @@ public class LadderActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         // Send League Request & set up the Spinner League
         SendLeagueRequest();
@@ -205,15 +208,25 @@ public class LadderActivity extends AppCompatActivity {
     }
 
     /**
-     * A placeholder fragment containing a simple view.
+     * Calls onBackPressed to return to previous Activity
+     * @return :
      */
+    @Override
+    public boolean onSupportNavigateUp() {
+        Log.d(TAG, "onBackPressed");
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+
+    /**********************************************************************************************
+     *                                 Ladder List Fragment                                       *
+     *********************************************************************************************/
     public static class PlaceholderFragment extends Fragment {
         // Variables for Fragment
         private List<Ladder> mLadderList = new ArrayList<>();
         private RecyclerView.LayoutManager mLadderLayoutManager;
         private LadderAdapter mLadderAdapter;
         private RecyclerView mRvLadder;
-
 
 
         public void SendLadderRequest(String leagueId, int limit, int offset, String type,
@@ -299,13 +312,16 @@ public class LadderActivity extends AppCompatActivity {
         }
 
 
-
-
-
-        // Functions
+        /**
+         * Create LadderInfoDialog with Ladder object in Bundle
+         * @param position : Position of the list to retrieve the Ladder Object
+         */
         public void OnAdapterItemClick(int position){
-            // TODO: OpenLeagueCharacter Info with mLadderList.get(position)
-            Log.d(TAG, "You Clicked on Character = " + mLadderList.get(position).getCharacterName());
+            LadderInfoDialog dialog = new LadderInfoDialog();
+            Bundle args = new Bundle();
+            args.putParcelable(ARG_CHARACTER_INFO, mLadderList.get(position));
+            dialog.setArguments(args);
+            dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
         }
 
 
@@ -324,6 +340,8 @@ public class LadderActivity extends AppCompatActivity {
         // The fragment argument representing the section number for this fragment
         private static final String ARG_SECTION_NUMBER = "section_number";
         public static final String ARG_LADDER_ID = "ARG_LADDER_ID";
+
+        // Empty Constructor
         public PlaceholderFragment() {
         }
 
@@ -350,10 +368,9 @@ public class LadderActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
+    /**********************************************************************************************
+     *                                 FragmentPagerAdapter                                       *
+     *********************************************************************************************/
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
         private List<Ladder> mLadderList = new ArrayList<>();
         private String mLeagueId;

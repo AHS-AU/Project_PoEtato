@@ -26,6 +26,6 @@
     <string name="cid_level">Level:</string>
     <string name="cid_class">Klasse:</string>
     <string name="cid_delveParty">Delve Gruppe:</string>
-    <string name="cid_delveSolo">Delve Solo:</string>
     <string name="cid_delveSolo" translatable="false">Delve Solo:</string>
+    <string name="cid_title">Karakter Information</string>
 </resources>
