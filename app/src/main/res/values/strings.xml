@@ -25,5 +25,17 @@
 
     <!-- Strings used for Ladder Activity/Fragments -->
     <string name="title_activity_ladder">Ladder Tracker</string>
-    <string name="section_format" translatable="false">Hello World from section: %1$d</string>
+
+    <!-- String used for Ladder Activity's Character Info Dialog -->
+    <string name="cid_status">Status:</string>
+    <string name="cid_rank">Rank:</string>
+    <string name="cid_charName" translatable="false">Character:</string>
+    <string name="cid_account" translatable="false">Account:</string>
+    <string name="cid_level" translatable="false">Level:</string>
+    <string name="cid_class" translatable="false">Class:</string>
+    <string name="cid_delveParty" translatable="false">Delve Party:</string>
+    <string name="cid_delveSolo" translatable="false">Delve Solo:</string>
+    <string name="cid_experience" translatable="false">Experience:</string>
+    <string name="cid_challenges" translatable="false">Challenges:</string>
+    <string name="cid_twitch" translatable="false">Twitch:</string>
 </resources>

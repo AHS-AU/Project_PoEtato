@@ -19,4 +19,13 @@
     <string name="li_rule_name">Navn</string>
     <string name="li_rule_description">Beskrivelse</string>
     <string name="title_activity_ladder" translatable="false">Ladder Overvåger</string>
+    <string name="cid_status">Status:</string>
+    <string name="cid_rank">Rang:</string>
+    <string name="cid_charName">Karakter:</string>
+    <string name="cid_account">Bruger:</string>
+    <string name="cid_level">Level:</string>
+    <string name="cid_class">Klasse:</string>
+    <string name="cid_delveParty">Delve Gruppe:</string>
+    <string name="cid_delveSolo">Delve Solo:</string>
+    <string name="cid_delveSolo" translatable="false">Delve Solo:</string>
 </resources>

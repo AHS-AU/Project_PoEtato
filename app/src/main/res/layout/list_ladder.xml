@@ -52,12 +52,12 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="15000"
         android:textSize="@dimen/lvNormalSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline_ladder2"
         app:layout_constraintStart_toStartOf="@+id/guideline_ladder"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="15000" />
 
     <TextView
         android:id="@+id/textLadderCharacter"
@@ -69,12 +69,12 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="TRYINGTOMAKEAVERYLONGNA"
         android:textSize="@dimen/lvNormalSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textLadderLevel"
         app:layout_constraintStart_toStartOf="@+id/guideline_ladder2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="TRYINGTOMAKEAVERYLONGNA" />
 
     <TextView
         android:id="@+id/textLadderLevel"
@@ -84,11 +84,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="100"
         android:textSize="@dimen/lvNormalSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/guideline_ladder3"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="100" />
 
 </android.support.constraint.ConstraintLayout>

@@ -345,8 +345,6 @@ public class LadderActivity extends AppCompatActivity {
             SendLadderRequest(getArguments().getString(ARG_LADDER_ID),50,getArguments().getInt(ARG_SECTION_NUMBER)*50,"league","false","","","");
             mRvLadder = rootView.findViewById(R.id.listLadder);
 //            CreateRecyclerView(mRvLadder, getArguments().getParcelableArrayList(ARG_LADDER_LIST));
-//            TextView textView = rootView.findViewById(R.id.section_label);
-//            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
             return rootView;
         }
