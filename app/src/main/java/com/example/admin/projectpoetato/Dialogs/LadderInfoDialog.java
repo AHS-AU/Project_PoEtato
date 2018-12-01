@@ -14,6 +14,8 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.CheckBox;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.admin.projectpoetato.Models.Ladder;
@@ -40,6 +42,7 @@ public class LadderInfoDialog extends AppCompatDialogFragment {
     private TextView mTextExperience;
     private TextView mTextChallenges;
     private TextView mTextTwitch;
+    private CheckBox mCheckTrack;
 
 
 

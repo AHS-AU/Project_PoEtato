@@ -28,4 +28,5 @@
     <string name="cid_delveParty">Delve Gruppe:</string>
     <string name="cid_delveSolo" translatable="false">Delve Solo:</string>
     <string name="cid_title">Karakter Information</string>
+    <string name="cid_track">Overvåg:</string>
 </resources>

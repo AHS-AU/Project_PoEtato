@@ -165,13 +165,28 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
         android:text="@string/cid_twitch"
+        android:textSize="@dimen/dialogNormalSize"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelChallenges" />
+
+    <TextView
+        android:id="@+id/labelTrack"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/cid_track"
         android:textSize="@dimen/dialogNormalSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelChallenges"
+        app:layout_constraintTop_toBottomOf="@+id/labelTwitch"
         app:layout_constraintVertical_bias="0.0" />
 
     <android.support.constraint.Guideline
@@ -303,6 +318,21 @@
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="@+id/labelTwitch"
         tools:text="http://twitch.tv/chris_wilson" />
+
+    <CheckBox
+        android:id="@+id/checkTrack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:checked="false"
+        app:layout_constraintBottom_toBottomOf="@+id/labelTrack"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/labelTrack" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
