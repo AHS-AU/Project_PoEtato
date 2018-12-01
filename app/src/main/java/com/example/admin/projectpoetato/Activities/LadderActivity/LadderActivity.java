@@ -283,7 +283,9 @@ public class LadderActivity extends AppCompatActivity {
                             0,
                             mAccountObject.getString("name"),
                             mChallengesObject.getInt("total"),
-                            null );
+                            null,
+                            false,
+                            null);
                     // Error Handling for Retired in case non-existent
                     if(mCharacterEntry.has("retired")){
                         mLadder.setRetired(mCharacterEntry.getBoolean("retired"));
@@ -356,7 +358,7 @@ public class LadderActivity extends AppCompatActivity {
             return fragment;
         }
 
-        
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {

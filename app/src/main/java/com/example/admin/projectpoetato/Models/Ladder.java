@@ -5,9 +5,12 @@ import android.os.Parcelable;
 
 import com.google.gson.JsonArray;
 import com.google.gson.annotations.SerializedName;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 import java.util.ArrayList;
 
+@Entity(tableName = "ladder_table")
 public class Ladder implements Parcelable {
     /**********************************************************************************************
      *                                       Variables                                            *
@@ -33,9 +36,15 @@ public class Ladder implements Parcelable {
     private String accountName;
     private int challenges;
     private String twitch;
+    // User-Defined
+    @PrimaryKey(autoGenerate = true)
+    private int uid;
+    private boolean track;
+    private League league;
 
     // Number of Variables used in the Model
-    private static final int numberOfArgs = 14;
+    // Don't include: uid
+    private static final int numberOfArgs = 15;
 
     /**********************************************************************************************
      *                                       Class Methods                                        *
@@ -47,7 +56,8 @@ public class Ladder implements Parcelable {
     public Ladder(int rank, boolean dead, boolean retired, boolean online,
                   String characterName, int level, String classId, String characterId,
                   long experience, int delveParty, int delveSolo,
-                  String accountName, int challenges, String twitch) {
+                  String accountName, int challenges, String twitch,
+                  boolean track, League league) {
         this.rank = rank;
         this.dead = dead;
         this.retired = retired;
@@ -62,6 +72,8 @@ public class Ladder implements Parcelable {
         this.accountName = accountName;
         this.challenges = challenges;
         this.twitch = twitch;
+        this.track = track;
+        this.league = league;
     }
 
     public String PrintLadderInfo(){
@@ -212,6 +224,30 @@ public class Ladder implements Parcelable {
         this.twitch = twitch;
     }
 
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
+    public boolean isTrack() {
+        return track;
+    }
+
+    public void setTrack(boolean track) {
+        this.track = track;
+    }
+
+    public League getLeague() {
+        return league;
+    }
+
+    public void setLeague(League league) {
+        this.league = league;
+    }
+
     /**********************************************************************************************
      *                                  Parcelable Functions                                      *
      *********************************************************************************************/
@@ -223,7 +259,7 @@ public class Ladder implements Parcelable {
         this.dead = Boolean.parseBoolean(data[1]);
         this.retired = Boolean.parseBoolean(data[2]);
         this.online = Boolean.parseBoolean(data[3]);
-
+        // Character
         this.characterName = data[4];
         this.level = Integer.parseInt(data[5]);
         this.classId = data[6];
@@ -231,10 +267,12 @@ public class Ladder implements Parcelable {
         this.experience = Long.parseLong(data[8]);
         this.delveParty = Integer.parseInt(data[9]);
         this.delveSolo = Integer.parseInt(data[10]);
-
+        // Account
         this.accountName = data[11];
         this.challenges = Integer.parseInt(data[12]);
         this.twitch = data[13];
+        // User Defined
+        this.track = Boolean.parseBoolean(data[14]);
     }
 
     @Override
@@ -260,7 +298,9 @@ public class Ladder implements Parcelable {
 
                 this.accountName,
                 String.valueOf(this.challenges),
-                this.twitch
+                this.twitch,
+
+                String.valueOf(this.track)
         });
     }
 
