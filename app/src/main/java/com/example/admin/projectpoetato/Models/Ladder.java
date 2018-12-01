@@ -1,5 +1,6 @@
 package com.example.admin.projectpoetato.Models;
 
+import android.arch.persistence.room.Ignore;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -17,7 +18,7 @@ public class Ladder implements Parcelable {
      *********************************************************************************************/
     // TODO: Object: Total
     // Object: Entries
-    @SerializedName("entries")
+    @SerializedName("entries") @Ignore
     private ArrayList entries;
 
     private int rank;
@@ -40,6 +41,7 @@ public class Ladder implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private int uid;
     private boolean track;
+    @Ignore
     private League league;
 
     // Number of Variables used in the Model

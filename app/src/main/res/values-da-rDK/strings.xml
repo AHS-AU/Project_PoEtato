@@ -20,7 +20,7 @@
     <string name="li_rule_description">Beskrivelse</string>
     <string name="title_activity_ladder" translatable="false">Ladder Overvåger</string>
     <string name="cid_status">Status:</string>
-    <string name="cid_rank">Rang:</string>
+    <string name="cid_rank">Rank:</string>
     <string name="cid_charName">Karakter:</string>
     <string name="cid_account">Bruger:</string>
     <string name="cid_level">Level:</string>

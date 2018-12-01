@@ -1,10 +1,14 @@
 package com.example.admin.projectpoetato.Activities.MainActivity;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,13 +22,16 @@ import android.widget.Button;
 
 import com.example.admin.projectpoetato.Activities.LadderActivity.LadderActivity;
 import com.example.admin.projectpoetato.Activities.LeagueActivity.LeagueActivity;
+import com.example.admin.projectpoetato.Database.Room.Ladder.LadderViewModel;
 import com.example.admin.projectpoetato.Dialogs.LadderInfoDialog;
 import com.example.admin.projectpoetato.Fragments.Settings.SettingsFragment;
+import com.example.admin.projectpoetato.Models.Ladder;
 import com.example.admin.projectpoetato.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -90,6 +97,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 R.string.navi_drawer_open,R.string.navi_drawer_close);
         mDrawer.addDrawerListener(mToggle);
         mToggle.syncState();
+
+        // Debug Database
+        LadderViewModel ladderViewModel = ViewModelProviders.of(this).get(LadderViewModel.class);
+        ladderViewModel.getAllLadders().observe(this, new Observer<List<Ladder>>() {
+            @Override
+            public void onChanged(@Nullable List<Ladder> ladderList) {
+                Log.d(TAG, "Testing ViewModel & Database");
+            }
+        });
 
     }
 

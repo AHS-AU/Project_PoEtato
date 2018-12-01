@@ -1,6 +1,7 @@
 package com.example.admin.projectpoetato.Database.Room.Ladder;
 
 import android.app.Application;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class LadderRepository {
     public static final String TAG = LadderRepository.class.getSimpleName();
     private LadderDao mLadderDao;
-    private MutableLiveData<List<Ladder>> mLadderList;
+    private LiveData<List<Ladder>> mLadderList;
 
     /**********************************************************************************************
      *                                    Class Functions                                         *
@@ -38,7 +39,7 @@ public class LadderRepository {
         new DeleteAllLadderAsyncTask(mLadderDao).execute();
     }
 
-    public MutableLiveData<List<Ladder>> getAllLadders(){
+    public LiveData<List<Ladder>> getAllLadders(){
         return mLadderList;
     }
 

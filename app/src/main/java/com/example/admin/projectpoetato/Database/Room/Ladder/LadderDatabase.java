@@ -5,6 +5,7 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -37,21 +38,37 @@ public abstract class LadderDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
+            new DatabaseOnCreateAsyncTask(instance).execute();
         }
 
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
+            new DatabaseOnOpenAsyncTask(instance).execute();
         }
     };
 
     // Database onCreate AsyncTask
-    private static void DatabaseOnCreate(LadderDao ladderDao){
-        Log.d(TAG, "onCreate()");
-    }
+    private static class DatabaseOnCreateAsyncTask extends AsyncTask<Void, Void, Void>{
 
+        private DatabaseOnCreateAsyncTask(LadderDatabase db){
+            Log.d(TAG, "onCreate()");
+        }
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
+    }
     // TODO: Database onOpen AsyncTask
-    private static void DatabaseOnOpen(LadderDao ladderDao){
-        Log.d(TAG, "onOpen()");
+    private static class DatabaseOnOpenAsyncTask extends AsyncTask<Void, Void, Void>{
+
+        private DatabaseOnOpenAsyncTask(LadderDatabase db){
+            Log.d(TAG, "onOpen()");
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
     }
 }
