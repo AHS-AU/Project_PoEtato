@@ -4,10 +4,12 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.admin.projectpoetato.Models.Ladder;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class LadderRepository {
     public static final String TAG = LadderRepository.class.getSimpleName();
@@ -41,6 +43,18 @@ public class LadderRepository {
 
     public LiveData<List<Ladder>> getAllLadders(){
         return mLadderList;
+    }
+
+    public Ladder getLadderTrackerStatus(String charName){
+        try {
+            Log.d(TAG, "Sending charName = " + charName);
+            return ( new GetLadderByUid(mLadderDao, charName).execute().get() );
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**********************************************************************************************
@@ -103,6 +117,22 @@ public class LadderRepository {
         protected Void doInBackground(Void... voids) {
             ladderDao.deleteAllLadders();
             return null;
+        }
+    }
+
+    // Get by uid
+    private static class GetLadderByUid extends AsyncTask<Void, Void, Ladder>{
+        private LadderDao ladderDao;
+        private String characterName;
+
+        private GetLadderByUid(LadderDao ladderDao, String characterName){
+            this.ladderDao = ladderDao;
+            this.characterName = characterName;
+        }
+
+        @Override
+        protected Ladder doInBackground(Void... voids) {
+            return ladderDao.getLadderTrackerStatus(characterName);
         }
     }
 }

@@ -98,12 +98,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawer.addDrawerListener(mToggle);
         mToggle.syncState();
 
-        // Debug Database
+        // TODO: Debug Database, DELETE THIS LATER
         LadderViewModel ladderViewModel = ViewModelProviders.of(this).get(LadderViewModel.class);
         ladderViewModel.getAllLadders().observe(this, new Observer<List<Ladder>>() {
             @Override
             public void onChanged(@Nullable List<Ladder> ladderList) {
-                Log.d(TAG, "Testing ViewModel & Database");
+                for(int i = 0; i < ladderList.size(); i++){
+                    Log.d(TAG, "Ladder["+i+"]" + " name = " + ladderList.get(i).getCharacterName());
+                }
             }
         });
 

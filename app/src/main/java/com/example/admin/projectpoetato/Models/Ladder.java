@@ -8,10 +8,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.annotations.SerializedName;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 
-@Entity(tableName = "ladder_table")
+@Entity(tableName = "ladder_table", primaryKeys = {"characterName", "accountName"})
 public class Ladder implements Parcelable {
     /**********************************************************************************************
      *                                       Variables                                            *
@@ -26,6 +27,7 @@ public class Ladder implements Parcelable {
     private boolean retired;
     private boolean online;
     // Sub-Object: Character
+    @NonNull
     private String characterName;
     private int level;
     private String classId;
@@ -34,11 +36,11 @@ public class Ladder implements Parcelable {
     private int delveParty;
     private int delveSolo;
     // Sub-Object: Account
+    @NonNull
     private String accountName;
     private int challenges;
     private String twitch;
     // User-Defined
-    @PrimaryKey(autoGenerate = true)
     private int uid;
     private boolean track;
     @Ignore
@@ -46,7 +48,7 @@ public class Ladder implements Parcelable {
 
     // Number of Variables used in the Model
     // Don't include: uid
-    private static final int numberOfArgs = 15;
+    private static final int numberOfArgs = 16;
 
     /**********************************************************************************************
      *                                       Class Methods                                        *
@@ -275,6 +277,7 @@ public class Ladder implements Parcelable {
         this.twitch = data[13];
         // User Defined
         this.track = Boolean.parseBoolean(data[14]);
+        this.uid = Integer.parseInt(data[15]);
     }
 
     @Override
@@ -302,7 +305,8 @@ public class Ladder implements Parcelable {
                 String.valueOf(this.challenges),
                 this.twitch,
 
-                String.valueOf(this.track)
+                String.valueOf(this.track),
+                String.valueOf(this.uid)
         });
     }
 

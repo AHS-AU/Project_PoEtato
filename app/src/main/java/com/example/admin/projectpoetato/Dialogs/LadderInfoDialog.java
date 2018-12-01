@@ -2,11 +2,14 @@ package com.example.admin.projectpoetato.Dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -15,15 +18,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.admin.projectpoetato.Database.Room.Ladder.LadderRepository;
+import com.example.admin.projectpoetato.Database.Room.Ladder.LadderViewModel;
 import com.example.admin.projectpoetato.Models.Ladder;
 import com.example.admin.projectpoetato.R;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import static com.example.admin.projectpoetato.Utilities.GlobalVariables.ARG_CHARACTER_INFO;
@@ -103,12 +110,24 @@ public class LadderInfoDialog extends AppCompatDialogFragment {
         }
     }
 
+    private void CharacterTrackChanged(CompoundButton buttonView, boolean isChecked, Ladder ladder){
+        Log.d(TAG, "CharacterTrackChanged() isChecked = " + isChecked);
+        LadderViewModel ladderViewModel = ViewModelProviders.of(this).get(LadderViewModel.class);
+
+        if(isChecked){
+            ladderViewModel.insert(ladder);
+        }else{
+            ladderViewModel.delete(ladder);
+        }
+    }
+
     /**********************************************************************************************
      *                                   Override Functions                                       *
      *********************************************************************************************/
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Ladder mCharacterInfo = getArguments().getParcelable(ARG_CHARACTER_INFO);
+        LadderViewModel ladderViewModel = ViewModelProviders.of(this).get(LadderViewModel.class);
         // Prepare the AlertDialog Builder
         AlertDialog.Builder mADBuilder = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_DARK);
 
@@ -128,9 +147,23 @@ public class LadderInfoDialog extends AppCompatDialogFragment {
         mTextExperience = mView.findViewById(R.id.textExperience);
         mTextChallenges = mView.findViewById(R.id.textChallenges);
         mTextTwitch = mView.findViewById(R.id.textTwitch);
+        mCheckTrack = mView.findViewById(R.id.checkTrack);
 
         // Set Character Info
         setCharacterInfo(mCharacterInfo);
+
+        if(ladderViewModel.getLadderTrackerStatus(mCharacterInfo) != null){
+            if(ladderViewModel.getLadderTrackerStatus(mCharacterInfo).getCharacterName()
+                    .equals(mCharacterInfo.getCharacterName())){
+                mCheckTrack.setChecked(true);
+            }else{
+                mCheckTrack.setChecked(false);
+            }
+        }
+
+
+        // Character Tracker
+        mCheckTrack.setOnCheckedChangeListener((x,v)->CharacterTrackChanged(x,v, mCharacterInfo));
 
         // Set up the AlertDialog Builder
         mADBuilder.setView(mView)

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.example.admin.projectpoetato.Models.Ladder;
 
@@ -48,5 +49,11 @@ public class LadderViewModel extends AndroidViewModel {
     // Get All
     public LiveData<List<Ladder>> getAllLadders() {
         return mLadderList;
+    }
+
+    // Get by uid
+    public Ladder getLadderTrackerStatus(Ladder ladder){
+        Log.d(TAG, "Sending name = " + ladder.getCharacterName());
+        return mRepository.getLadderTrackerStatus(ladder.getCharacterName());
     }
 }

@@ -29,6 +29,9 @@ public interface LadderDao {
     @Query("SELECT * FROM ladder_table")
     LiveData<List<Ladder>> getAllLadders();
 
+    @Query("SELECT * FROM ladder_table WHERE characterName = (:characterName)")
+    Ladder getLadderTrackerStatus(String characterName);
+
     // Get by league, account & character.
     // Get by uid
     // Get All
