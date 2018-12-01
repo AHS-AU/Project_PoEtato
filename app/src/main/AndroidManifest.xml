@@ -21,13 +21,15 @@
         </activity>
 
         <activity android:name=".Activities.LeagueActivity.LeagueActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+        </activity>
 
         <activity
             android:name=".Activities.LadderActivity.LadderActivity"
             android:label="@string/title_activity_ladder"
             android:theme="@style/AppTheme.DarkBlue"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

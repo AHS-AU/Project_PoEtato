@@ -41,14 +41,12 @@ public class Ladder implements Parcelable {
     private int challenges;
     private String twitch;
     // User-Defined
-    private int uid;
-    private boolean track;
     @Ignore
     private League league;
 
     // Number of Variables used in the Model
     // Don't include: uid
-    private static final int numberOfArgs = 16;
+    private static final int numberOfArgs = 14;
 
     /**********************************************************************************************
      *                                       Class Methods                                        *
@@ -76,7 +74,6 @@ public class Ladder implements Parcelable {
         this.accountName = accountName;
         this.challenges = challenges;
         this.twitch = twitch;
-        this.track = track;
         this.league = league;
     }
 
@@ -228,22 +225,6 @@ public class Ladder implements Parcelable {
         this.twitch = twitch;
     }
 
-    public int getUid() {
-        return uid;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
-
-    public boolean isTrack() {
-        return track;
-    }
-
-    public void setTrack(boolean track) {
-        this.track = track;
-    }
-
     public League getLeague() {
         return league;
     }
@@ -276,8 +257,6 @@ public class Ladder implements Parcelable {
         this.challenges = Integer.parseInt(data[12]);
         this.twitch = data[13];
         // User Defined
-        this.track = Boolean.parseBoolean(data[14]);
-        this.uid = Integer.parseInt(data[15]);
     }
 
     @Override
@@ -303,10 +282,7 @@ public class Ladder implements Parcelable {
 
                 this.accountName,
                 String.valueOf(this.challenges),
-                this.twitch,
-
-                String.valueOf(this.track),
-                String.valueOf(this.uid)
+                this.twitch
         });
     }
 
