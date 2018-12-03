@@ -59,6 +59,7 @@ public class LadderService extends Service {
     private ServiceHandler mServiceHandler;
     public static final long mServiceInterval = 30*1000;
     private boolean isRunning = false;
+    private List<Ladder> mLadderList = new ArrayList<>();
 
 
     /**********************************************************************************************
@@ -99,7 +100,7 @@ public class LadderService extends Service {
                 }
                 return;
             }
-            List<Ladder> mLadderList = new ArrayList<>();
+            mLadderList.clear();
 
             JSONArray mLadderEntries = new JSONArray(response.body().getEntries());
             for(int i = 0; i < mLadderEntries.length(); i++){
@@ -172,13 +173,18 @@ public class LadderService extends Service {
                 try {
                     // Do some work here
                     Log.d(TAG, "handleMessage: Creating Notification and doing Backgroundwork");
+                    String msgString = null;
+                    if(mLadderList.size() > 0){
+                        Ladder ladder = mLadderList.get(0);
+                        msgString = "Rank: " + ladder.getRank() + ", Name: " + ladder.getCharacterName();
 
+                    }
                     Notification notification = new NotificationCompat.Builder(LadderService.this, CHANNEL_ID)
                             .setContentTitle("Ladder Tracker")
                             .setContentText("Ladder updated mm:ss ago")
                             .setSmallIcon(R.mipmap.ic_launcher)
                             .setStyle(new NotificationCompat.InboxStyle()
-                                    .addLine("XD1")
+                                    .addLine(msgString)
                                     .addLine("XD2")
                                     .addLine("XD3")
                                     .addLine("XD4")
