@@ -44,13 +44,20 @@ public class LadderService extends Service {
             super(looper);
         }
 
+        private void doBackgroundWork(){
+            Thread backgroundThread = new Thread( () -> {
+                // TODO: Background Work here for LadderTracker
+            });
+            backgroundThread.start();
+        }
+
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             while(isRunning){
                 try {
                     // Do some work here
-                    Log.d(TAG, "Trying Service Handle Message");
+                    Log.d(TAG, "handleMessage: Creating Notification and doing Backgroundwork");
 
                     Notification notification = new NotificationCompat.Builder(LadderService.this, CHANNEL_ID)
                             .setContentTitle("Ladder Tracker")
@@ -66,6 +73,7 @@ public class LadderService extends Service {
                                     .addLine("XD7"))
                             .build();
                     startForeground(1, notification);
+                    doBackgroundWork();
                     Thread.sleep(mServiceInterval);
                 } catch (InterruptedException e) {
                     // Restore the interrupt status
@@ -85,9 +93,10 @@ public class LadderService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d(TAG, "onCreate()");
+        Log.d(TAG, "onCreate: ");
         // Start the thread that runs the Service.
-        HandlerThread thread = new HandlerThread(TAG + "HandlerThread",
+        HandlerThread thread = new HandlerThread(
+                TAG + "HandlerThread",
                 Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
 
@@ -99,7 +108,7 @@ public class LadderService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "onStartCommand()");
+        Log.d(TAG, "onStartCommand: ");
         isRunning = true;
         // For each start request, send a message to start a job and deliver the
         // start ID so we know which request we're stopping when we finish the job
@@ -116,14 +125,14 @@ public class LadderService extends Service {
     public void onDestroy() {
         super.onDestroy();
         isRunning = false;
-        Log.d(TAG, "onDestroy()");
+        Log.d(TAG, "onDestroy: ");
     }
 
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        Log.d(TAG, "onBind()");
+        Log.d(TAG, "onBind: ");
         return null;
     }
 }
