@@ -34,7 +34,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -147,11 +149,7 @@ public class LadderActivity extends AppCompatActivity {
                     Log.d(TAG, "tmpDebug 4 = " + mSelectedLeague );
                     mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),mSelectedLeague);
                     // Set up the ViewPager with the sections adapter.
-                    mSectionsPagerAdapter.notifyDataSetChanged();
-                    mViewPager.setCurrentItem(0);
                     mViewPager.setAdapter(mSectionsPagerAdapter);
-                    mSectionsPagerAdapter.notifyDataSetChanged();
-                    mViewPager.setCurrentItem(0);
                     //SendLadderRequest(mSelectedLeague);
                     Log.d(TAG, "League Selected: " + mSelectedLeague);
                 }
@@ -383,6 +381,7 @@ public class LadderActivity extends AppCompatActivity {
      *********************************************************************************************/
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
         private List<Ladder> mLadderList = new ArrayList<>();
+        private HashMap<Integer, WeakReference<Fragment>> fragmentReferences = new HashMap<>();
         private String mLeagueId;
 
         public SectionsPagerAdapter(FragmentManager fm, String leagueId) {
@@ -397,8 +396,6 @@ public class LadderActivity extends AppCompatActivity {
             Log.d(TAG, "SectionPage " + position);
             Log.d(TAG, "tmpDebug 3 = " + mLeagueId);
             return PlaceholderFragment.newInstance(position, mLeagueId);
-
-
         }
 
         @Override

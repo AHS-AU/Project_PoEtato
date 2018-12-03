@@ -13,6 +13,7 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -21,6 +22,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 
 import com.example.admin.projectpoetato.Activities.LadderActivity.LadderActivity;
@@ -54,29 +56,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NetworkInfo mActiveNetworkInfo;
     private boolean isConnected;
 
-    private Intent serviceIntent;
-    private LadderService mLadderService;
-    private boolean mLadderServiceBound = false;
-
     /**********************************************************************************************
      *                                    Class Functions                                         *
      *********************************************************************************************/
-    private ServiceConnection mLadderServiceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            Log.d(TAG, "onServiceConnected()");
-            LadderService.LocalBinder binder = (LadderService.LocalBinder)service;
-            mLadderService = binder.getService();
-            mLadderServiceBound = true;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            Log.d(TAG, "onServiceDisconnected()");
-            mLadderServiceBound = false;
-        }
-    };
-
     public void StartLeagueActivity(){
         Intent intent = new Intent(this, LeagueActivity.class);
         startActivity(intent);
@@ -85,6 +67,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void StartLadderActivity(){
         Intent intent = new Intent(this, LadderActivity.class);
         startActivity(intent);
+    }
+
+    public void StartLadderService(){
+        Intent ladderServiceIntent = new Intent(this, LadderService.class);
+        ContextCompat.startForegroundService(this,ladderServiceIntent);
+        startService(ladderServiceIntent);
+    }
+
+    public void StopLadderService(){
+        Intent ladderServiceIntent = new Intent(this, LadderService.class);
+        stopService(ladderServiceIntent);
     }
 
     /**********************************************************************************************
@@ -148,8 +141,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         isConnected = mActiveNetworkInfo != null && mActiveNetworkInfo.isConnectedOrConnecting();
 
         // Bind to LadderService
-        serviceIntent = new Intent(this, LadderService.class);
-        startService(serviceIntent);
+        StartLadderService();
         //bindService(serviceIntent,mLadderServiceConnection, getApplicationContext().BIND_AUTO_CREATE);
     }
 
@@ -157,9 +149,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onStop() {
         super.onStop();
         Log.d(TAG, "onStop()");
-        //unbindService(mLadderServiceConnection);
-        mLadderServiceBound = false;
-        stopService(serviceIntent);
+        //StopLadderService();
     }
 
 

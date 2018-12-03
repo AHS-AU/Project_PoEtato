@@ -1,7 +1,9 @@
 package com.example.admin.projectpoetato.Services;
 
+import android.app.Notification;
 import android.app.Service;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.Handler;
@@ -10,8 +12,13 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.os.Process;
+
+import com.example.admin.projectpoetato.R;
+
+import static com.example.admin.projectpoetato.Utilities.App.CHANNEL_ID;
 
 /**
  * Bound Service to handle Ladder Tracking of Characters from the LadderDatabase
@@ -22,7 +29,6 @@ public class LadderService extends Service {
     public static final String TAG = LadderService.class.getSimpleName();
 
     // Variables
-    private final IBinder mBinder = new LocalBinder();
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
     public static final long mServiceInterval = 5*1000;
@@ -45,6 +51,21 @@ public class LadderService extends Service {
                 try {
                     // Do some work here
                     Log.d(TAG, "Trying Service Handle Message");
+
+                    Notification notification = new NotificationCompat.Builder(LadderService.this, CHANNEL_ID)
+                            .setContentTitle("Ladder Tracker")
+                            .setContentText("Ladder updated mm:ss ago")
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setStyle(new NotificationCompat.InboxStyle()
+                                    .addLine("XD1")
+                                    .addLine("XD2")
+                                    .addLine("XD3")
+                                    .addLine("XD4")
+                                    .addLine("XD5")
+                                    .addLine("XD6")
+                                    .addLine("XD7"))
+                            .build();
+                    startForeground(1, notification);
                     Thread.sleep(mServiceInterval);
                 } catch (InterruptedException e) {
                     // Restore the interrupt status
@@ -57,14 +78,6 @@ public class LadderService extends Service {
             stopSelf(msg.arg1);
         }
     }
-
-
-    public class LocalBinder extends Binder {
-        public LadderService getService(){
-            return LadderService.this;
-        }
-    }
-
 
     /**********************************************************************************************
      *                                   Override Functions                                       *
@@ -81,15 +94,13 @@ public class LadderService extends Service {
         // Get HandlerThread's Looper and use it for the Handler
         mServiceLooper = thread.getLooper();
         mServiceHandler = new ServiceHandler(mServiceLooper);
-
-        isRunning = true;
     }
 
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand()");
-
+        isRunning = true;
         // For each start request, send a message to start a job and deliver the
         // start ID so we know which request we're stopping when we finish the job
         Message msg = mServiceHandler.obtainMessage();
@@ -100,12 +111,6 @@ public class LadderService extends Service {
         return START_STICKY;
     }
 
-    @Override
-    public ComponentName startService(Intent service) {
-        Log.d(TAG, "startService()");
-        isRunning = true;
-        return super.startService(service);
-    }
 
     @Override
     public void onDestroy() {
@@ -114,16 +119,11 @@ public class LadderService extends Service {
         Log.d(TAG, "onDestroy()");
     }
 
-    @Override
-    public boolean onUnbind(Intent intent) {
-        Log.d(TAG, "onUnbind()");
-        return super.onUnbind(intent);
-    }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         Log.d(TAG, "onBind()");
-        return mBinder;
+        return null;
     }
 }
