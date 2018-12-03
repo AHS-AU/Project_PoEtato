@@ -1,26 +1,21 @@
 package com.example.admin.projectpoetato.Activities.LeagueActivity;
 
-import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.FrameLayout;
 
-import com.example.admin.projectpoetato.API.Resources.League.LeagueApi;
-import com.example.admin.projectpoetato.Activities.MainActivity.MainActivity;
-import com.example.admin.projectpoetato.Fragments.LeagueInfoFragment;
+import com.example.admin.projectpoetato.API.Resources.LeagueApi;
+import com.example.admin.projectpoetato.Fragments.LeagueInfo.LeagueInfoFragment;
 import com.example.admin.projectpoetato.Models.League;
 import com.example.admin.projectpoetato.R;
-import com.r0adkll.slidr.Slidr;
-import com.r0adkll.slidr.model.SlidrConfig;
 import com.r0adkll.slidr.model.SlidrInterface;
-import com.r0adkll.slidr.model.SlidrPosition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +38,11 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
     private RecyclerView.LayoutManager mLeagueLayoutManager;
     private FrameLayout mFragmentContainer;
     private SlidrInterface mSlidr;
+    private Toolbar mToolbar;
 
     // Variables
     List<League> mLeagueList = new ArrayList<>();
+
 
 
 
@@ -71,7 +68,7 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
 
             @Override
             public void onFailure(Call<List<League>> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.getMessage());
+                Log.d(TAG, "SendLeagueRequest() onFailure: " + t.getMessage());
             }
         });
     }
@@ -114,12 +111,17 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
         }
     }
 
+    /**
+     * Open LeagueInfoFragment when certain league has been clicked
+     * @param position : the Item's position, starting from 0
+     */
     public void OnAdapterItemClick(int position){
-        // TODO: Create Fragment with item information
-        Log.d(TAG, "position = " + position);
         OpenLeagueInfoFragment(mLeagueList.get(position));
     }
 
+    /**
+     * Create the RecyclerView
+     */
     public void CreateRecyclerView(){
         mRvLeagues = findViewById(R.id.listLeagueLeague);
         mRvLeagues.setHasFixedSize(true);
@@ -129,31 +131,33 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
         mRvLeagues.setAdapter(mLeagueAdapter);
     }
 
+    /**
+     * Update League List
+     * @param leagues : List of leagues
+     */
     public void UpdateLeagueList(List<League> leagues){
         mLeagueAdapter = new LeagueAdapter(leagues);
         mRvLeagues.setAdapter(mLeagueAdapter);
         mLeagueAdapter.setOnItemClickListener(this::OnAdapterItemClick);
     }
 
+    /**
+     * Method to open LeagueInfoFragment
+     * @param league : League to display in next fragment
+     */
     // Source: codinginflow.com
     public void OpenLeagueInfoFragment(League league){
         LeagueInfoFragment mLeagueInfoFragment = LeagueInfoFragment.newInstance(league);
         FragmentManager mFragmentManager = getSupportFragmentManager();
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
         // 4 Arguments, because we need for the back button as well!
-//        mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right,
-//                R.anim.enter_from_right, R.anim.exit_to_right);
-        mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right);
+        mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right,
+                R.anim.enter_from_right, R.anim.exit_to_right);
         mFragmentTransaction.addToBackStack(null);
         mFragmentTransaction.add(R.id.league_frame, mLeagueInfoFragment, LeagueInfoFragment.TAG).commit();
+
     }
 
-    public void LockSlidr(){
-        mSlidr.lock();
-    }
-    public void UnlockSlidr(){
-        mSlidr.unlock();
-    }
 
 
     /**********************************************************************************************
@@ -165,7 +169,7 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
         setContentView(R.layout.activity_league);
 
         // Slidr: https://github.com/r0adkll/Slidr
-        mSlidr = Slidr.attach(this);
+        //mSlidr = Slidr.attach(this);
 
         // UI Find View
         mFragmentContainer = findViewById(R.id.league_frame);
@@ -174,18 +178,28 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
         CreateRecyclerView();
 
         // Action Bar
+        mToolbar = findViewById(R.id.toolbar_activity_league);
+        setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        mToolbar.setNavigationOnClickListener(v -> onBackPressed());
+
 
         // Send Request
         SendLeagueRequest();
-
     }
 
+    /**
+     * Modified to work with Opened Fragments
+     */
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "Destroyed");
+    public void onBackPressed() {
+        if(getSupportFragmentManager().getBackStackEntryCount() > 0){
+            getSupportFragmentManager().popBackStack();
+        }else{
+            super.onBackPressed();
+        }
     }
+
 
     @Override
     public void onFragmentInteraction(Uri uri) {

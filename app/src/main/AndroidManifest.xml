@@ -11,15 +11,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.DarkBlue">
-        <activity android:name=".Activities.MainActivity.MainActivity">
+        <activity android:name=".Activities.MainActivity.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".Activities.LeagueActivity.LeagueActivity"
-            android:theme="@style/AppTheme.SlidrActivityTheme"></activity>
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".Activities.LadderActivity.LadderActivity"
+            android:label="@string/title_activity_ladder"
+            android:theme="@style/AppTheme.DarkBlue"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.admin.projectpoetato.Fragments;
+package com.example.admin.projectpoetato.Fragments.LeagueInfo;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,15 +8,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.admin.projectpoetato.Models.League;
+import com.example.admin.projectpoetato.Models.LeagueRules;
 import com.example.admin.projectpoetato.R;
-import com.google.gson.JsonArray;
-import com.r0adkll.slidr.Slidr;
-import com.r0adkll.slidr.model.SlidrConfig;
-import com.r0adkll.slidr.model.SlidrInterface;
-import com.r0adkll.slidr.model.SlidrPosition;
+import com.example.admin.projectpoetato.Utilities.GlobalFunctions;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,9 +41,6 @@ public class LeagueInfoFragment extends Fragment {
     public static final String TAG = LeagueInfoFragment.class.getSimpleName();
     private static final String ARG_LEAGUE = "league";
 
-    // Variables
-    private League mLeague;
-
     // UI Variables
     private TextView mTextLeagueName;
     private TextView mTextDescription;
@@ -43,10 +50,18 @@ public class LeagueInfoFragment extends Fragment {
     private TextView mTextStart;
     private TextView mTextEnd;
     private TextView mTextLeagueEvent;
-    private SlidrInterface mSlidr;
-
     private OnFragmentInteractionListener mListener;
+    private ListView lvRules;
 
+    // Variables
+    private League mLeague;
+    private LeagueInfoAdapter mLeagueInfoAdapter;
+    private List<LeagueRules> mLeagueRules = new ArrayList<>();
+    private GlobalFunctions mGlobalFunctions = new GlobalFunctions();
+
+    /**********************************************************************************************
+     *                                    Class Functions                                         *
+     *********************************************************************************************/
     public LeagueInfoFragment() {
         // Required empty public constructor
     }
@@ -67,6 +82,9 @@ public class LeagueInfoFragment extends Fragment {
         return fragment;
     }
 
+    /**********************************************************************************************
+     *                                   Override Functions                                       *
+     *********************************************************************************************/
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +92,7 @@ public class LeagueInfoFragment extends Fragment {
             mLeague = (League)getArguments().getSerializable(ARG_LEAGUE);
         }
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -90,26 +109,45 @@ public class LeagueInfoFragment extends Fragment {
         mTextStart = mView.findViewById(R.id.textLeagueInfoStart);
         mTextEnd = mView.findViewById(R.id.textLeagueInfoEnd);
         mTextLeagueEvent = mView.findViewById(R.id.textLeagueInfoLeagueEvent);
+        lvRules = mView.findViewById(R.id.listLeagueRules);
 
         // Assign Values to the UI
         mTextLeagueName.setText(mLeague.getId());
         mTextDescription.setText(mLeague.getDescription());
-        mTextRegister.setText(mLeague.getRegisterAt());
+        mTextRegister.setText(mGlobalFunctions.ConvertUtcToLocal(mLeague.getRegisterAt()));
         mTextEvent.setText(mLeague.getEvent());
         mTextUrl.setText(mLeague.getUrl());
-        mTextStart.setText(mLeague.getStartAt());
-        mTextEnd.setText(mLeague.getEndAt());
+        mTextStart.setText(mGlobalFunctions.ConvertUtcToLocal(mLeague.getStartAt()));
+        mTextEnd.setText(mGlobalFunctions.ConvertUtcToLocal(mLeague.getEndAt()));
         mTextLeagueEvent.setText(mLeague.getLeagueEvent());
-        Log.d(TAG, "Rules = " + mLeague.getRules());
 
-        return mView;
-    }
+        // Handle the List of League Rules
+        JSONArray jsonArray = new JSONArray(mLeague.getRules());
+        for (int i = 0; i < jsonArray.length(); i++){
+            try {
+                JSONObject jsonObj = jsonArray.getJSONObject(i);
+                LeagueRules rule = new LeagueRules(jsonObj.get("id").toString(), jsonObj.get("name").toString(), jsonObj.get("description").toString());
+                mLeagueRules.add(rule);
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
+
+        // Set up Rules in Listview with help of LeagueInfoAdapter
+        mLeagueInfoAdapter = new LeagueInfoAdapter(getContext(), mLeagueRules);
+        lvRules.setAdapter(mLeagueInfoAdapter);
+
+
+        // Toolbar fuck this shit, for some fucking reason Toolbar from Activity follows into this retarded fragment
+//        Toolbar mToolbar = mView.findViewById(R.id.toolbar_fragment_leagueinfo);
+//        ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+//        mToolbar.setNavigationOnClickListener(v -> CloseFragment());
+//        mToolbar.bringToFront();
+
+        // Return View
+        return mView;
     }
 
     @Override
@@ -121,16 +159,9 @@ public class LeagueInfoFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-//        if(mSlidr == null){
-//            mSlidr = Slidr.replace(getView().findViewById(R.id.league_frame), new SlidrConfig.Builder().position(SlidrPosition.LEFT).build());
-//        }
 
     }
+
 
     @Override
     public void onDetach() {
@@ -149,7 +180,6 @@ public class LeagueInfoFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

@@ -8,22 +8,59 @@
     android:clickable="true"
     android:focusable="true"
     android:theme="@style/AppTheme.DarkBlue"
-    tools:context=".Fragments.LeagueInfoFragment">
+    tools:context=".Fragments.LeagueInfo.LeagueInfoFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
+    <!-- Literally useless Toolbar -->
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_splitrule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_splitrule2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_fragment_leagueinfo"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primaryColorDarkBlue"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize"
+        app:navigationIcon="@drawable/ic_close_white"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:titleTextAppearance="@style/AppTheme.ToolbarSize">
+
+        <TextView
+            android:id="@+id/toolbar_fragment_title_leagueinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="@dimen/toolbarNormalSize"
+            tools:layout_editor_absoluteX="228dp"
+            tools:layout_editor_absoluteY="20dp"
+            tools:text="whatever fuck this" />
+    </android.support.v7.widget.Toolbar>
 
     <TextView
         android:id="@+id/labelLeagueInfoName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/li_league_name"
         android:textSize="@dimen/txtSmallSize"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_fragment_leagueinfo" />
 
     <TextView
         android:id="@+id/textLeagueInfoName"
@@ -31,10 +68,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="tmp_leaguename"
         android:textSize="@dimen/txtSmallSize"
         app:layout_constraintStart_toEndOf="@+id/labelLeagueInfoName"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_fragment_leagueinfo"
+        tools:text="tmp_leaguename" />
 
     <TextView
         android:id="@+id/labelLeagueInfoDescription"
@@ -53,10 +90,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="tmp_description"
         android:textSize="@dimen/txtSmallSize"
         app:layout_constraintStart_toEndOf="@+id/labelLeagueInfoDescription"
-        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoName" />
+        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoName"
+        tools:text="tmp_description" />
 
     <TextView
         android:id="@+id/labelLeagueInfoRegister"
@@ -75,10 +112,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="tmp_register"
         android:textSize="@dimen/txtSmallSize"
         app:layout_constraintStart_toEndOf="@+id/labelLeagueInfoRegister"
-        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoDescription"
+        tools:text="tmp_register" />
 
     <TextView
         android:id="@+id/labelLeagueInfoEvent"
@@ -97,10 +134,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="tmp_event"
         android:textSize="@dimen/txtSmallSize"
         app:layout_constraintStart_toEndOf="@+id/labelLeagueInfoEvent"
-        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoRegister" />
+        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoRegister"
+        tools:text="tmp_event" />
 
     <TextView
         android:id="@+id/labelLeagueInfoUrl"
@@ -119,11 +156,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="tmp_forum_post"
-        android:textSize="@dimen/txtSmallSize"
         android:autoLink="web"
+        android:textSize="@dimen/txtSmallSize"
         app:layout_constraintStart_toEndOf="@+id/labelLeagueInfoUrl"
-        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoEvent" />
+        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoEvent"
+        tools:text="tmp_forum_post" />
 
     <TextView
         android:id="@+id/labelLeagueInfoStart"
@@ -142,10 +179,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="tmp_starts"
         android:textSize="@dimen/txtSmallSize"
         app:layout_constraintStart_toEndOf="@+id/labelLeagueInfoStart"
-        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoUrl" />
+        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoUrl"
+        tools:text="tmp_starts" />
 
     <TextView
         android:id="@+id/labelLeagueInfoEnd"
@@ -164,10 +201,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="tmp_ends"
         android:textSize="@dimen/txtSmallSize"
         app:layout_constraintStart_toEndOf="@+id/labelLeagueInfoEnd"
-        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoStart" />
+        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoStart"
+        tools:text="tmp_ends" />
 
     <TextView
         android:id="@+id/labelLeagueInfoLeagueEvent"
@@ -186,8 +223,69 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="tmp_leagueevent"
         android:textSize="@dimen/txtSmallSize"
         app:layout_constraintStart_toEndOf="@+id/labelLeagueInfoLeagueEvent"
-        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoEnd" />
+        app:layout_constraintTop_toBottomOf="@+id/textLeagueInfoEnd"
+        tools:text="tmp_leagueevent" />
+
+    <ListView
+        android:id="@+id/listLeagueRules"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textRuleNrCol" />
+
+    <TextView
+        android:id="@+id/textRuleNrCol"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/li_rule_nr"
+        android:textSize="@dimen/txtSmallSize"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_splitrule"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelLeagueInfoLeagueEvent" />
+
+    <TextView
+        android:id="@+id/textRuleNameCol"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/li_rule_name"
+        android:textSize="@dimen/txtSmallSize"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_splitrule2"
+        app:layout_constraintStart_toStartOf="@+id/guideline_splitrule"
+        app:layout_constraintTop_toTopOf="@+id/textRuleNrCol" />
+
+    <TextView
+        android:id="@+id/textRuleDescriptionCol"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/li_rule_description"
+        android:textSize="@dimen/txtSmallSize"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline_splitrule2"
+        app:layout_constraintTop_toTopOf="@+id/textRuleNameCol" />
+
 </android.support.constraint.ConstraintLayout>

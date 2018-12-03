@@ -6,84 +6,89 @@
     android:layout_height="wrap_content">
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline_league1"
+        android:id="@+id/guideline_ladder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.3" />
+        app:layout_constraintGuide_percent="0.10" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline_league2"
+        android:id="@+id/guideline_ladder2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.25" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline_league3"
+        android:id="@+id/guideline_ladder3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.9" />
+        app:layout_constraintGuide_percent="0.85" />
 
-    <TextView
-        android:id="@+id/textLeagueId"
-        android:layout_width="0dp"
-        android:layout_height="20dp"
+    <ImageView
+        android:id="@+id/imgLadderStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:textSize="@dimen/lvNormalSize"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_league1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_ladder"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Id" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textLeagueStart"
+        android:id="@+id/textLadderRank"
         android:layout_width="0dp"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:textSize="@dimen/lvNormalSize"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_league2"
-        app:layout_constraintStart_toStartOf="@+id/guideline_league1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_ladder2"
+        app:layout_constraintStart_toStartOf="@+id/guideline_ladder"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Start" />
+        tools:text="15000" />
 
     <TextView
-        android:id="@+id/textLeagueEnd"
+        android:id="@+id/textLadderCharacter"
         android:layout_width="0dp"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:textSize="@dimen/lvNormalSize"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_league3"
-        app:layout_constraintStart_toStartOf="@+id/guideline_league2"
+        app:layout_constraintEnd_toStartOf="@+id/textLadderLevel"
+        app:layout_constraintStart_toStartOf="@+id/guideline_ladder2"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="End" />
+        tools:text="TRYINGTOMAKEAVERYLONGNA" />
 
     <TextView
-        android:id="@+id/textLeagueTrack"
+        android:id="@+id/textLadderLevel"
         android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="8dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:textSize="@dimen/lvNormalSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline_league3"
+        app:layout_constraintStart_toEndOf="@+id/guideline_ladder3"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Track" />
+        tools:text="100" />
+
 </android.support.constraint.ConstraintLayout>

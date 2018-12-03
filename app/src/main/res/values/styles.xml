@@ -30,6 +30,15 @@
         <item name="android:fillColor">@color/primaryTextColorDarkBlue</item>
     </style>
 
+    <style name="AppTheme.DarkBlue.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.DarkBlue.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <!-- LIGHT Theme (SECONDARY) -->
+
+
+
+
+
 
 </resources>
