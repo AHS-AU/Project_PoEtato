@@ -239,7 +239,7 @@ public class LadderActivity extends AppCompatActivity {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             LadderApi mLadder = retrofit.create(LadderApi.class);
-            Call<Ladder> mCallLadder = mLadder.getLadders(leagueId,String.valueOf(limit),String.valueOf(offset),"league","false","","","");
+            Call<Ladder> mCallLadder = mLadder.getLadders(leagueId,String.valueOf(limit),String.valueOf(offset),"league","","","","");
             mCallLadder.enqueue(new Callback<Ladder>() {
                 @Override
                 public void onResponse(Call<Ladder> call, Response<Ladder> response) {
@@ -251,7 +251,6 @@ public class LadderActivity extends AppCompatActivity {
 
                 }
             });
-
         }
 
         public void LadderOnResponse(Call<Ladder> call, Response<Ladder> response){

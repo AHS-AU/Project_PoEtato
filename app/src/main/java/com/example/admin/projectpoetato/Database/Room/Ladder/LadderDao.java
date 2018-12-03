@@ -29,6 +29,10 @@ public interface LadderDao {
     @Query("SELECT * FROM ladder_table")
     LiveData<List<Ladder>> getAllLadders();
 
+    // Used in Scenarios where LiveData is unaccessible.
+    @Query("SELECT * FROM ladder_table")
+    List<Ladder> getAllCharacters();
+
     @Query("SELECT * FROM ladder_table WHERE characterName = (:characterName)")
     Ladder getLadderTrackerStatus(String characterName);
 

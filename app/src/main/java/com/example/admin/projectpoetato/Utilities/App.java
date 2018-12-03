@@ -7,6 +7,7 @@ import android.os.Build;
 import android.util.Log;
 
 /**
+ * Creates Notificaiton Channel, enables Services for API 16 to 28.
  * Followed guide: https://codinginflow.com/tutorials/android/foreground-service
  */
 public class App extends Application {

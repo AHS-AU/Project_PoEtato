@@ -7,9 +7,11 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -33,6 +35,7 @@ import com.example.admin.projectpoetato.Fragments.Settings.SettingsFragment;
 import com.example.admin.projectpoetato.Models.Ladder;
 import com.example.admin.projectpoetato.R;
 import com.example.admin.projectpoetato.Services.LadderService;
+import com.google.gson.Gson;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -117,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // TODO: Debug Database, DELETE THIS LATER
         LadderViewModel ladderViewModel = ViewModelProviders.of(this).get(LadderViewModel.class);
+
         ladderViewModel.getAllLadders().observe(this, new Observer<List<Ladder>>() {
             @Override
             public void onChanged(@Nullable List<Ladder> ladderList) {
@@ -125,7 +129,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         });
-
 
     }
 
@@ -142,7 +145,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Bind to LadderService
         StartLadderService();
-        //bindService(serviceIntent,mLadderServiceConnection, getApplicationContext().BIND_AUTO_CREATE);
     }
 
     @Override

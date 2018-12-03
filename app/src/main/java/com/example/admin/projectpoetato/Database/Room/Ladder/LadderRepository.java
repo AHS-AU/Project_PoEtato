@@ -15,6 +15,7 @@ public class LadderRepository {
     public static final String TAG = LadderRepository.class.getSimpleName();
     private LadderDao mLadderDao;
     private LiveData<List<Ladder>> mLadderList;
+    private List<Ladder> mCharacterList;
 
     /**********************************************************************************************
      *                                    Class Functions                                         *
@@ -43,6 +44,17 @@ public class LadderRepository {
 
     public LiveData<List<Ladder>> getAllLadders(){
         return mLadderList;
+    }
+
+    public List<Ladder> getAllCharacters() {
+        try {
+            return ( new GetAllCharacters(mLadderDao).execute().get() );
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public Ladder getLadderTrackerStatus(String charName){
@@ -117,6 +129,19 @@ public class LadderRepository {
         protected Void doInBackground(Void... voids) {
             ladderDao.deleteAllLadders();
             return null;
+        }
+    }
+
+    private static class GetAllCharacters extends AsyncTask<Void, Void, List<Ladder>>{
+        private LadderDao ladderDao;
+
+        private GetAllCharacters(LadderDao ladderDao){
+            this.ladderDao = ladderDao;
+        }
+
+        @Override
+        protected List<Ladder> doInBackground(Void... voids) {
+            return ladderDao.getAllCharacters();
         }
     }
 
