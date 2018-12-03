@@ -3,10 +3,13 @@ package com.example.admin.projectpoetato.Activities.MainActivity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -27,6 +30,7 @@ import com.example.admin.projectpoetato.Dialogs.LadderInfoDialog;
 import com.example.admin.projectpoetato.Fragments.Settings.SettingsFragment;
 import com.example.admin.projectpoetato.Models.Ladder;
 import com.example.admin.projectpoetato.R;
+import com.example.admin.projectpoetato.Services.LadderService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,13 +50,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout mDrawer;
 
     // Variables
-    ConnectivityManager mConnMan;
-    NetworkInfo mActiveNetworkInfo;
+    private ConnectivityManager mConnMan;
+    private NetworkInfo mActiveNetworkInfo;
     private boolean isConnected;
+
+    private Intent serviceIntent;
+    private LadderService mLadderService;
+    private boolean mLadderServiceBound = false;
 
     /**********************************************************************************************
      *                                    Class Functions                                         *
      *********************************************************************************************/
+    private ServiceConnection mLadderServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.d(TAG, "onServiceConnected()");
+            LadderService.LocalBinder binder = (LadderService.LocalBinder)service;
+            mLadderService = binder.getService();
+            mLadderServiceBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Log.d(TAG, "onServiceDisconnected()");
+            mLadderServiceBound = false;
+        }
+    };
+
     public void StartLeagueActivity(){
         Intent intent = new Intent(this, LeagueActivity.class);
         startActivity(intent);
@@ -109,23 +133,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        Log.d(TAG, "onStart()");
         // Set up the ConnectivityManager to ensure Connection to the Internet.
         mConnMan = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (mConnMan != null){
             mActiveNetworkInfo = mConnMan.getActiveNetworkInfo();
         }
         isConnected = mActiveNetworkInfo != null && mActiveNetworkInfo.isConnectedOrConnecting();
+
+        // Bind to LadderService
+        serviceIntent = new Intent(this, LadderService.class);
+        startService(serviceIntent);
+        //bindService(serviceIntent,mLadderServiceConnection, getApplicationContext().BIND_AUTO_CREATE);
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop()");
+        //unbindService(mLadderServiceConnection);
+        mLadderServiceBound = false;
+        stopService(serviceIntent);
+    }
+
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume() isConnected to Internet? " + isConnected);
+        Log.d(TAG, "onResume()" + " isConnected to Internet = " + isConnected);
     }
 
     @Override

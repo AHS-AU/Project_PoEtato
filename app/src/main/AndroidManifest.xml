@@ -30,6 +30,9 @@
             android:theme="@style/AppTheme.DarkBlue"
             android:screenOrientation="portrait">
         </activity>
+        
+        <service android:enabled="true" android:name=".Services.LadderService"/>
+        
     </application>
 
 </manifest>
