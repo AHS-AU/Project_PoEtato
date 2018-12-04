@@ -25,6 +25,7 @@
 
     <!-- Strings used for Ladder Activity/Fragments -->
     <string name="title_activity_ladder">Ladder Tracker</string>
+    <string name="spinner_select_league">Select a League ...</string>
 
     <!-- String used for Ladder Activity's Character Info Dialog -->
     <string name="cid_status">Status:</string>

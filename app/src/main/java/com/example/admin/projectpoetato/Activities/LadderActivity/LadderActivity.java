@@ -170,7 +170,7 @@ public class LadderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ladder);
         // Add the Hint to Spinner League
-        mListOfLeagues.add("Select a League ...");
+        mListOfLeagues.add(getResources().getString(R.string.spinner_select_league));
         // UI Find View
         mViewPager = findViewById(R.id.container);
         mSpinnerLeagues = findViewById(R.id.spinner_leagues);
@@ -239,7 +239,14 @@ public class LadderActivity extends AppCompatActivity {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             LadderApi mLadder = retrofit.create(LadderApi.class);
-            Call<Ladder> mCallLadder = mLadder.getLadders(leagueId,String.valueOf(limit),String.valueOf(offset),"league","","","","");
+            Call<Ladder> mCallLadder = mLadder.getLadders(leagueId,
+                    String.valueOf(limit),
+                    String.valueOf(offset),
+                    type,
+                    track,
+                    accountName,
+                    difficulty,
+                    start);
             mCallLadder.enqueue(new Callback<Ladder>() {
                 @Override
                 public void onResponse(Call<Ladder> call, Response<Ladder> response) {
@@ -267,45 +274,53 @@ public class LadderActivity extends AppCompatActivity {
             JSONArray mLadderEntries = new JSONArray(response.body().getEntries());
             for(int i = 0; i < mLadderEntries.length(); i++){
                 try {
+                    // JSON Objects from Ladder API
                     JSONObject mCharacterEntry = mLadderEntries.getJSONObject(i);
                     JSONObject mCharacterObject = mCharacterEntry.getJSONObject("character");
                     JSONObject mAccountObject = mCharacterEntry.getJSONObject("account");
                     JSONObject mChallengesObject = mAccountObject.getJSONObject("challenges");
-                    Ladder mLadder = new Ladder(
-                            mCharacterEntry.getInt("rank"),
-                            mCharacterEntry.getBoolean("dead"),
-                            false,
-                            mCharacterEntry.getBoolean("online"),
-                            mCharacterObject.getString("name"),
-                            mCharacterObject.getInt("level"),
-                            mCharacterObject.getString("class"),
-                            mCharacterObject.getString("id"),
-                            mCharacterObject.getLong("experience"),
-                            0,
-                            0,
-                            mAccountObject.getString("name"),
-                            mChallengesObject.getInt("total"),
-                            null,
-                            false,
-                            null);
-                    // Error Handling for Retired in case non-existent
+                    // Ladder Object Handling
+                    Ladder mLadder = new Ladder();
+                    // Rank
+                    mLadder.setRank(mCharacterEntry.getInt("rank"));
+                    // Dead
+                    mLadder.setDead(mCharacterEntry.getBoolean("dead"));
+                    // Online
+                    mLadder.setOnline(mCharacterEntry.getBoolean("online"));
+                    // Character Name
+                    mLadder.setCharacterName(mCharacterObject.getString("name"));
+                    // Level
+                    mLadder.setLevel(mCharacterObject.getInt("level"));
+                    // Class (id)
+                    mLadder.setClassId(mCharacterObject.getString("class"));
+                    // Character/Track id: Erorr handling in case non-existent (if track != 1)
+                    if(mChallengesObject.has("id")){
+                        mLadder.setCharacterId(mCharacterObject.getString("id"));
+                    }
+                    // Experience
+                    mLadder.setExperience(mCharacterObject.getLong("experience"));
+                    // Account Name
+                    mLadder.setAccountName(mAccountObject.getString("name"));
+                    // Challenges
+                    mLadder.setChallenges(mChallengesObject.getInt("total"));
+                    // Retired: Error Handling in case non-existent
                     if(mCharacterEntry.has("retired")){
                         mLadder.setRetired(mCharacterEntry.getBoolean("retired"));
                     }
-                    // Error Handling for Delve in case non-existent
+                    // Delve Party/Solo: Error Handling in case non-existent
                     if(mCharacterObject.has("depth")){
                         JSONObject mDelveObject = mCharacterObject.getJSONObject("depth");
                         mLadder.setDelveParty(mDelveObject.getInt("default"));
                         mLadder.setDelveSolo(mDelveObject.getInt("solo"));
                     }
-                    // Error Handling for Twitch in case non-existent
+                    // Twitch: Error Handling in case non-existent
                     if(mAccountObject.has("twitch")){
                         JSONObject mTwitchObject = mAccountObject.getJSONObject("twitch");
                         mLadder.setTwitch(mTwitchObject.getString("name"));
                     }
                     // Start fragment
                     mLadderList.add(mLadder);
-                    Log.d(TAG, "CharEntry[" + i + "]: " + mLadder.PrintLadderInfo());
+                    //Log.d(TAG, "CharEntry[" + i + "]: " + mLadder.PrintLadderInfo());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -367,7 +382,7 @@ public class LadderActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_ladder, container, false);
             Log.d(TAG, "tmpDebug 1 = " + getArguments().getString(ARG_LADDER_ID));
-            SendLadderRequest(getArguments().getString(ARG_LADDER_ID),50,getArguments().getInt(ARG_SECTION_NUMBER)*50,"league","false","","","");
+            SendLadderRequest(getArguments().getString(ARG_LADDER_ID),50,getArguments().getInt(ARG_SECTION_NUMBER)*50,"league","1","","","");
             mRvLadder = rootView.findViewById(R.id.listLadder);
 //            CreateRecyclerView(mRvLadder, getArguments().getParcelableArrayList(ARG_LADDER_LIST));
 

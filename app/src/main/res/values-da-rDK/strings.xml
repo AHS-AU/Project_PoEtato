@@ -29,4 +29,5 @@
     <string name="cid_delveSolo" translatable="false">Delve Solo:</string>
     <string name="cid_title">Karakter Information</string>
     <string name="cid_track">Overvåg:</string>
+    <string name="spinner_select_league">Vælg en League ...</string>
 </resources>

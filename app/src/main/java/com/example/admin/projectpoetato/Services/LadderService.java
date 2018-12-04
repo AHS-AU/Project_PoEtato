@@ -57,7 +57,7 @@ public class LadderService extends Service {
     // Variables
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
-    public static final long mServiceInterval = 30*1000;
+    public static final long mServiceInterval = 300*1000;
     private boolean isRunning = false;
     private List<Ladder> mLadderList = new ArrayList<>();
 
