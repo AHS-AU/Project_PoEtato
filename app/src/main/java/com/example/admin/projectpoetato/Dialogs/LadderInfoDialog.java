@@ -108,12 +108,15 @@ public class LadderInfoDialog extends AppCompatDialogFragment {
         if(Character.getTwitch() != null){
             mTextTwitch.setText("twitch.tv/" + Character.getTwitch());
         }
+
+        Log.d(TAG, "setCharacterInfo: League = " + Character.getLeagueId());
     }
 
     private void CharacterTrackChanged(CompoundButton buttonView, boolean isChecked, Ladder ladder){
         Log.d(TAG, "CharacterTrackChanged() isChecked = " + isChecked);
         LadderViewModel ladderViewModel = ViewModelProviders.of(this).get(LadderViewModel.class);
 
+        Log.d(TAG, "CharacterTrackChanged: League = " + ladder.getLeagueId());
         if(isChecked){
             ladderViewModel.insert(ladder);
         }else{

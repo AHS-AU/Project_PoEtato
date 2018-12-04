@@ -12,7 +12,7 @@ import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 
-@Entity(tableName = "ladder_table", primaryKeys = {"characterName", "accountName"})
+@Entity(tableName = "ladder_table", primaryKeys = {"characterName", "accountName", "leagueId"})
 public class Ladder implements Parcelable {
     /**********************************************************************************************
      *                                       Variables                                            *
@@ -41,12 +41,12 @@ public class Ladder implements Parcelable {
     private int challenges;
     private String twitch;
     // User-Defined
-    @Ignore
-    private League league;
+    @NonNull
+    private String leagueId;
 
     // Number of Variables used in the Model
     // Don't include: uid
-    private static final int numberOfArgs = 14;
+    private static final int numberOfArgs = 15;
 
     /**********************************************************************************************
      *                                       Class Methods                                        *
@@ -59,7 +59,7 @@ public class Ladder implements Parcelable {
                   String characterName, int level, String classId, String characterId,
                   long experience, int delveParty, int delveSolo,
                   String accountName, int challenges, String twitch,
-                  boolean track, League league) {
+                  String leagueId) {
         this.rank = rank;
         this.dead = dead;
         this.retired = retired;
@@ -74,7 +74,7 @@ public class Ladder implements Parcelable {
         this.accountName = accountName;
         this.challenges = challenges;
         this.twitch = twitch;
-        this.league = league;
+        this.leagueId = leagueId;
     }
 
     public String PrintLadderInfo(){
@@ -96,6 +96,8 @@ public class Ladder implements Parcelable {
         LadderInfo += "\nAccountName = " + getAccountName();
         LadderInfo += "\tChallenges = " + getChallenges();
         LadderInfo += "\tTwitch = " + getTwitch();
+
+        LadderInfo += "\nLeague = " + getLeagueId();
 
         LadderInfo += "\n";
 
@@ -225,12 +227,12 @@ public class Ladder implements Parcelable {
         this.twitch = twitch;
     }
 
-    public League getLeague() {
-        return league;
+    public String getLeagueId() {
+        return leagueId;
     }
 
-    public void setLeague(League league) {
-        this.league = league;
+    public void setLeagueId(String leagueId) {
+        this.leagueId = leagueId;
     }
 
     /**********************************************************************************************
@@ -257,6 +259,7 @@ public class Ladder implements Parcelable {
         this.challenges = Integer.parseInt(data[12]);
         this.twitch = data[13];
         // User Defined
+        this.leagueId = data[14];
     }
 
     @Override
@@ -282,7 +285,9 @@ public class Ladder implements Parcelable {
 
                 this.accountName,
                 String.valueOf(this.challenges),
-                this.twitch
+                this.twitch,
+
+                this.leagueId
         });
     }
 

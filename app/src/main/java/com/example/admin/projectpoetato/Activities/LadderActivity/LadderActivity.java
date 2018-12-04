@@ -250,7 +250,7 @@ public class LadderActivity extends AppCompatActivity {
             mCallLadder.enqueue(new Callback<Ladder>() {
                 @Override
                 public void onResponse(Call<Ladder> call, Response<Ladder> response) {
-                    LadderOnResponse(call, response);
+                    LadderOnResponse(call, response, leagueId);
                 }
 
                 @Override
@@ -260,7 +260,7 @@ public class LadderActivity extends AppCompatActivity {
             });
         }
 
-        public void LadderOnResponse(Call<Ladder> call, Response<Ladder> response){
+        public void LadderOnResponse(Call<Ladder> call, Response<Ladder> response, String leagueId){
             if(!response.isSuccessful()){
                 Log.d(TAG, "LadderOnResponse() onResponse Code: " + response.code());
                 if(response.code() == 429){
@@ -294,7 +294,7 @@ public class LadderActivity extends AppCompatActivity {
                     // Class (id)
                     mLadder.setClassId(mCharacterObject.getString("class"));
                     // Character/Track id: Erorr handling in case non-existent (if track != 1)
-                    if(mChallengesObject.has("id")){
+                    if(mCharacterObject.has("id")){
                         mLadder.setCharacterId(mCharacterObject.getString("id"));
                     }
                     // Experience
@@ -318,6 +318,8 @@ public class LadderActivity extends AppCompatActivity {
                         JSONObject mTwitchObject = mAccountObject.getJSONObject("twitch");
                         mLadder.setTwitch(mTwitchObject.getString("name"));
                     }
+                    // Set League for Tracking
+                    mLadder.setLeagueId(leagueId);
                     // Start fragment
                     mLadderList.add(mLadder);
                     //Log.d(TAG, "CharEntry[" + i + "]: " + mLadder.PrintLadderInfo());
