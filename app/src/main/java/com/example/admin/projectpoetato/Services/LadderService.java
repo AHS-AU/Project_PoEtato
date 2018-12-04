@@ -1,6 +1,7 @@
 package com.example.admin.projectpoetato.Services;
 
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +13,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.os.Process;
 
@@ -47,7 +49,7 @@ public class LadderService extends Service {
     // Variables
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
-    public static final long mServiceInterval = 30*1000;
+    public static final long mServiceInterval = 600*1000;
     private boolean isRunning = false;
     private List<Ladder> mLadderList = new ArrayList<>();
 
@@ -91,7 +93,6 @@ public class LadderService extends Service {
                 }
                 return;
             }
-            mLadderList.clear();
 
             JSONArray mLadderEntries = new JSONArray(response.body().getEntries());
 
@@ -158,11 +159,26 @@ public class LadderService extends Service {
                                 null,ladder.getAccountName(),null,null,
                                 ladder.getCharacterId());
                         try {
-                            Thread.sleep(5000);
+                            Thread.sleep(1000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
+                    NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+                    for (Ladder ladder : mLadderList ) {
+                        String msgString = "League: " + ladder.getLeagueId() + ", Rank: " + ladder.getRank() + ", Name: " + ladder.getCharacterName();
+                        inboxStyle.addLine(msgString);
+                    }
+                    Notification notification = new NotificationCompat.Builder(LadderService.this, CHANNEL_ID)
+                            .setContentTitle("Ladder Tracker")
+                            .setContentText("Ladder updated mm:ss ago")
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setStyle(inboxStyle)
+                            .build();
+                    NotificationManagerCompat notMan = NotificationManagerCompat.from(LadderService.this);
+                    notMan.notify(2,notification);
+
+                    mLadderList.clear();
                 }
 
             });
@@ -175,28 +191,22 @@ public class LadderService extends Service {
             while(isRunning){
                 try {
                     // Do some work here
-                    Log.d(TAG, "handleMessage: Creating Notification and doing Backgroundwork");
-                    NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-                    for (Ladder ladder : mLadderList ) {
-                        String msgString = "League: " + ladder.getLeagueId() + ", Rank: " + ladder.getRank() + ", Name: " + ladder.getCharacterName();
-                        inboxStyle.addLine(msgString);
-                    }
-//                    if(mLadderList.size() > 0){
-//                        Ladder ladder = mLadderList.get(0);
+//                    Log.d(TAG, "handleMessage: Ladder Size = " + mLadderList.size() );
+//                    NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+//                    for (Ladder ladder : mLadderList ) {
+//                        Log.d(TAG, "handleMessage: Ladder = " + ladder.getCharacterName());
 //                        String msgString = "League: " + ladder.getLeagueId() + ", Rank: " + ladder.getRank() + ", Name: " + ladder.getCharacterName();
 //                        inboxStyle.addLine(msgString);
-//
 //                    }
+//                    Notification notification = new NotificationCompat.Builder(LadderService.this, CHANNEL_ID)
+//                            .setContentTitle("Ladder Tracker")
+//                            .setContentText("Ladder updated mm:ss ago")
+//                            .setSmallIcon(R.mipmap.ic_launcher)
+//                            .setStyle(inboxStyle)
+//                            .build();
+//                    NotificationManagerCompat notMan = NotificationManagerCompat.from(LadderService.this);
+//                    notMan.notify(2,notification);
 
-
-                    Notification notification = new NotificationCompat.Builder(LadderService.this, CHANNEL_ID)
-                            .setContentTitle("Ladder Tracker")
-                            .setContentText("Ladder updated mm:ss ago")
-                            .setSmallIcon(R.mipmap.ic_launcher)
-                            .setStyle(inboxStyle)
-                            .build();
-
-                    startForeground(1, notification);
                     doBackgroundWork();
                     Thread.sleep(mServiceInterval);
                 } catch (InterruptedException e) {
