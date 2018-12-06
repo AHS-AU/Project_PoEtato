@@ -25,7 +25,7 @@
 
     <!-- Strings used for Ladder Activity/Fragments -->
     <string name="title_activity_ladder">Ladder Tracker</string>
-    <string name="spinner_select_league">Select a League ...</string>
+    <string name="spinner_select_league">Select a League &#8230;</string>
 
     <!-- String used for Ladder Activity's Character Info Dialog -->
     <string name="cid_status">Status:</string>
@@ -35,10 +35,17 @@
     <string name="cid_level" translatable="false">Level:</string>
     <string name="cid_class">Class:</string>
     <string name="cid_delveParty">Delve Party:</string>
-    <string name="cid_delveSolo">Delve Solo:</string>
+    <string name="cid_delveSolo" translatable="false">Delve Solo:</string>
     <string name="cid_experience" translatable="false">Experience:</string>
     <string name="cid_challenges" translatable="false">Challenges:</string>
     <string name="cid_twitch" translatable="false">Twitch:</string>
-    <string name="cid_track">Track:</string>
+    <string name="cid_track">Tracking:</string>
     <string name="cid_title">Character Info</string>
+
+    <!-- LadderService Notificaiton -->
+    <string name="lsn_league" translatable="false">"League: "</string>
+    <string name="lsn_rank" translatable="false">"Rank: "</string>
+    <string name="lsn_name">"Name: "</string>
+    <string name="lsn_lastupdated">"Last updated: "</string>
+    <string name="lsn_at">at</string>
 </resources>

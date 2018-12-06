@@ -15,7 +15,6 @@ import com.example.admin.projectpoetato.API.Resources.LeagueApi;
 import com.example.admin.projectpoetato.Fragments.LeagueInfo.LeagueInfoFragment;
 import com.example.admin.projectpoetato.Models.League;
 import com.example.admin.projectpoetato.R;
-import com.r0adkll.slidr.model.SlidrInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +36,6 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
     private LeagueAdapter mLeagueAdapter;
     private RecyclerView.LayoutManager mLeagueLayoutManager;
     private FrameLayout mFragmentContainer;
-    private SlidrInterface mSlidr;
     private Toolbar mToolbar;
 
     // Variables
@@ -89,24 +87,25 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
         mLeagueList = leagues;
         UpdateLeagueList(mLeagueList);
 
-        for(League league : leagues){
-            String content = "";
-            content += "ID: " + league.getId() + "\t";
-            content += "Desc: " + league.getDescription() + "\t";
-            content += "regAt: " + league.getRegisterAt() + "\t";
-            content += "URL: " + league.getUrl() + "\t";
-            content += "startAt: " + league.getStartAt() + "\t";
-            content += "endAt: " + league.getEndAt() + "\t";
-            content += "leagueEvent: " + league.getLeagueEvent() + "\t";
-
-            // This takes 5 ms extra... consider if it's worth it.
-            for(int i = 0; i < league.getRules().size(); i++){
-                content += "rule #" + (i+1) + " " + league.getRules().get(i) + "\t";
-            }
-            content += "\n";
-
-            Log.d(TAG, "Content = " + content);
-        }
+//        // Print for debugging
+//        for(League league : leagues){
+//            String content = "";
+//            content += "ID: " + league.getId() + "\t";
+//            content += "Desc: " + league.getDescription() + "\t";
+//            content += "regAt: " + league.getRegisterAt() + "\t";
+//            content += "URL: " + league.getUrl() + "\t";
+//            content += "startAt: " + league.getStartAt() + "\t";
+//            content += "endAt: " + league.getEndAt() + "\t";
+//            content += "leagueEvent: " + league.getLeagueEvent() + "\t";
+//
+//            // This takes 5 ms extra... consider if it's worth it.
+//            for(int i = 0; i < league.getRules().size(); i++){
+//                content += "rule #" + (i+1) + " " + league.getRules().get(i) + "\t";
+//            }
+//            content += "\n";
+//
+//            Log.d(TAG, "Content = " + content);
+//        }
     }
 
     /**

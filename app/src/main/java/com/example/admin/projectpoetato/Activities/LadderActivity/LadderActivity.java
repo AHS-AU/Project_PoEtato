@@ -61,7 +61,7 @@ public class LadderActivity extends AppCompatActivity {
     public Spinner mSpinnerLeagues;
 
     // Variables
-    private int LADDER_PAGE_COUNT = 50; // TODO: Replace with real number
+    private int LADDER_PAGE_COUNT = 50; // LADDER_PAGE_COUNT * 50 = total chars shown (max 15000)
     private ArrayAdapter<String> mLeagueArrayAdapter;
     private List<String> mListOfLeagues = new ArrayList<>();
 

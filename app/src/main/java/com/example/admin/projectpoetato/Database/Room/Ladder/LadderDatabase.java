@@ -59,7 +59,7 @@ public abstract class LadderDatabase extends RoomDatabase {
             return null;
         }
     }
-    // TODO: Database onOpen AsyncTask
+    // Database onOpen AsyncTask
     private static class DatabaseOnOpenAsyncTask extends AsyncTask<Void, Void, Void>{
 
         private DatabaseOnOpenAsyncTask(LadderDatabase db){

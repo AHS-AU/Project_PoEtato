@@ -37,6 +37,9 @@ android {
 dependencies {
     def lifecycle_version = "1.1.1"
     def room_version = "1.1.1"
+    def firebase_version = "16.0.1"
+    def retrofit_version = "2.4.0"
+    def gson_version = "2.4.0"
 
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -45,18 +48,22 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation 'com.r0adkll:slidableactivity:2.0.6'
     implementation 'com.android.support:design:28.0.0'
 
-    // Lifecycle Components
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$gson_version"
+
+    // Firebase
+    implementation "com.google.firebase:firebase-core:$firebase_version"
+
+    // Lifecycle
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
     annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
-    // Room Components
+
+    // Room
     implementation "android.arch.persistence.room:runtime:$room_version"
     annotationProcessor "android.arch.persistence.room:compiler:$room_version"
 }

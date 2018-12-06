@@ -27,8 +27,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,6 +53,7 @@ public class LadderService extends Service {
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
     public static final long mServiceInterval = 600*1000;
+    public static final long mApiCallInterval = 1000;
     private boolean isRunning = false;
     private List<Ladder> mLadderList = new ArrayList<>();
 
@@ -158,20 +162,27 @@ public class LadderService extends Service {
                         SendLadderRequest(ladder.getLeagueId(),20,0,"league",
                                 null,ladder.getAccountName(),null,null,
                                 ladder.getCharacterId());
+                        // Sleep for 1 sec, otherwise error 429 from the API
                         try {
-                            Thread.sleep(1000);
+                            Thread.sleep(mApiCallInterval);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
                     NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
                     for (Ladder ladder : mLadderList ) {
-                        String msgString = "League: " + ladder.getLeagueId() + ", Rank: " + ladder.getRank() + ", Name: " + ladder.getCharacterName();
+                        String msgString = getResources().getString(R.string.lsn_league) + ladder.getLeagueId() +
+                                ", " + getResources().getString(R.string.lsn_rank) + ladder.getRank() +
+                                ", " + getResources().getString(R.string.lsn_name) + ladder.getCharacterName();
                         inboxStyle.addLine(msgString);
                     }
+                    SimpleDateFormat mTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+                    SimpleDateFormat mDate = new SimpleDateFormat("EEEE, dd. MMMM YYYY", Locale.getDefault());
+
                     Notification notification = new NotificationCompat.Builder(LadderService.this, CHANNEL_ID)
-                            .setContentTitle("Ladder Tracker")
-                            .setContentText("Ladder updated mm:ss ago")
+                            .setContentTitle(getResources().getString(R.string.title_activity_ladder))
+                            .setContentText(getResources().getString(R.string.lsn_lastupdated) + mDate.format(new Date()) + " " +
+                                    getResources().getString(R.string.lsn_at) + " " + mTime.format(new Date()))
                             .setSmallIcon(R.mipmap.ic_launcher)
                             .setStyle(inboxStyle)
                             .build();
@@ -190,24 +201,9 @@ public class LadderService extends Service {
             super.handleMessage(msg);
             while(isRunning){
                 try {
-                    // Do some work here
-//                    Log.d(TAG, "handleMessage: Ladder Size = " + mLadderList.size() );
-//                    NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-//                    for (Ladder ladder : mLadderList ) {
-//                        Log.d(TAG, "handleMessage: Ladder = " + ladder.getCharacterName());
-//                        String msgString = "League: " + ladder.getLeagueId() + ", Rank: " + ladder.getRank() + ", Name: " + ladder.getCharacterName();
-//                        inboxStyle.addLine(msgString);
-//                    }
-//                    Notification notification = new NotificationCompat.Builder(LadderService.this, CHANNEL_ID)
-//                            .setContentTitle("Ladder Tracker")
-//                            .setContentText("Ladder updated mm:ss ago")
-//                            .setSmallIcon(R.mipmap.ic_launcher)
-//                            .setStyle(inboxStyle)
-//                            .build();
-//                    NotificationManagerCompat notMan = NotificationManagerCompat.from(LadderService.this);
-//                    notMan.notify(2,notification);
-
+                    // Do Background Work
                     doBackgroundWork();
+                    // Sleep timer
                     Thread.sleep(mServiceInterval);
                 } catch (InterruptedException e) {
                     // Restore the interrupt status

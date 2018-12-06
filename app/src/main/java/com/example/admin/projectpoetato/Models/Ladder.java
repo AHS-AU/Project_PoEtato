@@ -17,7 +17,6 @@ public class Ladder implements Parcelable {
     /**********************************************************************************************
      *                                       Variables                                            *
      *********************************************************************************************/
-    // TODO: Object: Total
     // Object: Entries
     @SerializedName("entries") @Ignore
     private ArrayList entries;

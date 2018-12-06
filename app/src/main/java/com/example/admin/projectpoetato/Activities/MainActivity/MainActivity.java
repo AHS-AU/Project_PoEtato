@@ -120,8 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // TODO: Debug Database, DELETE THIS LATER
         LadderViewModel ladderViewModel = ViewModelProviders.of(this).get(LadderViewModel.class);
-
-        ladderViewModel.getAllLadders().observe(this, new Observer<List<Ladder>>() {
+        ladderViewModel.getAllLadders().observe(this, new Observer<List<Ladder>>()  {
             @Override
             public void onChanged(@Nullable List<Ladder> ladderList) {
                 for(int i = 0; i < ladderList.size(); i++){
@@ -150,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop()");
+        Log.d(TAG, "onStop: ");
         //StopLadderService();
     }
 
@@ -158,13 +157,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume()" + " isConnected to Internet = " + isConnected);
+        Log.d(TAG, "onResume: " + " isConnected to Internet = " + isConnected);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch(menuItem.getItemId()){
             case R.id.navi_settings:
+                // TODO: Add settings when app is almost fully completed
                 getSupportFragmentManager().beginTransaction()
                         .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right)
                         .replace(R.id.main_frame, new SettingsFragment())
@@ -172,6 +172,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .commit();
                 break;
             case R.id.navi_theme:
+                // TODO: Add Light Theme at some point
                 Log.d(TAG, "Navi_Theme Triggered!");
                 break;
         }
