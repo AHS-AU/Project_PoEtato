@@ -181,6 +181,7 @@ public class LadderActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_arrow_left_white);
 
         // Send League Request & set up the Spinner League
         SendLeagueRequest();
@@ -351,7 +352,7 @@ public class LadderActivity extends AppCompatActivity {
             recyclerView.setHasFixedSize(true);
             this.mLadderList = ladderList;
             mLadderLayoutManager = new LinearLayoutManager(getContext());
-            mLadderAdapter = new LadderAdapter(mLadderList);
+            mLadderAdapter = new LadderAdapter(mLadderList,getContext());
             recyclerView.setLayoutManager(mLadderLayoutManager);
             recyclerView.setAdapter(mLadderAdapter);
             mLadderAdapter.setOnItemClickListener(this::OnAdapterItemClick);

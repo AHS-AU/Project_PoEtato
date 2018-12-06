@@ -4,21 +4,21 @@
     <dimen name="imgSquareSmall">150dp</dimen>
 
     <!-- TextView -->
-    <dimen name="txtHeaderSize">32sp</dimen>
-    <dimen name="txtNormalSize">24sp</dimen>
-    <dimen name="txtSmallSize">18sp</dimen>
+    <dimen name="txtHeaderSize">24sp</dimen>
+    <dimen name="txtNormalSize">18sp</dimen>
+    <dimen name="txtSmallSize">14sp</dimen>
 
     <dimen name="txtMediumWidth">150dp</dimen>
     <dimen name="txtMediumHeight">50dp</dimen>
 
     <!-- Toolbar Size -->
-    <dimen name="toolbarNormalSize">18sp</dimen>
+    <dimen name="toolbarNormalSize">14sp</dimen>
 
     <!-- Alert Dialog -->
     <dimen name="dialogNormalSize">12sp</dimen>
 
     <!-- Listview Size -->
-    <dimen name="lvNormalSize">16sp</dimen>
+    <dimen name="lvNormalSize">14sp</dimen>
 
     <!-- Button Normal -->
     <dimen name="btnNormalWidth">150dp</dimen>
@@ -28,6 +28,7 @@
     <!-- EditText -->
     <dimen name="editNormalWidth">300dp</dimen>
     <dimen name="editNormalHeight">50dp</dimen>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>

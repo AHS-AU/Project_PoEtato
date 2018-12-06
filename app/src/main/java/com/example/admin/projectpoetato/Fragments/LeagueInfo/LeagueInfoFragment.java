@@ -58,6 +58,7 @@ public class LeagueInfoFragment extends Fragment {
     private LeagueInfoAdapter mLeagueInfoAdapter;
     private List<LeagueRules> mLeagueRules = new ArrayList<>();
     private GlobalFunctions mGlobalFunctions = new GlobalFunctions();
+    private boolean isTablet;
 
     /**********************************************************************************************
      *                                    Class Functions                                         *
@@ -88,6 +89,9 @@ public class LeagueInfoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Check for Tablet or Phone version
+        isTablet = getResources().getBoolean(R.bool.isTablet);
+
         if (getArguments() != null) {
             mLeague = (League)getArguments().getSerializable(ARG_LEAGUE);
         }
@@ -120,6 +124,7 @@ public class LeagueInfoFragment extends Fragment {
         mTextStart.setText(mGlobalFunctions.ConvertUtcToLocal(mLeague.getStartAt()));
         mTextEnd.setText(mGlobalFunctions.ConvertUtcToLocal(mLeague.getEndAt()));
         mTextLeagueEvent.setText(mLeague.getLeagueEvent());
+
 
         // Handle the List of League Rules
         JSONArray jsonArray = new JSONArray(mLeague.getRules());

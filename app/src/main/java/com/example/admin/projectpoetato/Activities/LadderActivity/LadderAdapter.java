@@ -1,5 +1,6 @@
 package com.example.admin.projectpoetato.Activities.LadderActivity;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -18,6 +19,7 @@ import java.util.List;
 
 public class LadderAdapter extends RecyclerView.Adapter<LadderAdapter.LadderAdapterViewHolder> {
     private List<Ladder> mLadderList;
+    private Context mContext;
     private OnItemClickListener mItemListener;
 
     // When item gets clicked
@@ -38,8 +40,9 @@ public class LadderAdapter extends RecyclerView.Adapter<LadderAdapter.LadderAdap
     }
 
     // Constructor
-    public LadderAdapter(List<Ladder> ladderList) {
+    public LadderAdapter(List<Ladder> ladderList, Context context) {
         this.mLadderList = ladderList;
+        this.mContext = context;
     }
 
     // ViewHolder to LadderAdapter
@@ -51,17 +54,23 @@ public class LadderAdapter extends RecyclerView.Adapter<LadderAdapter.LadderAdap
         private TextView mTextLevel;
         private TextView mTextClass;
         private TextView mTextRawExp;
+        private boolean isTablet;
         //private TextView mProgressExp;
 
-        public LadderAdapterViewHolder(@NonNull View itemView, OnItemClickListener itemListener) {
+
+        public LadderAdapterViewHolder(@NonNull View itemView, OnItemClickListener itemListener, Context context) {
             super(itemView);
+            // Create variable to check if device is Tablet
+            isTablet = context.getResources().getBoolean(R.bool.isTablet);
 
             // UI Find views
             mImgStatus = itemView.findViewById(R.id.imgLadderStatus);
             mTextRank = itemView.findViewById(R.id.textLadderRank);
             mTextCharacter = itemView.findViewById(R.id.textLadderCharacter);
             mTextLevel = itemView.findViewById(R.id.textLadderLevel);
-
+            if(isTablet){
+                mTextAccount = itemView.findViewById(R.id.textLadderAccount);
+            }
             itemView.setOnClickListener(v -> LadderOnItemClick(itemListener));
         }
 
@@ -83,7 +92,7 @@ public class LadderAdapter extends RecyclerView.Adapter<LadderAdapter.LadderAdap
     @Override
     public LadderAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View mView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_ladder, viewGroup, false);
-        return new LadderAdapterViewHolder(mView, mItemListener);
+        return new LadderAdapterViewHolder(mView, mItemListener, mContext);
     }
 
     @Override
@@ -105,13 +114,16 @@ public class LadderAdapter extends RecyclerView.Adapter<LadderAdapter.LadderAdap
         }
 
 
-
         // Ladder Rank
         ladderAdapterViewHolder.mTextRank.setText(String.valueOf(mLadder.getRank()));
 
-
         // Ladder Character
         ladderAdapterViewHolder.mTextCharacter.setText(mLadder.getCharacterName());
+
+        // Ladder Account Name (Tablet only)
+        if(ladderAdapterViewHolder.isTablet){
+            ladderAdapterViewHolder.mTextAccount.setText(mLadder.getAccountName());
+        }
 
         // Ladder Level
         ladderAdapterViewHolder.mTextLevel.setText(String.valueOf(mLadder.getLevel()));
