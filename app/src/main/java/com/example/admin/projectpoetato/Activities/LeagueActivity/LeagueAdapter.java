@@ -56,7 +56,6 @@ public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.LeagueAdap
             mTextId = itemView.findViewById(R.id.textLeagueId);
             mTextStart = itemView.findViewById(R.id.textLeagueStart);
             mTextEnd = itemView.findViewById(R.id.textLeagueEnd);
-            mTextTrack = itemView.findViewById(R.id.textLeagueTrack);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -107,8 +106,6 @@ public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.LeagueAdap
         // League End
         leagueAdapterViewHolder.mTextEnd.setText(mGlobalFunctions.ConvertUtcToLocal(mLeague.getEndAt()));
 
-        // League Track
-        leagueAdapterViewHolder.mTextTrack.setText("TMP");
     }
 
     @Override

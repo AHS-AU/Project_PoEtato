@@ -44,8 +44,6 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
     List<League> mLeagueList = new ArrayList<>();
 
 
-
-
     /**********************************************************************************************
      *                                    Class Functions                                         *
      *********************************************************************************************/

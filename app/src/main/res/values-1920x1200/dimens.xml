@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
+
     <!-- ImageView -->
     <dimen name="imgSquareSmall">150dp</dimen>
 
@@ -15,7 +18,7 @@
     <dimen name="toolbarNormalSize">18sp</dimen>
 
     <!-- Alert Dialog -->
-    <dimen name="dialogNormalSize">12sp</dimen>
+    <dimen name="dialogNormalSize">16sp</dimen>
 
     <!-- Listview Size -->
     <dimen name="lvNormalSize">16sp</dimen>
@@ -33,6 +36,4 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
-
-
 </resources>
