@@ -9,6 +9,7 @@
     <string name="close">Close</string>
     <string name="settings">Settings</string>
 
+
     <!-- Strings used for LeagueInfoFragment -->
     <string name="li_title">League Information</string>
     <string name="li_league_name">League Name:</string>
@@ -48,4 +49,9 @@
     <string name="lsn_name">"Name: "</string>
     <string name="lsn_lastupdated">"Last updated: "</string>
     <string name="lsn_at">at</string>
+
+    <!-- ConnectivityManager -->
+    <string name="cm_noConnection">No internet connection, unable to execute action.</string>
+
+
 </resources>

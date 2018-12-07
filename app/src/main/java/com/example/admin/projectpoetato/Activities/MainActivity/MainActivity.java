@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.admin.projectpoetato.Activities.LadderActivity.LadderActivity;
 import com.example.admin.projectpoetato.Activities.LeagueActivity.LeagueActivity;
@@ -55,21 +56,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout mDrawer;
 
     // Variables
-    private ConnectivityManager mConnMan;
-    private NetworkInfo mActiveNetworkInfo;
-    private boolean isConnected;
 
     /**********************************************************************************************
      *                                    Class Functions                                         *
      *********************************************************************************************/
     public void StartLeagueActivity(){
-        Intent intent = new Intent(this, LeagueActivity.class);
-        startActivity(intent);
+        if(isConnected()){
+            Intent intent = new Intent(this, LeagueActivity.class);
+            startActivity(intent);
+        }else{
+            Toast.makeText(this, getResources().getString(R.string.cm_noConnection), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void StartLadderActivity(){
-        Intent intent = new Intent(this, LadderActivity.class);
-        startActivity(intent);
+        if(isConnected()){
+            Intent intent = new Intent(this, LadderActivity.class);
+            startActivity(intent);
+        }else{
+            Toast.makeText(this, getResources().getString(R.string.cm_noConnection), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void StartLadderService(){
@@ -81,6 +87,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void StopLadderService(){
         Intent ladderServiceIntent = new Intent(this, LadderService.class);
         stopService(ladderServiceIntent);
+    }
+
+    public boolean isConnected(){
+        // Set up the ConnectivityManager to ensure Connection to the Internet.
+        NetworkInfo mActiveNetworkInfo = null;
+        ConnectivityManager mConnMan = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (mConnMan != null){
+            mActiveNetworkInfo = mConnMan.getActiveNetworkInfo();
+        }
+        return (mActiveNetworkInfo != null && mActiveNetworkInfo.isConnectedOrConnecting());
     }
 
     /**********************************************************************************************
@@ -135,12 +151,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onStart() {
         super.onStart();
         Log.d(TAG, "onStart()");
-        // Set up the ConnectivityManager to ensure Connection to the Internet.
-        mConnMan = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (mConnMan != null){
-            mActiveNetworkInfo = mConnMan.getActiveNetworkInfo();
-        }
-        isConnected = mActiveNetworkInfo != null && mActiveNetworkInfo.isConnectedOrConnecting();
 
         // Bind to LadderService
         StartLadderService();
@@ -157,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: " + " isConnected to Internet = " + isConnected);
+        Log.d(TAG, "onResume: ");
     }
 
     @Override
