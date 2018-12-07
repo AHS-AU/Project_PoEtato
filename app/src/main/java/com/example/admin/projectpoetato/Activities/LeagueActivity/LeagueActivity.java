@@ -1,5 +1,8 @@
 package com.example.admin.projectpoetato.Activities.LeagueActivity;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.example.admin.projectpoetato.API.Resources.LeagueApi;
 import com.example.admin.projectpoetato.Fragments.LeagueInfo.LeagueInfoFragment;
@@ -45,6 +49,17 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
     /**********************************************************************************************
      *                                    Class Functions                                         *
      *********************************************************************************************/
+    public boolean isConnected(){
+        // Set up the ConnectivityManager to ensure Connection to the Internet.
+        NetworkInfo mActiveNetworkInfo = null;
+        ConnectivityManager mConnMan = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (mConnMan != null){
+            mActiveNetworkInfo = mConnMan.getActiveNetworkInfo();
+        }
+        return (mActiveNetworkInfo != null && mActiveNetworkInfo.isConnectedOrConnecting());
+    }
+
+
     public void SendLeagueRequest(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL_API_PATHOFEXILE)
@@ -86,26 +101,6 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
         // Add the Retrieved List of Leagues to the Adapter & Set the Adapter
         mLeagueList = leagues;
         UpdateLeagueList(mLeagueList);
-
-//        // Print for debugging
-//        for(League league : leagues){
-//            String content = "";
-//            content += "ID: " + league.getId() + "\t";
-//            content += "Desc: " + league.getDescription() + "\t";
-//            content += "regAt: " + league.getRegisterAt() + "\t";
-//            content += "URL: " + league.getUrl() + "\t";
-//            content += "startAt: " + league.getStartAt() + "\t";
-//            content += "endAt: " + league.getEndAt() + "\t";
-//            content += "leagueEvent: " + league.getLeagueEvent() + "\t";
-//
-//            // This takes 5 ms extra... consider if it's worth it.
-//            for(int i = 0; i < league.getRules().size(); i++){
-//                content += "rule #" + (i+1) + " " + league.getRules().get(i) + "\t";
-//            }
-//            content += "\n";
-//
-//            Log.d(TAG, "Content = " + content);
-//        }
     }
 
     /**
@@ -113,7 +108,11 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
      * @param position : the Item's position, starting from 0
      */
     public void OnAdapterItemClick(int position){
-        OpenLeagueInfoFragment(mLeagueList.get(position));
+        if(isConnected()){
+            OpenLeagueInfoFragment(mLeagueList.get(position));
+        }else{
+            Toast.makeText(this, getResources().getString(R.string.cm_noConnection), Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -165,9 +164,6 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_league);
 
-        // Slidr: https://github.com/r0adkll/Slidr
-        //mSlidr = Slidr.attach(this);
-
         // UI Find View
         mFragmentContainer = findViewById(R.id.league_frame);
 
@@ -182,7 +178,11 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
 
 
         // Send Request
-        SendLeagueRequest();
+        if(isConnected()){
+            SendLeagueRequest();
+        }else{
+            Toast.makeText(this, getResources().getString(R.string.cm_noConnection), Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
