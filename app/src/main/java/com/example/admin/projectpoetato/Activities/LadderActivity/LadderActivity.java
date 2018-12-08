@@ -145,6 +145,7 @@ public class LadderActivity extends AppCompatActivity {
         mSpinnerLeagues.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Check if connected to internet!
                 if(!isConnected()){
                     Toast.makeText(LadderActivity.this, getResources().getString(R.string.cm_noConnection), Toast.LENGTH_SHORT).show();
                     return;
@@ -179,7 +180,7 @@ public class LadderActivity extends AppCompatActivity {
         NetworkInfo mActiveNetworkInfo = null;
         ConnectivityManager mConnMan = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (mConnMan != null){
-            mActiveNetworkInfo = mConnMan.getActiveNetworkInfo();   // But it's not...
+            mActiveNetworkInfo = mConnMan.getActiveNetworkInfo();
         }
         return (mActiveNetworkInfo != null && mActiveNetworkInfo.isConnectedOrConnecting());
     }
