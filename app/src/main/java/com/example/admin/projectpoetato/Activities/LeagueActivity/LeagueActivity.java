@@ -49,6 +49,10 @@ public class LeagueActivity extends AppCompatActivity implements LeagueInfoFragm
     /**********************************************************************************************
      *                                    Class Functions                                         *
      *********************************************************************************************/
+    /**
+     * ConnectivityManager, checks if internet is avaialble
+     * @return : boolean connect state
+     */
     public boolean isConnected(){
         // Set up the ConnectivityManager to ensure Connection to the Internet.
         NetworkInfo mActiveNetworkInfo = null;

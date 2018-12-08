@@ -89,12 +89,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         stopService(ladderServiceIntent);
     }
 
+    /**
+     * ConnectivityManager, checks if internet is avaialble
+     * @return : boolean connect state
+     */
     public boolean isConnected(){
         // Set up the ConnectivityManager to ensure Connection to the Internet.
         NetworkInfo mActiveNetworkInfo = null;
         ConnectivityManager mConnMan = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (mConnMan != null){
-            mActiveNetworkInfo = mConnMan.getActiveNetworkInfo();
+            mActiveNetworkInfo = mConnMan.getActiveNetworkInfo();   // But it's not...
         }
         return (mActiveNetworkInfo != null && mActiveNetworkInfo.isConnectedOrConnecting());
     }
@@ -145,22 +149,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        // Start Ladder Service
+        StartLadderService();
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         Log.d(TAG, "onStart()");
-
-        // Bind to LadderService
-        StartLadderService();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         Log.d(TAG, "onStop: ");
-        //StopLadderService();
     }
 
 
@@ -171,10 +174,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
+        // Stop Ladder Service
+        StopLadderService();
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch(menuItem.getItemId()){
             case R.id.navi_settings:
-                // TODO: Add settings when app is almost fully completed
+                // TODO: Add settings when time is appropiate
                 getSupportFragmentManager().beginTransaction()
                         .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right)
                         .replace(R.id.main_frame, new SettingsFragment())
@@ -182,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .commit();
                 break;
             case R.id.navi_theme:
-                // TODO: Add Light Theme at some point
+                // TODO: Add Light Theme when time is appropiate
                 Log.d(TAG, "Navi_Theme Triggered!");
                 break;
         }

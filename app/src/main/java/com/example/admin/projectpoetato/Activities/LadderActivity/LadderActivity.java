@@ -1,5 +1,8 @@
 package com.example.admin.projectpoetato.Activities.LadderActivity;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.admin.projectpoetato.API.Resources.LadderApi;
 import com.example.admin.projectpoetato.API.Resources.LeagueApi;
@@ -141,6 +145,10 @@ public class LadderActivity extends AppCompatActivity {
         mSpinnerLeagues.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(!isConnected()){
+                    Toast.makeText(LadderActivity.this, getResources().getString(R.string.cm_noConnection), Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 String mSelectedLeague = (String) parent.getItemAtPosition(position);
                 // First item is disabled and used for hints
                 // When the user changes the default hint, the spinner picks the League to retrieve.
@@ -159,6 +167,21 @@ public class LadderActivity extends AppCompatActivity {
                 // ignore this
             }
         });
+    }
+
+
+    /**
+     * ConnectivityManager, checks if internet is avaialble
+     * @return : boolean connect state
+     */
+    public boolean isConnected(){
+        // Set up the ConnectivityManager to ensure Connection to the Internet.
+        NetworkInfo mActiveNetworkInfo = null;
+        ConnectivityManager mConnMan = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (mConnMan != null){
+            mActiveNetworkInfo = mConnMan.getActiveNetworkInfo();   // But it's not...
+        }
+        return (mActiveNetworkInfo != null && mActiveNetworkInfo.isConnectedOrConnecting());
     }
 
 
@@ -203,7 +226,7 @@ public class LadderActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        // TODO: Consider replacing with a Tracker page?
         if (id == R.id.action_settings) {
             return true;
         }
